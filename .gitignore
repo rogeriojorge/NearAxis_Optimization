@@ -1,3 +1,13 @@
+# Manual
+Results/*
+Executables/xneo
+Executables/xspec
+Executables/xvmec2000
+Executables/xbooz_xform
+Executables/regcoil
+Executables/quasisymmetry
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
