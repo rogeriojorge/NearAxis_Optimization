@@ -38,24 +38,26 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     stel.set_fixed('B2c', False)
     # stel.set_fixed('p2',False)
 
+    ## Add integral of J_invariant to optimize for maximum-J
+    ## Add NEO to optimize for eps_eff of calculate it analytically
     term = [
-            (stel, 'iota', iota_target, 1e5),
+            (stel, 'iota', iota_target, 5e4),
             #(stel, 'p2', 0.0, 1e-1),
-            (stel, 'max_elongation', 0.0, 1e+1),
-            (stel, 'elongation', 0.0, 1e0),
-            (stel, 'B20_anomaly', 0.0, 2e2),
-            (stel, 'B20_variation', 0.0, 1e3),
-            (stel, 'X20', 0.0, 5e-1),
-            (stel, 'X2c', 0.0, 5e-1),
-            (stel, 'X2s', 0.0, 5e-1),
-            (stel, 'Y20', 0.0, 5e-1),
-            (stel, 'Y2c', 0.0, 5e-1),
-            (stel, 'Y2s', 0.0, 5e-1),
-            (stel, 'Z20', 0.0, 5e-1),
-            (stel, 'Z2c', 0.0, 5e-1),
-            (stel, 'Z2s', 0.0, 5e-1),
+            (stel, 'max_elongation', 0.0, 5e+1),
+            (stel, 'elongation', 0.0, 5e-0),
+            (stel, 'B20_anomaly', 0.0, 1e0),
+            (stel, 'B20_variation', 0.0, 5e1),
+            (stel, 'X20', 0.0, 3e-0),
+            (stel, 'X2c', 0.0, 3e-0),
+            (stel, 'X2s', 0.0, 3e-0),
+            (stel, 'Y20', 0.0, 3e-0),
+            (stel, 'Y2c', 0.0, 3e-0),
+            (stel, 'Y2s', 0.0, 3e-0),
+            (stel, 'Z20', 0.0, 3e-0),
+            (stel, 'Z2c', 0.0, 3e-0),
+            (stel, 'Z2s', 0.0, 3e-0),
             # (stel, 'DMerc_times_r2', 0.01,1e6),
-            (stel, 'grad_grad_B_inverse_scale_length', 0.0,1e-3)
+            # (stel, 'grad_grad_B_inverse_scale_length', 0.0,1e-3)
             ]
 
     for rel_step in rel_step_array:
