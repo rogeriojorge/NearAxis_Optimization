@@ -72,4 +72,18 @@ def get_stel(ind,nphi=251):
         coilSeparation = 0.16
         targetValue = 0.05
         nCoilsPerNFP = 4
+    if ind==4:
+        name   = 'QH_NFP4_vac'
+        rc     = [ 1.0,0.3567120764364836,0.09309473742665696,0.02068580554650727,0.003352763602115162,0.00029590481856858514 ]
+        zs     = [ 0.0,0.30605344736274837,0.08535505841371785,0.020300831381059183,0.003604828690431057,0.0003636106532187047 ]
+        etabar =  1.7131771845862305
+        nfp    =  4
+        B2c    =  0.5528452930602289
+        p2     =  0.0
+        iota   =  -1.638024385998008
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        r_edge =  0.1
+        coilSeparation = 0.16
+        targetValue = 0.2
+        nCoilsPerNFP = 4
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

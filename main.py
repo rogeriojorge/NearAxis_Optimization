@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(4, nphi=51)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(4, nphi=151)
 
 iota_target = 0.41
 nIterations = 20
@@ -30,15 +30,16 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=False)
+# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.plot(r=r_edge,fieldlines=True)
+# stel.plot_axis()
 # runqsc(stel,name,r_edge,executables_path,plotting_path)
 
 ## USE WRAPPERS - VMEC, BOOZ_XFORM, SPEC
 # runVMEC(name,executables_path,plotting_path)
 # runBOOZXFORM(name,executables_path,plotting_path)
 # runNEO(name,executables_path,plotting_path)
-runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
+# runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 # runSPEC(name,executables_path,plotting_path)
 
 # Go back to main
