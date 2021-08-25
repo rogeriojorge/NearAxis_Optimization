@@ -1,5 +1,6 @@
 from qsc import Qsc
 from simsopt import make_optimizable
+import numpy as np
 
 def get_stel(ind,nphi=251):
     if ind==0:
@@ -72,7 +73,7 @@ def get_stel(ind,nphi=251):
         coilSeparation = 0.16
         targetValue = 0.05
         nCoilsPerNFP = 4
-    if ind==4:
+    if ind==5:
         name   = 'QH_NFP4_vac'
         rc     = [ 1.0,0.3567120764364836,0.09309473742665696,0.02068580554650727,0.003352763602115162,0.00029590481856858514 ]
         zs     = [ 0.0,0.30605344736274837,0.08535505841371785,0.020300831381059183,0.003604828690431057,0.0003636106532187047 ]
@@ -83,7 +84,40 @@ def get_stel(ind,nphi=251):
         iota   =  -1.638024385998008
         stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
         r_edge =  0.1
-        coilSeparation = 0.16
-        targetValue = 0.2
+        coilSeparation = 0.1
+        targetValue = 0.25
         nCoilsPerNFP = 4
+    if ind==6:
+        name    = 'QI_NFP1_vac'
+        rc     = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs     = [ 0.0,0.0,0.3538620388942289,0.0,-0.03190697863469498,0.0,-0.019442780647161585,0.0,0.005700818220902032 ]
+        etabar =  0.0
+        nfp    =  1
+        B2c    =  0.0
+        p2     =  0.0
+        iota   =  0.9866126874975886
+        B0_vals = [ 1.0,-0.003759072330629602 ]
+        d_svals = [ 0.0,1.0594127385850904,3.65993529337379e-05,0.3892573325353277,0.00029829921421492366,-0.026720277634932094,0.00026679451432573466,-0.25437872550520174 ]
+        alpha0  = -4.712534887915769
+        c0      = -1.5707963267948966
+        delta   = 0.2
+        stel   =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=1, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi,phi_shift=1/3, omn=True, delta=delta, alpha0=alpha0, c0=c0))
+        r_edge =  0.1
+        coilSeparation = 0.05
+        targetValue = 0.25
+        nCoilsPerNFP = 4
+    if ind==7:
+        name   = 'QA_NFP2_plasma_2'
+        rc     = [ 1.0,-0.1944554440057859,0.024896649310590737,-0.00324347056650685,0.0003957790550103649,-3.5124028349806346e-05 ]
+        zs     = [ 0.0,0.16947886640795443,-0.024367760721762312,0.003252403175044678,-0.00039710651838295813,3.605237502341612e-05 ]
+        etabar =  0.5910044289478692
+        nfp    =  2
+        B2c    =  -1.3148495687068937
+        p2     =  -500000.0
+        iota   =  0.4377598860159437
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        r_edge =  0.08
+        coilSeparation = 0.2
+        targetValue = 0.14
+        nCoilsPerNFP = 6
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

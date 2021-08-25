@@ -34,34 +34,55 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     stel.set_fixed('zs(5)', False)
     # stel.set_fixed('rc(6)', False)
     # stel.set_fixed('zs(6)', False)
+    # stel.set_fixed('zs(8)', False)
     stel.set_fixed('etabar', False)
     stel.set_fixed('B2c', False)
     # stel.set_fixed('p2',False)
+    # stel.set_fixed('ds(1)', False)
+    # stel.set_fixed('ds(2)', False)
+    # stel.set_fixed('ds(3)', False)
+    # stel.set_fixed('ds(4)', False)
+    # stel.set_fixed('ds(5)', False)
+    # stel.set_fixed('ds(6)', False)
+    # stel.set_fixed('ds(7)', False)
+    # stel.set_fixed('B0(1)', False)
+    # stel.set_fixed('alpha0', False)
+    # stel.set_fixed('delta', False)
 
     ## Add integral of J_invariant to optimize for maximum-J
     ## Add NEO to optimize for eps_eff of calculate it analytically
     term = [
-            # (stel, 'iota', iota_target, 5e4),
+            (stel, 'iota', iota_target, 1e4),
             #(stel, 'p2', 0.0, 1e-1),
-            (stel, 'max_elongation', 0.0, 1e+1),
-            (stel, 'elongation', 0.0, 1e-0),
+            (stel, 'max_elongation', 0.0, 6e+1),
+            (stel, 'elongation', 0.0, 4e+1),
             (stel, 'B20_anomaly', 0.0, 1e1),
             (stel, 'B20_variation', 0.0, 1e2),
-            (stel, 'X20', 0.0, 1e-0),
-            (stel, 'X2c', 0.0, 1e-0),
-            (stel, 'X2s', 0.0, 1e-0),
-            (stel, 'Y20', 0.0, 1e-0),
-            (stel, 'Y2c', 0.0, 1e-0),
-            (stel, 'Y2s', 0.0, 1e-0),
-            (stel, 'Z20', 0.0, 1e-0),
-            (stel, 'Z2c', 0.0, 1e-0),
-            (stel, 'Z2s', 0.0, 1e-0),
-            # (stel, 'DMerc_times_r2', 0.01,1e6),
+            (stel, 'X20', 0.0, 8e1),
+            (stel, 'X2c', 0.0, 8e1),
+            (stel, 'X2s', 0.0, 8e1),
+            (stel, 'Y20', 0.0, 8e1),
+            (stel, 'Y2c', 0.0, 8e1),
+            (stel, 'Y2s', 0.0, 8e1),
+            (stel, 'Z20', 0.0, 8e1),
+            (stel, 'Z2c', 0.0, 8e1),
+            (stel, 'Z2s', 0.0, 8e1),
+            (stel, 'DMerc_times_r2', 1,8e5),
             (stel, 'grad_grad_B_inverse_scale_length', 0.0,1e-3)
+            # (stel, 'gamma_GX', 0.0, 1e1),
+            # (stel, 'nlflux_GX', 0.0, 1e1)
+            # (stel, 'd_svals', 0.0, 5e4),
+            # (stel, 'X1c', 0.0, 2e0),
+            # (stel, 'X1s', 0.0, 2e0),
+            # (stel, 'Y1c', 0.0, 2e0),
+            # (stel, 'Y1s', 0.0, 2e0),
+            # # (stel, 'delta', 0.0, 1e4)
+            # (stel, 'curvature', 0.0, 3e2)
             ]
 
     for rel_step in rel_step_array:
         for abs_step in abs_step_array:
+            if stel.iota == 0: break
             print()
             print(' abs_step =',abs_step)
             print(' rel_step=',rel_step)
@@ -101,3 +122,8 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     print('        B2c    = ',stel.B2c)
     print('        p2     = ',stel.p2)
     print('        iota   = ',stel.iota)
+    # print('        B0_vals = [',','.join([str(elem) for elem in stel.B0_vals]),']')
+    # print('        d_svals = [',','.join([str(elem) for elem in stel.d_svals]),']')
+    # print('        alpha0  =',stel.alpha0)
+    # print('        c0      =',stel.c0)
+    # print('        delta   =',stel.delta)
