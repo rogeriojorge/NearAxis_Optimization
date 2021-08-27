@@ -30,16 +30,27 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
+
+##### LOOK AT EQS 3.12 and 3.14 from higher order paper
+##### and calculate X3, Y3 and optimize for those
+
 # optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
-runqsc(stel,name,r_edge,executables_path,plotting_path)
+# runqsc(stel,name,r_edge,executables_path,plotting_path)
 
 # ## USE WRAPPERS - VMEC, BOOZ_XFORM, SPEC
-runVMEC(name,executables_path,plotting_path)
-runBOOZXFORM(name,executables_path,plotting_path)
-runNEO(name,executables_path,plotting_path)
+# runVMEC(name,executables_path,plotting_path)
+
+
+##### Look at C++ version of Booz_Xform in Hidden Symmetries rpo
+##### and get plotting routine from there to show both
+##### QH and QA
+####### DEVELOP BRANCH, symplot(b, helical_detail=True)
+## https://github.com/hiddenSymmetries/booz_xform/blob/develop/src/booz_xform/plots.py#L97
+# runBOOZXFORM(name,executables_path,plotting_path)
+# runNEO(name,executables_path,plotting_path)
 runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 # runSPEC(name,executables_path,plotting_path)
 

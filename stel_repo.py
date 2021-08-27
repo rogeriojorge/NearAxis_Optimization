@@ -116,8 +116,8 @@ def get_stel(ind,nphi=251):
         p2     =  -500000.0
         iota   =  0.4377598860159437
         stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
-        r_edge =  0.08
-        coilSeparation = 0.2
-        targetValue = 0.14
+        r_edge =  0.1
+        coilSeparation = 0.31
+        targetValue = 0.02
         nCoilsPerNFP = 6
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
