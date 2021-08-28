@@ -11,7 +11,8 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     print('Max elongation  = ',stel.max_elongation)
     print('gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
     print('B20 variation =',stel.B20_variation)
-    print('Max X20 =',max(stel.X20))
+    print('Max |X20| =',max(abs(stel.X20)))
+    print('Max |X3c1| =',max(abs(stel.X3c1)))
     print('rc      = [',','.join([str(elem) for elem in stel.rc]),']')
     print('zs      = [',','.join([str(elem) for elem in stel.zs]),']')
     print('etabar  = ',stel.etabar)
@@ -32,8 +33,10 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     stel.set_fixed('zs(4)', False)
     stel.set_fixed('rc(5)', False)
     stel.set_fixed('zs(5)', False)
-    # stel.set_fixed('rc(6)', False)
-    # stel.set_fixed('zs(6)', False)
+    stel.set_fixed('rc(6)', False)
+    stel.set_fixed('zs(6)', False)
+    stel.set_fixed('rc(7)', False)
+    stel.set_fixed('zs(7)', False)
     # stel.set_fixed('zs(8)', False)
     stel.set_fixed('etabar', False)
     stel.set_fixed('B2c', False)
@@ -51,33 +54,37 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
 
     ## Add integral of J_invariant to optimize for maximum-J
     ## Add NEO to optimize for eps_eff of calculate it analytically
+    ## ADD min_R0_penalty(self) already in QSC
     term = [
-            (stel, 'iota', iota_target, 1e4),
+            # (stel, 'iota', iota_target, 1e4),
             #(stel, 'p2', 0.0, 1e-1),
-            (stel, 'max_elongation', 0.0, 6e+1),
-            (stel, 'elongation', 0.0, 4e+1),
+            (stel, 'max_elongation', 0.0, 3e+0),
+            (stel, 'elongation', 0.0, 4e-1),
             (stel, 'B20_anomaly', 0.0, 1e1),
-            (stel, 'B20_variation', 0.0, 1e2),
-            (stel, 'X20', 0.0, 8e1),
-            (stel, 'X2c', 0.0, 8e1),
-            (stel, 'X2s', 0.0, 8e1),
-            (stel, 'Y20', 0.0, 8e1),
-            (stel, 'Y2c', 0.0, 8e1),
-            (stel, 'Y2s', 0.0, 8e1),
-            (stel, 'Z20', 0.0, 8e1),
-            (stel, 'Z2c', 0.0, 8e1),
-            (stel, 'Z2s', 0.0, 8e1),
-            (stel, 'DMerc_times_r2', 1,8e5),
-            (stel, 'grad_grad_B_inverse_scale_length', 0.0,1e-3)
-            # (stel, 'gamma_GX', 0.0, 1e1),
-            # (stel, 'nlflux_GX', 0.0, 1e1)
-            # (stel, 'd_svals', 0.0, 5e4),
-            # (stel, 'X1c', 0.0, 2e0),
-            # (stel, 'X1s', 0.0, 2e0),
-            # (stel, 'Y1c', 0.0, 2e0),
-            # (stel, 'Y1s', 0.0, 2e0),
-            # # (stel, 'delta', 0.0, 1e4)
-            # (stel, 'curvature', 0.0, 3e2)
+            (stel, 'B20_variation', 0.0, 3e2),
+            (stel, 'X20', 0.0, 2e-1),
+            (stel, 'X2c', 0.0, 2e-1),
+            (stel, 'X2s', 0.0, 2e-1),
+            (stel, 'Y20', 0.0, 2e-1),
+            (stel, 'Y2c', 0.0, 2e-1),
+            (stel, 'Y2s', 0.0, 2e-1),
+            (stel, 'Z20', 0.0, 2e-1),
+            (stel, 'Z2c', 0.0, 2e-1),
+            (stel, 'Z2s', 0.0, 2e-1),
+            (stel, 'X3c1', 0.0, 5e-1),
+            (stel, 'Y3c1', 0.0, 5e-1),
+            (stel, 'Y3s1', 0.0, 5e-1),
+            (stel, 'DMerc_times_r2', 1, 5e3),
+            (stel, 'grad_grad_B_inverse_scale_length', 0.0,5e+0),
+            (stel.min_R0_penalty, 0.0,3e2)
+            # # (stel, 'nlflux_GX', 0.0, 1e1)
+            # # (stel, 'd_svals', 0.0, 5e4),
+            # # (stel, 'X1c', 0.0, 2e0),
+            # # (stel, 'X1s', 0.0, 2e0),
+            # # (stel, 'Y1c', 0.0, 2e0),
+            # # (stel, 'Y1s', 0.0, 2e0),
+            # # # (stel, 'delta', 0.0, 1e4)
+            # # (stel, 'curvature', 0.0, 3e2)
             ]
 
     for rel_step in rel_step_array:
@@ -107,7 +114,8 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     print('DMerc mean  = ',np.mean(stel.DMerc_times_r2))
     print('Max elongation  = ',stel.max_elongation)
     print('B20 variation =',stel.B20_variation)
-    print('Max X20 =',max(stel.X20))
+    print('Max |X20| =',max(abs(stel.X20)))
+    print('Max |X3c1| =',max(abs(stel.X3c1)))
     print('gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
     print('objective function: ', prob.objective())
     nN=stel.iota-stel.iotaN

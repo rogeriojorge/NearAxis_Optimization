@@ -10,11 +10,11 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(7, nphi=151)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(9, nphi=201)
 
 iota_target = 0.4
-nIterations = 30
-abs_step_array = [1e-2,1e-3,1e-4,1e-5,1e-6]
+nIterations = 50
+abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-5,1e-6]
 rel_step_array = [1e-1,1e-2,1e-3,1e-4,1e-5,1e-6]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
@@ -30,11 +30,7 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-
-##### LOOK AT EQS 3.12 and 3.14 from higher order paper
-##### and calculate X3, Y3 and optimize for those
-
-# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
+optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
@@ -51,7 +47,7 @@ os.chdir(results_path)
 ## https://github.com/hiddenSymmetries/booz_xform/blob/develop/src/booz_xform/plots.py#L97
 # runBOOZXFORM(name,executables_path,plotting_path)
 # runNEO(name,executables_path,plotting_path)
-runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
+# runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 # runSPEC(name,executables_path,plotting_path)
 
 # Go back to main

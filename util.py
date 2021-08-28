@@ -1,10 +1,11 @@
 from numpy import savetxt
 from subprocess import run
 import sys
-from subprocess import run
 import shutil
 from scipy.io import netcdf
 from shutil import copyfile
+import booz_xform as bx
+import matplotlib.pyplot as plt
 
 ## Function to replace text in files
 def replace(file_path, pattern, subst):
@@ -61,6 +62,7 @@ def runqsc(stel,name,rr,executables_path,plotting_path):
     output2qsc(stel,name,rr,executables_path)
     print("Run quasisymmetry code")
     run([executables_path+"/./quasisymmetry", 'quasisymmetry_in.'+name])
+    replace("input."+name,'NTOR = 0101','NTOR = 0014')
     print("Plot quasisymmetry result")
     sys.path.insert(1, plotting_path)
     import quasisymmetryPlotSingle
@@ -69,7 +71,30 @@ def runqsc(stel,name,rr,executables_path,plotting_path):
 # Run VMEC code
 def runVMEC(name,executables_path,plotting_path):
     print("Run VMEC")
-    replace("input."+name,'NTOR = 0101','NTOR = 0014')
+    # import vmec
+    # import numpy as np
+    # from mpi4py import MPI
+    # ictrl = np.zeros(5, dtype=np.int32)
+    # verbose = True
+    # reset_file = ''
+
+    # # Flags used by runvmec():
+    # restart_flag = 1
+    # readin_flag = 2
+    # timestep_flag = 4
+    # output_flag = 8
+    # cleanup_flag = 16
+    # reset_jacdt_flag = 32
+
+    # fcomm = MPI.COMM_WORLD.py2f()
+
+    # ictrl[:] = 0
+    # ictrl[0] = restart_flag + readin_flag# + timestep_flag + output_flag + cleanup_flag
+    # print("Calling runvmec. ictrl={} comm={}".format(ictrl, fcomm))
+    # vmec.runvmec(ictrl, "input."+name, verbose, fcomm, reset_file)
+
+    # np.testing.assert_equal(ictrl[1], 0)
+
     bashCommand = executables_path+"/./xvmec2000 input."+name
     run(bashCommand.split())
     print("Plot VMEC result")
@@ -80,16 +105,27 @@ def runVMEC(name,executables_path,plotting_path):
 # Run booz_xform
 def runBOOZXFORM(name,executables_path,plotting_path):
     print("Run BOOZ_XFORM")
-    with open("in_booz."+name, "w") as txt_file:
-        txt_file.write('150 50\n')
-        txt_file.write("'"+name+"'\n")
-        txt_file.write('10 20 30 40 50 60 70 80 90 100 110 130 150 170 190 210 230 250\n')
-    bashCommand = executables_path+"/./xbooz_xform in_booz."+name
-    run(bashCommand.split())
-    print("Plot BOOZ_XFORM result")
-    sys.path.insert(1, plotting_path)
-    import boozPlot
-    boozPlot.main("boozmn_"+name+".nc",name)
+    b1 = bx.Booz_xform()
+    b1.read_wout("wout_"+name+".nc")
+    b1.compute_surfs = [1,2,5,10,18,25,32,40,50,60,70,80,90,100,110,125,150,170,190,210,230,249]
+    b1.run()
+    print("Plot BOOZ_XFORM")
+    bx.surfplot(b1, js=5,  fill=False, ncontours=35)
+    plt.savefig("Boozxform_surfplot_1_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0);plt.close()
+    bx.surfplot(b1, js=15, fill=False, ncontours=35)
+    plt.savefig("Boozxform_surfplot_2_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0);plt.close()
+    bx.surfplot(b1, js=21, fill=False, ncontours=35)
+    plt.savefig("Boozxform_surfplot_3_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0);plt.close()
+    if name[0:2] == 'QH':
+        helical_detail = True
+    else:
+        helical_detail = False
+    bx.symplot(b1, helical_detail = helical_detail, sqrts=True)
+    plt.savefig("Boozxform_symplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
+    bx.modeplot(b1, sqrts=True)
+    plt.savefig("Boozxform_modeplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
+    fig = bx.wireplot(b1, orig = False)
+    fig.write_image("Boozxform_wireplot_"+name+'.pdf')
 
 # Run NEO
 def runNEO(name,executables_path,plotting_path):

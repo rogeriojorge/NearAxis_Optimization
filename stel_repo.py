@@ -120,4 +120,62 @@ def get_stel(ind,nphi=251):
         coilSeparation = 0.31
         targetValue = 0.02
         nCoilsPerNFP = 6
+    if ind==8:
+        name   = 'QH_NFP4_vac_2_wo_gradgradB'
+        rc     = [ 1.0,0.24166255996559133,0.03507927831848278,0.003072101422988407,-0.00021640475768656763,-0.0001363835654519441,-2.223736161913154e-05,-1.1792425120563113e-06 ]
+        zs     = [ 0.0,0.21525825259832043,0.03221825938601267,0.0029388783262989686,-0.00018327610234595618,-0.000131613504217177,-2.3862394771575614e-05,-1.4509761624798847e-06 ]
+        etabar =  1.9697675913521753
+        nfp    =  4
+        B2c    =  0.09655841297334804
+        p2     =  0.0
+        iota   =  -1.2865657607802559
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  0.15
+        coilSeparation = 0.15
+        targetValue = 0.08
+        nCoilsPerNFP = 4
+        # DMerc mean  =  0.0
+        # Max elongation  =  2.503410982828086
+        # B20 variation = 0.13561097312595394
+        # Max |X20| = 0.6195365938105948
+        # Max |X3c1| = 0.337460934254934
+        # gradgradB inverse length:  2.5361897898745758
+        # objective function:  829.9393490682932
+        # Quasi-helically symmetric solution with N = -4.0
+    if ind==8:
+        name   = 'QH_NFP4_vac_2'
+        rc     = [ 1.0,0.24166101615219052,0.03507911723897173,0.0030714758562874213,-0.00021710659761328953,-0.00013811263507303878,-2.2973633833468426e-05,-1.1109924853845887e-06 ]
+        zs     = [ 0.0,0.21477390023482557,0.03218163581234407,0.002938884475059996,-0.0001826969770848549,-0.0001307464910730861,-2.2424676912296043e-05,-7.394997689498148e-07 ]
+        etabar =  1.973712439428752
+        nfp    =  4
+        B2c    =  0.09140051741116116
+        p2     =  0.0
+        iota   =  -1.28572842947075
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  0.15
+        coilSeparation = 0.15
+        targetValue = 0.08
+        nCoilsPerNFP = 4
+        # DMerc mean  =  0.0
+        # Max elongation  =  2.5037679503738364
+        # B20 variation = 0.1497674070149666
+        # Max |X20| = 0.6236107132927807
+        # Max |X3c1| = 0.3400976067483434
+        # gradgradB inverse length:  2.4961342898583
+        # objective function:  3946.4353590826954
+        # Quasi-helically symmetric solution with N = -4.0
+    if ind==9:
+        name   = 'QH_NFP4_plasma_2'
+        rc     = [ 1.0,0.23142439702236078,0.025761362827848275,-0.001197422936353441,-0.0013517131875531586,-0.0002855936665873622,-1.5208876157881348e-05,2.556673032199103e-06 ]
+        zs     = [ 0.0,0.1995694721880783,0.02375591586085389,-0.0010517127522570201,-0.001271049351434464,-0.00029577141891271394,-2.306064959337222e-05,2.6107384300995515e-06 ]
+        etabar =  1.968447008541623
+        nfp    =  4
+        B2c    =  0.0921711394187624
+        p2     =  -500000.0
+        iota   =  -1.2951480598038752
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  0.15
+        coilSeparation = 0.15
+        targetValue = 0.08
+        nCoilsPerNFP = 4
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
