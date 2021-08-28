@@ -178,4 +178,10 @@ def get_stel(ind,nphi=251):
         coilSeparation = 0.15
         targetValue = 0.08
         nCoilsPerNFP = 4
+        # DMerc mean  =  0.7566340816878097
+        # Max elongation  =  3.0073433736986677
+        # B20 variation = 0.5736005094814249
+        # Max |X20| = 6.4239269311145915
+        # Max |X3c1| = 1.683964731353642
+        # gradgradB inverse length:  6.289129554755297
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
