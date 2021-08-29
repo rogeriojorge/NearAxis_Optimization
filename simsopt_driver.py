@@ -74,7 +74,7 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
             (stel, 'X3c1', 0.0, 5e-1),
             (stel, 'Y3c1', 0.0, 5e-1),
             (stel, 'Y3s1', 0.0, 5e-1),
-            (stel, 'DMerc_times_r2', 0.05, 3e4),
+            (stel, 'DMerc_times_r2', 0.07, 3e4),
             (stel, 'DWell_times_r2', 0.5, 2e3),
             (stel, 'grad_grad_B_inverse_scale_length', 0.0,5e+0),
             (stel.min_R0_penalty, 0.0,1e6)
