@@ -1,31 +1,31 @@
  ====================== PARALLEL TIMINGS ====================
-               total  :      190.401342
+               total  :      855.273451
                 rank  :               0
 mgrid file read time  :        0.000000
-        No. of procs  :               8
+        No. of procs  :               1
 
-      --- non-vacuum  :            1431             16              8       2.567791
-      --- non-vacuum  :            2389             49              8      10.392952
-      --- non-vacuum  :            2095             99              8      17.085385
-      --- non-vacuum  :            2739            151              8      35.181626
-      --- non-vacuum  :            3000            201              8      52.540348
-      --- non-vacuum  :            3000            251              8      67.278938
+      --- non-vacuum  :            1673             16              1       9.420139
+      --- non-vacuum  :            2905             49              1      52.593815
+      --- non-vacuum  :            3000             99              1     113.756869
+      --- non-vacuum  :            3000            151              1     166.141645
+      --- non-vacuum  :            3000            201              1     223.608904
+      --- non-vacuum  :            3000            251              1     278.822055
 
-             runvmec  :      190.399399
+             runvmec  :      855.268291
 
          init radial  :        0.000000
-             eqsolve  :      188.801805
-             fileout  :        1.360904
+             eqsolve  :      853.686031
+             fileout  :        1.402895
 
-              evolve  :      188.714252
-             funct3d  :      185.047040
-            nfunct3d  :           14729
+              evolve  :      853.619608
+             funct3d  :      844.343427
+            nfunct3d  :           16661
 
-             totzsps  :       34.478882
+             totzsps  :      230.682697
              totzspa  :        0.000000
               symrzl  :        0.000000
-            jacobian  :       10.994528
-              bcovar  :       24.353616
+            jacobian  :       13.291885
+              bcovar  :       61.889986
               vacuum  :        0.000000
 
             - precal  :        0.000000
@@ -46,20 +46,20 @@ mgrid file read time  :        0.000000
 
             - solver  :        0.000000
 
-               alias  :       19.976129
-              forces  :       23.692804
+               alias  :      128.448738
+              forces  :       69.679849
            symforces  :        0.000000
-             tomnsps  :       39.713107
+             tomnsps  :      267.930487
              tomnspa  :        0.000000
-             residue  :       28.122913
-          -- tridslv  :       14.753298
+             residue  :       65.936164
+          -- tridslv  :       56.899572
 
  ============================================================
 
-           allgather  :       11.292086
-           allreduce  :        7.315584
-           broadcast  :        0.064060
-           sendrecv   :        0.924993
+           allgather  :        0.000000
+           allreduce  :        0.691549
+           broadcast  :        0.005573
+           sendrecv   :        0.154166
 
      Fill_blocks      :        0.000000
      Compute blocks   :        0.000000

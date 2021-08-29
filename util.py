@@ -103,12 +103,13 @@ def runVMEC(name,executables_path,plotting_path):
     vmecPlot2.main("wout_"+name+".nc")
 
 # Run booz_xform
-def runBOOZXFORM(name,executables_path,plotting_path):
+def runBOOZXFORM(name):
     print("Run BOOZ_XFORM")
     b1 = bx.Booz_xform()
     b1.read_wout("wout_"+name+".nc")
     b1.compute_surfs = [1,2,5,10,18,25,32,40,50,60,70,80,90,100,110,125,150,170,190,210,230,249]
     b1.run()
+    b1.write_boozmn("boozmn_"+name+".nc")
     print("Plot BOOZ_XFORM")
     bx.surfplot(b1, js=5,  fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_1_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0);plt.close()
