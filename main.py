@@ -31,7 +31,7 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
+# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
@@ -39,8 +39,8 @@ optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.to_vmec('input.'+name,r=r_edge)
 
 # runVMEC(name,executables_path,plotting_path)
-# runBOOZXFORM(name)
-# runNEO(name,executables_path,plotting_path)
+runBOOZXFORM(name)
+runNEO(name,executables_path,plotting_path)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 # runSPEC(name,executables_path,plotting_path)
 
