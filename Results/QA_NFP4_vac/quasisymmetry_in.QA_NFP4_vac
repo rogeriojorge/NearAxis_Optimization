@@ -1,0 +1,20 @@
+&quasisymmetry
+ general_option="single"
+ finite_r_option="nonlinear"
+ order_r_option="r3_flux_constraint"
+ N_phi=451
+ nfp = 4
+ eta_bar = 0.9390078410893093
+ R0c = 1.000000000000000000e+00,1.958274954753399036e-02,1.824350669857320193e-03,1.096503986541223362e-04,4.738947226230860163e-06,-1.546108367705198416e-06,
+ Z0s = 0.000000000000000000e+00,-2.435845587656376363e-02,-6.678125089242426416e-04,-1.375786155378529369e-04,-1.618490884301858711e-05,-3.126955879553315825e-06,
+ B2c = 0.055309698986764286
+ B2s = 0.0
+ sigma_initial = 0.0
+ I2_over_B0 = 0.0
+ p2 = 0.0
+ r = 0.05
+ vmec_template_filename = "/Users/rogeriojorge/local/NearAxis_Optimization/Executables/quasisymmetry.VMECexample"
+ r_singularity_high_order = T
+ r_singularity_Newton_iterations = 20
+ r_singularity_line_search = 10
+/
