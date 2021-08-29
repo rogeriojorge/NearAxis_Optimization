@@ -10,12 +10,12 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(10, nphi=551)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(11, nphi=551)
 
 iota_target = 0.4
-nIterations = 300
-abs_step_array = [5e-2,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7]
-rel_step_array = [1e-1,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7]
+nIterations = 200
+abs_step_array = [5e-2,1e-2,1e-3,1e-4,1e-5,1e-6]
+rel_step_array = [1e-1,1e-2,1e-3,1e-4]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
 stel.min_R0_threshold = 0.5
@@ -31,7 +31,7 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
+# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
