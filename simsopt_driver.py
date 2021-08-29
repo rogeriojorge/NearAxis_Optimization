@@ -8,6 +8,7 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     ## Print Initial conditions
     print('Before optimization:')
     print('DMerc mean  = ',np.mean(stel.DMerc_times_r2))
+    print('DWell mean  = ',np.mean(stel.DWell_times_r2))
     print('Max elongation  = ',stel.max_elongation)
     print('gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
     print('B20 variation =',stel.B20_variation)
@@ -35,8 +36,8 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     stel.set_fixed('zs(5)', False)
     stel.set_fixed('rc(6)', False)
     stel.set_fixed('zs(6)', False)
-    stel.set_fixed('rc(7)', False)
-    stel.set_fixed('zs(7)', False)
+    # stel.set_fixed('rc(7)', False)
+    # stel.set_fixed('zs(7)', False)
     # stel.set_fixed('zs(8)', False)
     stel.set_fixed('etabar', False)
     stel.set_fixed('B2c', False)
@@ -54,7 +55,6 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
 
     ## Add integral of J_invariant to optimize for maximum-J
     ## Add NEO to optimize for eps_eff of calculate it analytically
-    ## ADD min_R0_penalty(self) already in QSC
     term = [
             # (stel, 'iota', iota_target, 1e4),
             #(stel, 'p2', 0.0, 1e-1),
@@ -74,10 +74,10 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
             (stel, 'X3c1', 0.0, 5e-1),
             (stel, 'Y3c1', 0.0, 5e-1),
             (stel, 'Y3s1', 0.0, 5e-1),
-            (stel, 'DMerc_times_r2', 0.1, 5e3),
-            (stel, 'DWell_times_r2', 1, 1e3),
+            # (stel, 'DMerc_times_r2', 0.05, 2e4),
+            # (stel, 'DWell_times_r2', 0.5, 2e3),
             (stel, 'grad_grad_B_inverse_scale_length', 0.0,5e+0),
-            (stel.min_R0_penalty, 0.0,3e2)
+            (stel.min_R0_penalty, 0.0,1e6)
             # # (stel, 'nlflux_GX', 0.0, 1e1)
             # # (stel, 'd_svals', 0.0, 5e4),
             # # (stel, 'X1c', 0.0, 2e0),
@@ -88,31 +88,36 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
             # # (stel, 'curvature', 0.0, 3e2)
             ]
 
-    for rel_step in rel_step_array:
-        for abs_step in abs_step_array:
-            if stel.iota == 0: break
-            print()
-            print(' abs_step =',abs_step)
-            print(' rel_step=',rel_step)
-            prob = LeastSquaresProblem(term,abs_step=abs_step,rel_step=rel_step,diff_method='centered')
+    if grad==False:
+        prob = LeastSquaresProblem(term)
+        least_squares_serial_solve(prob, max_nfev=nIterations, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
+    else:
+        for rel_step in rel_step_array:
+            for abs_step in abs_step_array:
+                if stel.iota == 0: break
+                print()
+                print(' abs_step =',abs_step)
+                print(' rel_step=',rel_step)
+                prob = LeastSquaresProblem(term,abs_step=abs_step,rel_step=rel_step,diff_method='centered')
 
-            ## Solve the minimization problem:
-            try:
-                stelold = stel
-                probold = prob
-                least_squares_serial_solve(prob, grad=grad, max_nfev=nIterations)#, method='lm')
-            except KeyboardInterrupt:
-                print("Terminated optimization - no change")
-                stel = stelold
-                prob = probold
-            for f in glob("residuals_2021*.dat"):
-                remove(f)
-            for f in glob("simsopt_2021*.dat"):
-                remove(f)
+                ## Solve the minimization problem:
+                try:
+                    stelold = stel
+                    probold = prob
+                    least_squares_serial_solve(prob, grad=grad, max_nfev=nIterations, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
+                except KeyboardInterrupt:
+                    print("Terminated optimization - no change")
+                    stel = stelold
+                    prob = probold
+                for f in glob("residuals_2021*.dat"):
+                    remove(f)
+                for f in glob("simsopt_2021*.dat"):
+                    remove(f)
 
     ## Print final conditions
     print('After optimization:')
     print('DMerc mean  = ',np.mean(stel.DMerc_times_r2))
+    print('DWell mean  = ',np.mean(stel.DWell_times_r2))
     print('Max elongation  = ',stel.max_elongation)
     print('B20 variation =',stel.B20_variation)
     print('Max |X20| =',max(abs(stel.X20)))
