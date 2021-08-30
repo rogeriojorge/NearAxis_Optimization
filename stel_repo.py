@@ -252,4 +252,26 @@ def get_stel(ind,nphi=251):
         # Max |X3c1| = 0.32307112724204834
         # gradgradB inverse length:  1.8789608084254732
         # objective function:  1915.0558249149124
+    if ind==13:
+        name   = 'QA_NFP2_plasma_3'
+        rc     = [ 1.0,-0.16398955025929726,0.004695400184053295,0.0018896947768634535,-0.00039027944813849327,0.00010482853617806306,6.695338598031576e-06,-1.7798848396293354e-05 ]
+        zs     = [ 0.0,0.09501770277763477,-0.0012396140861238622,-0.00127198541895015,0.00014784783246404534,-0.00011287186626764698,2.2737202307033325e-05,9.756258840839336e-06 ]
+        etabar =  0.5241522271402176
+        nfp    =  2
+        B2c    =  -1.2175368259930706
+        p2     =  -1000000.0
+        iota   =  0.41059495901415516
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/6
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  -0.035945073506285674
+        # DWell mean  =  0.35012268769166427
+        # Max elongation  =  6.578644999991745
+        # B20 variation = 0.22855938682511612
+        # Max |X20| = 5.314953678989785
+        # Max |X3c1| = 1.2196666542117467
+        # gradgradB inverse length:  4.855504461064896
+        # objective function:  6909.706826983927
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
