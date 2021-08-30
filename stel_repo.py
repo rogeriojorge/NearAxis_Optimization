@@ -230,4 +230,26 @@ def get_stel(ind,nphi=251):
         # Max |X3c1| = 0.8888517092742774
         # gradgradB inverse length:  5.132758420843008
         # objective function:  3487.706869820473
+    if ind==12:
+        name   = 'QA_NFP2_vac_3'
+        rc     = [ 1.0,-0.17012557797445627,0.02424514888601057,-0.0038379761742939208,0.0006167734737180552,-9.241415312428205e-05,1.1223574404549308e-05,-7.895289752143264e-07 ]
+        zs     = [ 0.0,0.1856522434048165,-0.02490314192591721,0.0038872855790383835,-0.000607802031532201,8.622822576822008e-05,-8.823962948687036e-06,1.9218858876105486e-07 ]
+        etabar =  0.8402138648190306
+        nfp    =  2
+        B2c    =  0.40056018426804035
+        p2     =  0.0
+        iota   =  0.4075404037099618
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/6
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.0
+        # DWell mean  =  0.0
+        # Max elongation  =  3.0004650857301463
+        # B20 variation = 0.31232073723082865
+        # Max |X20| = 0.7715497266667112
+        # Max |X3c1| = 0.32307112724204834
+        # gradgradB inverse length:  1.8789608084254732
+        # objective function:  1915.0558249149124
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
