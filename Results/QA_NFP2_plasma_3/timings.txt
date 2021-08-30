@@ -1,0 +1,68 @@
+ ====================== PARALLEL TIMINGS ====================
+               total  :      843.494740
+                rank  :               0
+mgrid file read time  :        0.000000
+        No. of procs  :               1
+
+      --- non-vacuum  :            3000             16              1      16.841547
+      --- non-vacuum  :            3000             49              1      52.480011
+      --- non-vacuum  :            3000             99              1     107.789422
+      --- non-vacuum  :            3000            151              1     167.045699
+      --- non-vacuum  :            3000            201              1     223.119711
+      --- non-vacuum  :            2886            251              1     268.401599
+
+             runvmec  :      843.490485
+
+         init radial  :        0.000000
+             eqsolve  :      841.935354
+             fileout  :        1.386002
+
+              evolve  :      841.806557
+             funct3d  :      835.677989
+            nfunct3d  :           17913
+
+             totzsps  :      226.857611
+             totzspa  :        0.000000
+              symrzl  :        0.000000
+            jacobian  :       13.024724
+              bcovar  :       60.814189
+              vacuum  :        0.000000
+
+            - precal  :        0.000000
+           - surface  :        0.000000
+
+           - bextern  :        0.000000
+
+           -- becoil  :        0.000000
+           -- tolicu  :        0.000000
+           -- belicu  :        0.000000
+
+           - scalpot  :        0.000000
+
+           -- analyt  :        0.000000
+           -- greenf  :        0.000000
+            -- fourp  :        0.000000
+            -- fouri  :        0.000000
+
+            - solver  :        0.000000
+
+               alias  :      127.306786
+              forces  :       68.455169
+           symforces  :        0.000000
+             tomnsps  :      265.085900
+             tomnspa  :        0.000000
+             residue  :       65.101344
+          -- tridslv  :       56.193897
+
+ ============================================================
+
+           allgather  :        0.000000
+           allreduce  :        0.665442
+           broadcast  :        0.004419
+           sendrecv   :        0.162518
+
+     Fill_blocks      :        0.000000
+     Compute blocks   :        0.000000
+     Forward solve    :        0.000000
+     Backward solve   :        0.000000
+ ============================================================
