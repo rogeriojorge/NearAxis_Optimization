@@ -38,9 +38,9 @@ os.chdir(results_path)
 # runqsc(stel,name,r_edge,executables_path,plotting_path)
 # stel.to_vmec('input.'+name,r=r_edge)
 
-# runVMEC(name,executables_path,plotting_path)
-# runBOOZXFORM(name)
-# runNEO(name,executables_path,plotting_path)
+runVMEC(name,executables_path,plotting_path)
+runBOOZXFORM(name)
+runNEO(name,executables_path,plotting_path)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 # runSPEC(name,executables_path,plotting_path)
 
