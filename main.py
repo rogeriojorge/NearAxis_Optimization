@@ -10,12 +10,12 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(13, nphi=451)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(13, nphi=251)
 
 iota_target = 0.41
 nIterations = 100
 abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7]
-rel_step_array = [1e-1,1e-2,1e-3,1e-5]
+rel_step_array = [5e-1,1e-1,1e-2,1e-3]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
 stel.min_R0_threshold = 0.5
