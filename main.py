@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(16, nphi=151)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(17, nphi=251)
 
 iota_target = 0.41
 nIterations = 100
@@ -35,7 +35,7 @@ os.chdir(results_path)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
-runqsc(stel,name,r_edge,executables_path,plotting_path)
+# runqsc(stel,name,r_edge,executables_path,plotting_path)
 # stel.to_vmec('input.'+name,r=r_edge)
 
 runVMEC(name,executables_path,plotting_path)
