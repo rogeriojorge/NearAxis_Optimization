@@ -40,6 +40,8 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     stel.set_fixed('zs(7)', False)
     stel.set_fixed('rc(8)', False)
     stel.set_fixed('zs(8)', False)
+    stel.set_fixed('rc(9)', False)
+    stel.set_fixed('zs(9)', False)
     stel.set_fixed('etabar', False)
     stel.set_fixed('B2c', False)
     # stel.set_fixed('p2',False)
@@ -57,7 +59,7 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
     ## Add integral of J_invariant to optimize for maximum-J
     ## Add NEO to optimize for eps_eff of calculate it analytically
     term = [
-            (stel, 'iota', iota_target, 1e6),
+            # (stel, 'iota', iota_target, 1e6),
             #(stel, 'p2', 0.0, 1e-1),
             (stel, 'max_elongation', 0.0, 3e+0),
             (stel, 'elongation', 0.0, 4e-1),
@@ -75,7 +77,7 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
             (stel, 'X3c1', 0.0, 5e-1),
             (stel, 'Y3c1', 0.0, 5e-1),
             (stel, 'Y3s1', 0.0, 5e-1),
-            (stel, 'DMerc_times_r2', 1.0, 5e4),
+            # (stel, 'DMerc_times_r2', 1.0, 5e4),
             # (stel, 'DWell_times_r2', 0.5, 2e3),
             (stel, 'grad_grad_B_inverse_scale_length', 0.0,5e+0),
             (stel.min_R0_penalty, 0.0,1e6)
