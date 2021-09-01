@@ -362,4 +362,26 @@ def get_stel(ind,nphi=251):
         # Max |X3c1| = 1.7507156446389611
         # gradgradB inverse length:  3.4190791073094893
         # objective function:  5651.888129153469
+    if ind==18:
+        name   = 'QH_NFP3_vac'
+        rc     = [ 1.0,0.6017188333339238,-0.05013160291495114,-0.0059509156974514804,0.0046395002057484855,0.0005181849976044792,-0.0009021840397330221,3.2091159445160866e-05,0.00027903445923394487,-9.405544457236126e-05 ]
+        zs     = [ 0.0,-0.5670143663357554,0.04828670600798458,0.0012712834089255308,-0.0019043062624112754,0.00048209215902020384,5.270817704207781e-05,5.599588943640311e-05,-0.0001442108409911305,0.0001292277548494176 ]
+        etabar =  1.1468556706440256
+        nfp    =  3
+        B2c    =  -0.25130771525326506
+        p2     =  0.0
+        iota   =  2.2850300916357633
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  0.1
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.0
+        # DWell mean  =  0.0
+        # Max elongation  =  3.7123657848388616
+        # B20 variation = 0.9305790803911311
+        # Max |X20| = 2.6911230299614943
+        # Max |X3c1| = 1.1917258552291847
+        # gradgradB inverse length:  3.5160403007603254
+        # objective function:  2825.8995800383113
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
