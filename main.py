@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(14, nphi=551)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(16, nphi=151)
 
 iota_target = 0.41
 nIterations = 100

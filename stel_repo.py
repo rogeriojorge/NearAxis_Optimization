@@ -296,4 +296,48 @@ def get_stel(ind,nphi=251):
         # Max |X3c1| = 0.5005519164293439
         # gradgradB inverse length:  3.663906263015699
         # objective function:  9025.891130916021
+    if ind==15:
+        name   = 'QH_NFP2_plasma'
+        rc     = [ 1.0,-0.728522911259118,0.023009266116872287,0.021266172975764885,0.002809711754763311,0.0031348954054080565,-0.00022602852110138063,-0.0009201669022045536,8.020840841274659e-05 ]
+        zs     = [ 0.0,0.6043120487431142,-0.08528928868975037,0.012932584671270031,-0.018044335147057437,0.0029504773541039584,-0.0008483912934742645,0.0010017207023001915,-5.689524784332993e-05 ]
+        etabar =  0.5979274719360609
+        nfp    =  2
+        B2c    =  -1.56289502358437
+        p2     =  -500000.0
+        iota   =  1.3827723353676435
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/100
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.44644186064692326
+        # DWell mean  =  0.7567999119923016
+        # Max elongation  =  6.067616547715366
+        # B20 variation = 1.9673140621869392
+        # Max |X20| = 10.070618262934925
+        # Max |X3c1| = 1.5093242120957913
+        # gradgradB inverse length:  5.805802707802815
+        # objective function:  7536.864772783507
+    if ind==16:
+        name   = 'QA_NFP3_vac'
+        rc     = [ 1.0,0.050224142623339005,0.0024648591290499142,0.0001119266286864647,4.182627242567558e-06,2.0737623981586257e-07 ]
+        zs     = [ 0.0,-0.051219095337737844,-0.0024220896528694405,-0.00011375374153045005,-4.344635778503563e-06,-3.0080665491370894e-07 ]
+        etabar =  0.9256884588145107
+        nfp    =  3
+        B2c    =  2.1121434634154563
+        p2     =  0.0
+        iota   =  0.4076794866225493
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  0.1
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.0
+        # DWell mean  =  0.0
+        # Max elongation  =  2.3201965391823505
+        # B20 variation = 0.1926020792957739
+        # Max |X20| = 5.270117027956928
+        # Max |X3c1| = 1.016402947243469
+        # gradgradB inverse length:  2.50749246531078
+        # objective function:  1646.6747729026563
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
