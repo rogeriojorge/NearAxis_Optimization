@@ -1,0 +1,20 @@
+&quasisymmetry
+ general_option="single"
+ finite_r_option="nonlinear"
+ order_r_option="r1"
+ N_phi=451
+ nfp = 2
+ eta_bar = 0.8008233540885676
+ R0c = 1.000000000000000000e+00,-1.819601341302566622e-01,2.099961456750602459e-02,-2.186661029939276652e-03,1.738008300926121024e-04,-3.454632230695202452e-06,-1.929814148351400306e-06,
+ Z0s = 0.000000000000000000e+00,1.557765431978459514e-01,-1.839877656873838835e-02,1.868901595355642025e-03,-1.391416351411978972e-04,-1.360580336280458934e-07,1.706575772828250933e-06,
+ B2c = 0.0
+ B2s = 0.0
+ sigma_initial = 0.0
+ I2_over_B0 = 0.0
+ p2 = 0.0
+ r = 0.1
+ vmec_template_filename = "/Users/rogeriojorge/local/NearAxis_Optimization/Executables/quasisymmetry.VMECexample"
+ r_singularity_high_order = T
+ r_singularity_Newton_iterations = 20
+ r_singularity_line_search = 10
+/

@@ -384,4 +384,103 @@ def get_stel(ind,nphi=251):
         # Max |X3c1| = 1.1917258552291847
         # gradgradB inverse length:  3.5160403007603254
         # objective function:  2825.8995800383113
+    if ind==19:
+        name   = 'QH_NFP4_vac_3'
+        rc     = [ 1.0,0.23534671348568964,0.032370741935558243,0.0028930588676929696,-9.979729683116764e-06,-4.947079146209497e-05,-6.7276829969791605e-06,-2.1686735790258402e-07,-2.1995177184739665e-08 ]
+        zs     = [ 1.0,0.21350397651117003,0.030823452391198828,0.0029006895978590185,1.2731238475299125e-05,-4.385318742563811e-05,-5.201229091310175e-06,1.9385975965326248e-07,3.3406806412235074e-08 ]
+        etabar =  2.009861401881025
+        nfp    =  4
+        B2c    =  0.014978229496948308
+        p2     =  0.0
+        iota   =  -1.2850584906730413
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/6
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.0
+        # DWell mean  =  0.0
+        # Max elongation  =  2.5840289881380625
+        # B20 variation = 0.09588435631261749
+        # Max |X20| = 0.6648220678804774
+        # Max |X3c1| = 0.3579745843831077
+        # gradgradB inverse length:  2.4650583266372568
+        # objective function:  543.7323144010619
+    if ind==20:
+        name   = 'QH_NFP4_plasma_3'
+        rc     = [ 1.0,0.48901681580866646,0.07866833907333268,-0.003988981256181756,-0.0038518075650708157,0.0009832042786224607,0.0014020574385464684,0.0005469202893270081,8.469474285514098e-05 ]
+        zs     = [ 1.0,-0.40443216690777006,-0.06860068919954514,-0.0017381573489314553,-4.663777216347447e-05,-0.001882013016647241,-0.0014023624219547796,-0.0005515360428790581,-0.00010482758630573898 ]
+        etabar =  1.1774213377118163
+        nfp    =  4
+        B2c    =  -0.9336381190413221
+        p2     =  -500000.0
+        iota   =  2.44870850972142
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/22
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.47429340726938696
+        # DWell mean  =  1.1135905853158308
+        # Max elongation  =  2.791909049149931
+        # B20 variation = 0.8168770201186457
+        # Max |X20| = 3.4000759759030963
+        # Max |X3c1| = 2.7302771176927543
+        # gradgradB inverse length:  4.696956784587547
+        # objective function:  2394.4241486287015
+    if ind==21:
+        name   = 'QA_NFP2_r1'
+        rc     = [ 1.0,-0.18196013413025666,0.020999614567506025,-0.0021866610299392767,0.0001738008300926121,-3.4546322306952025e-06,-1.9298141483514003e-06 ]
+        zs     = [ 0.0,0.15577654319784595,-0.01839877656873839,0.001868901595355642,-0.0001391416351411979,-1.360580336280459e-07,1.706575772828251e-06 ]
+        etabar =  0.8008233540885676
+        nfp    =  2
+        B2c    =  0.0
+        p2     =  0.0
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))
+        iota   =  0.4198790908227896
+        r_edge =  0.1
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # Max |X1c| = 1.6191472702006777
+        # Max elongation  =  3.3445701395505636
+        # objective function:  23.501823574911157
+    if ind==22:
+        name   = 'QH_NFP4_r1'
+        rc     = [ 1.0,0.5244368868248144,0.1699930341221515,0.04549135595299858,0.0091392319599508,0.0011702750200607542,5.622120041171967e-05 ]
+        zs     = [ 0.0,0.49268004097859763,0.16924278110761584,0.047119948399724026,0.00970139003772989,0.0011972374113402445,2.8842577610049084e-05 ]
+        etabar =  1.5049682592480425
+        nfp    =  4
+        B2c    =  0.0
+        p2     =  0.0
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))
+        iota   =  -2.2663872307770703
+        r_edge =  0.06
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # Max |X1c| = 1.4298303819278673
+        # Max elongation  =  2.881315728145213
+        # objective function:  52.66809016147327
+    if ind==23:
+        name   = 'QI_NFP1_r1'
+        rc     = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0 ]
+        zs     = [ 0.0,0.0,0.06150199148349551,-0.024525761300959653,0.0035708217656314364,0.0036905543378600875,0.0009216112298971144 ]
+        B0_vals = [ 1.0,0.1 ]
+        d_svals = [ 0.0,1.4248780525666942,-0.02873217816997125,0.01960207141637209,0.003156746990570063,0.005069833884773372,0.0 ]
+        delta   = 0.6283185307179586
+        stel   =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=1, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi,phi_shift=1/3, omn=True, delta=delta))
+        iota   =  0.4198331396220715
+        r_edge =  0.03
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # Max |curvature| = 1.3967408412720728
+        # Max |X1c| = 0.8427827161080429
+        # Max elongation  =  4.2440217493138075
+        # objective function:  240.9861459479161
+    try:
+        stel.omn
+    except:
+        stel.omn = False
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

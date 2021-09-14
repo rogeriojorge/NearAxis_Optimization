@@ -35,7 +35,10 @@ def output2qsc(stel,name,rr,executables_path):
         txt_file.write('&quasisymmetry\n')
         txt_file.write(' general_option="single"\n')
         txt_file.write(' finite_r_option="nonlinear"\n')
-        txt_file.write(' order_r_option="r3_flux_constraint"\n')
+        if stel.order=='r1':
+            txt_file.write(' order_r_option="r1"\n')
+        else:
+            txt_file.write(' order_r_option="r3_flux_constraint"\n')
         txt_file.write(' N_phi=451\n')
         txt_file.write(' nfp = '+str(stel.nfp)+'\n')
         txt_file.write(' eta_bar = '+str(stel.etabar)+'\n')
@@ -143,13 +146,21 @@ def runNEO(name,executables_path,plotting_path):
     neoPlot.main("neo_out."+name,name)
 
 ## Run SPEC
-def output2spec(qvfilename,qscfile,executables_path,nmodes):
-    f = netcdf.netcdf_file(qscfile,mode='r',mmap=False)
-    RBC = f.variables['RBC'][()]
-    ZBS = f.variables['ZBS'][()]
-    rc = f.variables['R0c'][()]
-    zs = f.variables['Z0s'][()]
-    nfp = f.variables['nfp'][()]
+def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
+    try:
+        f = netcdf.netcdf_file(qscfile,mode='r',mmap=False)
+        RBC = f.variables['RBC'][()]
+        ZBS = f.variables['ZBS'][()]
+        rc = f.variables['R0c'][()]
+        zs = f.variables['Z0s'][()]
+        nfp = f.variables['nfp'][()]
+    except:
+        stel.to_vmec('input.'+qvfilename,r=r_edge)
+        RBC=stel.RBC
+        ZBS=stel.ZBS
+        rc=stel.rc
+        zs=stel.zs
+        nfp=stel.nfp
     with open("input."+qvfilename, 'r') as read_obj:
         for line in read_obj:
             if "PHIEDGE" in line:
@@ -166,36 +177,34 @@ def output2spec(qvfilename,qscfile,executables_path,nmodes):
         else:
             rbc[count]=RBC[count][int((nmodesTot-1)/2-nmodes):int((nmodesTot-1)/2+nmodes)]
             zbs[count]=ZBS[count][int((nmodesTot-1)/2-nmodes):int((nmodesTot-1)/2+nmodes)]
-    text="! Axis shape\n"
-    # text=text+"rac(0:"+str(len(rc)-1)+")="+", ".join([str(elem) for elem in rc])+"\n"
-    # text=text+"zas(0:"+str(len(zs)-1)+")="+", ".join([str(elem) for elem in zs])+"\n"
-    text = text+"Rac   =   "+" ".join([str(elem) for elem in rc])+"\n"
-    text = text+"Zas   =   "+" ".join([str(elem) for elem in zs])+"\n"
+    text="! Magnetic axis shape:\n"
+    text=text+"rac(0:"+str(len(rc)-1)+")="+", ".join([str(elem) for elem in rc])+"\n\n"
+    text=text+"zas(0:"+str(len(zs)-1)+")="+", ".join([str(-elem) for elem in zs])+"\n"
     copyfile(executables_path+"/input.SPECexample.sp", qvfilename+".sp")
-    replace(qvfilename+".sp","! Axis shape",text)
+    replace(qvfilename+".sp","! Magnetic axis shape:",text)
     text="!----- Boundary Parameters -----\n"
     for countn in range(len(rbc)-1):
         if countn==0:
             for countm in range(nmodes):
-                text=text+"Rbc("+str(countm)+","+str(countn)+")= "+str(rbc[countn][countm])+" Zbs("+str(countm)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
+                text=text+"rbc("+str(countm)+","+str(countn)+")= "+str(rbc[countn][countm])+", zbs("+str(countm)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
         elif countn==len(rbc)-2:
             for countm in range(2*nmodes):
                 if countm==2*nmodes-1:
-                    text=text+"Rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+" Zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+"\n"
+                    text=text+"rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+", zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+"\n"
                 else:
-                    text=text+"Rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+" Zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
+                    text=text+"rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+", zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
         else:
             for countm in range(2*nmodes):
-                text=text+"Rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+" Zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
+                text=text+"rbc("+str(countm-nmodes)+","+str(countn)+")= "+str(rbc[countn][countm])+", zbs("+str(countm-nmodes)+","+str(countn)+")= "+str(zbs[countn][countm])+",\n"
     replace(qvfilename+".sp","!----- Boundary Parameters -----",text)
     replace(qvfilename+".sp"," Nfp         =         4"," Nfp         =         "+str(nfp))
     replace(qvfilename+".sp"," phiedge     =   2.000000000000000E+00"," phiedge     =   "+str(PHIEDGE))
     #replace(qvfilename+".sp","pressure    =   0.000000000000000E+00","pressure    =   "+p2)
 
-def runSPEC(name,executables_path,plotting_path, nmodes=25):
+def runSPEC(name,executables_path,plotting_path,stel,r_edge, nmodes=25):
     print("Output to SPEC")
     qscfile="quasisymmetry_out."+name+".nc"
-    output2spec(name,qscfile,executables_path,nmodes)
+    output2spec(name,qscfile,executables_path,nmodes,stel,r_edge)
     print("Run SPEC")
     bashCommand = executables_path+"/./xspec "+name+".sp"
     run(bashCommand.split())
