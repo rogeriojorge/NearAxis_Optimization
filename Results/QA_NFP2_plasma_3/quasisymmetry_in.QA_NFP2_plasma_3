@@ -12,7 +12,7 @@
  sigma_initial = 0.0
  I2_over_B0 = 0.0
  p2 = -500000.0
- r = 0.06666666666666667
+ r = 0.005
  vmec_template_filename = "/Users/rogeriojorge/local/NearAxis_Optimization/Executables/quasisymmetry.VMECexample"
  r_singularity_high_order = T
  r_singularity_Newton_iterations = 20

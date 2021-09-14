@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(23, nphi=251)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(13, nphi=251)
 
 
 #####
@@ -41,14 +41,14 @@ os.chdir(results_path)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
-# runqsc(stel,name,r_edge,executables_path,plotting_path)
+runqsc(stel,name,r_edge,executables_path,plotting_path)
 # stel.to_vmec('input.'+name,r=r_edge)
 
-# runVMEC(name,executables_path,plotting_path)
+runVMEC(name,executables_path,plotting_path)
 # runBOOZXFORM(name)
 # runNEO(name,executables_path,plotting_path)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
-runSPEC(name,executables_path,plotting_path,stel,r_edge)
+# runSPEC(name,executables_path,plotting_path,stel,r_edge)
 
 # Go back to main
 os.chdir(main_path)
