@@ -19,10 +19,12 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
         if stel.order == 'r3':
             print('DMerc mean  = ',np.mean(stel.DMerc_times_r2))
             print('DWell mean  = ',np.mean(stel.DWell_times_r2))
+            print('DGeod mean  = ',np.mean(stel.DGeod_times_r2))
             print('B20 variation =',stel.B20_variation)
             print('Max |X20| =',max(abs(stel.X20)))
             print('Max |X3c1| =',max(abs(stel.X3c1)))
             print('gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
+        print('mean gradB inverse length: ', np.mean(stel.inv_L_grad_B))
         print('Max |X1c| =',max(abs(stel.X1c)))
         print('rc      = [',','.join([str(elem) for elem in stel.rc]),']')
         print('zs      = [',','.join([str(elem) for elem in stel.zs]),']')
@@ -96,7 +98,7 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                 ]
         else:
             term = [
-                    # (stel, 'iota', iota_target, 1e6),
+                    (stel, 'iota', iota_target, 1e5),
                     (stel, 'max_elongation', 0.0, 3e+0),
                     (stel, 'elongation', 0.0, 4e-1),
                     (stel, 'B20_anomaly', 0.0, 1e1),
@@ -113,12 +115,12 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                     (stel, 'X3c1', 0.0, 5e-1),
                     (stel, 'Y3c1', 0.0, 5e-1),
                     (stel, 'Y3s1', 0.0, 5e-1),
-                    (stel, 'DMerc_times_r2', 0.5, 3e4),
-                    (stel, 'DWell_times_r2', 0.5, 2e3),
-                    (stel, 'DGeod_times_r2', 1.0, 2e3),
-                    (stel, 'grad_grad_B_inverse_scale_length', 0.0, 5e+0),
+                    (stel, 'DMerc_times_r2', 0.1, 2e5),
+                    # (stel, 'DWell_times_r2', 0.1, 1e3),
+                    # (stel, 'DGeod_times_r2', 0.1, 1e3),
+                    # (stel, 'grad_grad_B_inverse_scale_length', 0.0, 5e+0),
                     (stel.min_R0_penalty, 0.0, 1e9),
-                    (stel, 'inv_L_grad_B', 0.0, 1e4)
+                    (stel, 'inv_L_grad_B', 0.0, 1e0)
             ]
 
         if grad==False:
@@ -144,11 +146,12 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                         print("Terminated optimization - no change")
                         stel = stelold
                         prob = probold
-                        
-    for f in glob("residuals_2021*.dat"):
-        remove(f)
-    for f in glob("simsopt_2021*.dat"):
-        remove(f)
+
+    if mpi.proc0_world:
+        for f in glob("residuals_2021*.dat"):
+            remove(f)
+        for f in glob("simsopt_2021*.dat"):
+            remove(f)
 
     ## Print final conditions
     if mpi.proc0_world:
@@ -184,10 +187,12 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
         if stel.order == 'r3':
             print('        # DMerc mean  = ',np.mean(stel.DMerc_times_r2))
             print('        # DWell mean  = ',np.mean(stel.DWell_times_r2))
+            print('        # DGeod mean  = ',np.mean(stel.DGeod_times_r2))
             print('        # B20 variation =',stel.B20_variation)
             print('        # Max |X20| =',max(abs(stel.X20)))
             print('        # Max |X3c1| =',max(abs(stel.X3c1)))
             print('        # gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
+        print('        # mean gradB inverse length: ', np.mean(stel.inv_L_grad_B))
         print('        # Max |X1c| =',max(abs(stel.X1c)))
         print('        # Max elongation  = ',stel.max_elongation)
         print('        # objective function: ', prob.objective())
