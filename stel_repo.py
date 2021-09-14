@@ -479,6 +479,28 @@ def get_stel(ind,nphi=251):
         # Max |X1c| = 0.8427827161080429
         # Max elongation  =  4.2440217493138075
         # objective function:  240.9861459479161
+    if ind==24:
+        name   = 'test'
+        rc     = [ 1.0,0.01 ]
+        zs     = [ 1.0,-0.01 ]
+        etabar =  1.1774213377118163
+        nfp    =  2
+        B2c    =  -0.9336381190413221
+        p2     =  -500000.0
+        iota   =  2.44870850972142
+        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        r_edge =  1/22
+        coilSeparation = 0.1
+        targetValue = 0.08
+        nCoilsPerNFP = 6
+        # DMerc mean  =  0.47429340726938696
+        # DWell mean  =  1.1135905853158308
+        # Max elongation  =  2.791909049149931
+        # B20 variation = 0.8168770201186457
+        # Max |X20| = 3.4000759759030963
+        # Max |X3c1| = 2.7302771176927543
+        # gradgradB inverse length:  4.696956784587547
+        # objective function:  2394.4241486287015
     try:
         stel.omn
     except:

@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(13, nphi=251)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(24, nphi=31)
 
 
 #####
@@ -19,7 +19,7 @@ stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(13, nph
 #####
 
 iota_target = 0.42
-nIterations = 50
+nIterations = 10
 abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2,1e-3]
 # abs_step_array = [1e-2]
@@ -37,14 +37,14 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=False,max_fourier_coefficients=max_fourier_coefficients)
+optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True,max_fourier_coefficients=max_fourier_coefficients)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
-runqsc(stel,name,r_edge,executables_path,plotting_path)
+# runqsc(stel,name,r_edge,executables_path,plotting_path)
 # stel.to_vmec('input.'+name,r=r_edge)
 
-runVMEC(name,executables_path,plotting_path)
+# runVMEC(name,executables_path,plotting_path)
 # runBOOZXFORM(name)
 # runNEO(name,executables_path,plotting_path)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
