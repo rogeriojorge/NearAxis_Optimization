@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-def main(file):
+def main(file,s_plot_ignore=0.3):
     print("usage: vmecPlot <woutXXX.nc>")
 
     import matplotlib.pyplot as plt
@@ -217,7 +217,7 @@ def main(file):
     # 	plt.plot(ac_aux_s[mask], ac_aux_f[mask],'.-')
     # plt.title('ac profile')
     # plt.xlabel(xLabel)
-    plt.plot(DMerc[8:],'.-')
+    plt.plot(s[int(s_plot_ignore*len(s)):-2],DMerc[int(s_plot_ignore*len(s)):-2],'.-')
     plt.title('DMerc')
     plt.xlabel(xLabel)
 
