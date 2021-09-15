@@ -481,11 +481,11 @@ def get_stel(ind,nphi=251):
         # objective function:  240.9861459479161
     if ind==24:
         name   = 'test'
-        rc     = [ 1.0,0.01 ]
-        zs     = [ 1.0,-0.01 ]
-        etabar =  1.1774213377118163
-        nfp    =  2
-        B2c    =  -0.9336381190413221
+        rc     = [ 1.0,0.2 ]
+        zs     = [ 1.0,-0.2 ]
+        etabar =  2.0
+        nfp    =  5
+        B2c    =  0.01
         p2     =  -500000.0
         iota   =  2.44870850972142
         stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))

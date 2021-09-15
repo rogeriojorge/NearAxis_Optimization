@@ -24,7 +24,7 @@ abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2,1e-3]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
-max_fourier_coefficients = 6
+max_fourier_coefficients = 8
 
 # Create folder for the results
 Path(results_folder+'/'+name).mkdir(parents=True, exist_ok=True)
