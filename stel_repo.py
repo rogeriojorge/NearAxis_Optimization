@@ -480,27 +480,30 @@ def get_stel(ind,nphi=251):
         # Max elongation  =  4.2440217493138075
         # objective function:  240.9861459479161
     if ind==24:
-        name   = 'test'
-        rc     = [ 1.0,0.2 ]
-        zs     = [ 1.0,-0.2 ]
-        etabar =  2.0
+        name   = 'QH_NFP5_plasma_2'
+        rc     = [ 1.0,0.5016269200827842,0.2119398271913497,0.08613084617622267,0.031189233295275547,0.009521591224104663,0.0022806226904077765,0.0003789333481548814,3.246041106789291e-05 ]
+        zs     = [ 1.0,-0.41125327358906727,-0.18069627749619754,-0.07835594359754228,-0.031188390399136096,-0.010807079108766377,-0.003047420240481695,-0.0006249148691108641,-7.10241249348599e-05 ]
+        etabar =  0.9969432367713361
         nfp    =  5
-        B2c    =  0.01
+        B2c    =  -0.7691683277272553
         p2     =  -500000.0
-        iota   =  2.44870850972142
         stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
-        r_edge =  1/22
+        iota   =  3.2718464212732874
+        r_edge =  0.1
         coilSeparation = 0.1
         targetValue = 0.08
         nCoilsPerNFP = 6
-        # DMerc mean  =  0.47429340726938696
-        # DWell mean  =  1.1135905853158308
-        # Max elongation  =  2.791909049149931
-        # B20 variation = 0.8168770201186457
-        # Max |X20| = 3.4000759759030963
-        # Max |X3c1| = 2.7302771176927543
-        # gradgradB inverse length:  4.696956784587547
-        # objective function:  2394.4241486287015
+        # DMerc mean  =  0.29708701496956635
+        # DWell mean  =  1.7119031118865558
+        # DGeod mean  =  -1.4148160969169894
+        # B20 variation = 0.5744516909856849
+        # Max |X20| = 1.971635014966543
+        # Max |X3c1| = 1.6910381999298825
+        # gradgradB inverse length:  4.391829183047245
+        # mean gradB inverse length:  1.6178900255393713
+        # Max |X1c| = 0.8318702897041758
+        # Max elongation  =  3.6311910527385725
+        # objective function:  2215.8446638159894
     try:
         stel.omn
     except:
