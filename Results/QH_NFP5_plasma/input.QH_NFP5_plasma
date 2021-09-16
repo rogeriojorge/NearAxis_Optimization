@@ -4,11 +4,11 @@
 !----- Runtime Parameters -----
 &INDATA
   DELT =    9.000000000000E-001
-  NITER = 30000
+  NITER = 300000
   NSTEP = 200
   TCON0 =    2.000000000000E+000
   NS_ARRAY =                16            49            99           151
-           201           251  400  600 800 1200
+           201           251  401  601 901 1301
   FTOL_ARRAY =    1.000000E-17  1.000000E-17  1.000000E-16  1.000000E-16
   1.000000E-16  1.000000E-15 1e-15 1e-15 1e-15 1e-15
   PRECON_TYPE = 'NONE'
@@ -17,7 +17,7 @@
   LASYM = F
   NFP = 0005
   MPOL = 0010
-  NTOR = 0014
+  NTOR = 0016
   PHIEDGE =    1.602853394689E-002
 !----- Free Boundary Parameters -----
   LFREEB = F
