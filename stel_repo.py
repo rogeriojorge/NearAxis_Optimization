@@ -2,7 +2,7 @@ from qsc import Qsc
 from simsopt import make_optimizable
 import numpy as np
 
-def get_stel(ind,nphi=251):
+def get_stel(ind,nphi=251,r_edge =  0.03,coilSeparation = 0.1,targetValue = 0.08,nCoilsPerNFP = 6):
     if ind==0:
         name   = 'QA_NFP2_vac'
         rc     = [ 1.0,-0.16269301331725952,0.018893800182906907,-0.0020843525869404015,0.0002032623426799173,-1.859988194152255e-05,1.7428172152882315e-06 ]
@@ -480,30 +480,14 @@ def get_stel(ind,nphi=251):
         # Max elongation  =  4.2440217493138075
         # objective function:  240.9861459479161
     if ind==24:
-        name   = 'QH_NFP5_plasma_2'
-        rc     = [ 1.0,0.5016269200827842,0.2119398271913497,0.08613084617622267,0.031189233295275547,0.009521591224104663,0.0022806226904077765,0.0003789333481548814,3.246041106789291e-05 ]
-        zs     = [ 1.0,-0.41125327358906727,-0.18069627749619754,-0.07835594359754228,-0.031188390399136096,-0.010807079108766377,-0.003047420240481695,-0.0006249148691108641,-7.10241249348599e-05 ]
-        etabar =  0.9969432367713361
-        nfp    =  5
-        B2c    =  -0.7691683277272553
-        p2     =  -500000.0
+        name   = 'test'
+        rc     = [ 1.0,0.1 ]
+        zs     = [ 0.0,-0.1 ]
+        etabar =  1.0
+        nfp    =  2
+        B2c    =  0.0
+        p2     =  0.0
         stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
-        iota   =  3.2718464212732874
-        r_edge =  0.1
-        coilSeparation = 0.1
-        targetValue = 0.08
-        nCoilsPerNFP = 6
-        # DMerc mean  =  0.29708701496956635
-        # DWell mean  =  1.7119031118865558
-        # DGeod mean  =  -1.4148160969169894
-        # B20 variation = 0.5744516909856849
-        # Max |X20| = 1.971635014966543
-        # Max |X3c1| = 1.6910381999298825
-        # gradgradB inverse length:  4.391829183047245
-        # mean gradB inverse length:  1.6178900255393713
-        # Max |X1c| = 0.8318702897041758
-        # Max elongation  =  3.6311910527385725
-        # objective function:  2215.8446638159894
     try:
         stel.omn
     except:

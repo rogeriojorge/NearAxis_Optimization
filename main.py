@@ -10,8 +10,8 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(11, nphi=51)
-
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(24, nphi=31)
+## Optimize for magnetic well d2_volume_d_psi2
 
 #####
 # Chaning weights of least_squares_problem
@@ -19,9 +19,9 @@ stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(11, nph
 #####
 
 iota_target = 0.42
-nIterations = 100
-abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
-rel_step_array = [1e-1,1e-2,1e-3]
+nIterations = 20
+# abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+# rel_step_array = [1e-1,1e-2,1e-3]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
 max_fourier_coefficients = 8
@@ -37,14 +37,20 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
-# optimize(stel,iota_target,rel_step_array,abs_step_array,nIterations,grad=True,max_fourier_coefficients=max_fourier_coefficients)
+try:
+    rel_step_array
+    abs_step_array
+    optimize(stel,iota_target,nIterations=nIterations,rel_step_array=rel_step_array,abs_step_array=abs_step_array,grad=True,max_fourier_coefficients=max_fourier_coefficients)
+except:
+    stel.omn = False
+    optimize(stel,iota_target,nIterations,max_fourier_coefficients=max_fourier_coefficients)
 # stel.plot(r=r_edge,fieldlines=True)
 # stel.B_contour(r=0.05)
 # stel.plot_axis()
 # runqsc(stel,name,r_edge,executables_path,plotting_path)
 # stel.to_vmec('input.'+name,r=r_edge)
 
-runVMEC(name,executables_path,plotting_path)
+# runVMEC(name,executables_path,plotting_path)
 # runBOOZXFORM(name)
 # runNEO(name,executables_path,plotting_path)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)

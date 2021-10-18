@@ -15,7 +15,7 @@ neo_out.example         ! NEO output file name
  100                ! Number of bins in poloidal direction to be filled on a toroidal cut (~100)
  50                 ! Number of integration steps per field period (>50)
  500                ! Minimum number of field periods to traverse (>=500)
- 5000               ! Maximum number of field periods to traverse (>=2000)
+ 20000              ! (raised to help NaN) Maximum number of field periods to traverse (>=2000)
  0                  ! CALC_NSTEP_MAX
  1                  ! Output control (1: basic, 2: detailed, 10: simple)
  0                  ! Lab specific switch (0: PPPL)

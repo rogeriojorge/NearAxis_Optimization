@@ -8,7 +8,7 @@ import numpy as np
 from simsopt.solve.mpi import least_squares_mpi_solve
 from simsopt.util.mpi import MpiPartition
 
-def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],nIterations=20,grad=False,max_fourier_coefficients=5):
+def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_array=[],grad=False,max_fourier_coefficients=5):
     mpi = MpiPartition()
     mpi.write()
 
@@ -75,9 +75,9 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                         # (stel, 'max_elongation', 0.0, 3e+0),
                         # (stel, 'elongation', 0.0, 4e-1),
                         (stel, 'inv_L_grad_B', 0.0, 1e-1),
-                        (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
-                        (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
-                        (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
                         # (stel, 'sigma', 0.0, 1e-2),
                         (stel.min_R0_penalty, 0.0, 1e9),
                 ]
@@ -87,9 +87,9 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                         # (stel, 'max_elongation', 0.0, 3e+0),
                         # (stel, 'elongation', 0.0, 4e-1),
                         (stel, 'inv_L_grad_B', 0.0, 1e-1),
-                        (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
-                        (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
-                        (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
+                        # (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
                         # (stel, 'sigma', 0.0, 1e-2),
                         (stel.min_R0_penalty, 0.0, 1e9),
                         (stel, 'd', 0.0, 1e0),
@@ -98,27 +98,28 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
                 ]
         else:
             term = [
-                    # (stel, 'iota', iota_target, 1e5),
-                    (stel, 'max_elongation', 0.0, 3e+0),
-                    (stel, 'elongation', 0.0, 4e-1),
+                    (stel, 'iota', iota_target, 1e5),
+                    # (stel, 'max_elongation', 0.0, 3e+0),
+                    # (stel, 'elongation', 0.0, 4e-1),
                     (stel, 'B20_anomaly', 0.0, 1e1),
                     (stel, 'B20_variation', 0.0, 3e2),
-                    (stel, 'X20', 0.0, 2e-1),
-                    (stel, 'X2c', 0.0, 2e-1),
-                    (stel, 'X2s', 0.0, 2e-1),
-                    (stel, 'Y20', 0.0, 2e-1),
-                    (stel, 'Y2c', 0.0, 2e-1),
-                    (stel, 'Y2s', 0.0, 2e-1),
-                    (stel, 'Z20', 0.0, 2e-1),
-                    (stel, 'Z2c', 0.0, 2e-1),
-                    (stel, 'Z2s', 0.0, 2e-1),
-                    (stel, 'X3c1', 0.0, 5e-1),
-                    (stel, 'Y3c1', 0.0, 5e-1),
-                    (stel, 'Y3s1', 0.0, 5e-1),
-                    (stel, 'DMerc_times_r2', 0.3, 3e5),
+                    # (stel, 'X20', 0.0, 2e-1),
+                    # (stel, 'X2c', 0.0, 2e-1),
+                    # (stel, 'X2s', 0.0, 2e-1),
+                    # (stel, 'Y20', 0.0, 2e-1),
+                    # (stel, 'Y2c', 0.0, 2e-1),
+                    # (stel, 'Y2s', 0.0, 2e-1),
+                    # (stel, 'Z20', 0.0, 2e-1),
+                    # (stel, 'Z2c', 0.0, 2e-1),
+                    # (stel, 'Z2s', 0.0, 2e-1),
+                    # (stel, 'X3c1', 0.0, 5e-1),
+                    # (stel, 'Y3c1', 0.0, 5e-1),
+                    # (stel, 'Y3s1', 0.0, 5e-1),
+                    # (stel, 'DMerc_times_r2', 0.3, 3e5),
+                    # (stel, 'd2_volume_d_psi2', -20, 1e2),   ##### CHECK WEIGHTS
                     # (stel, 'DWell_times_r2', 0.1, 1e3),
                     # (stel, 'DGeod_times_r2', 0.1, 1e3),
-                    # (stel, 'grad_grad_B_inverse_scale_length', 0.0, 5e+0),
+                    (stel, 'grad_grad_B_inverse_scale_length', 0.0, 5e+0),
                     (stel.min_R0_penalty, 0.0, 1e9),
                     (stel, 'inv_L_grad_B', 0.0, 1e0)
             ]
@@ -185,14 +186,15 @@ def optimize(stel,iota_target=0.41,rel_step_array=[1e-2],abs_step_array=[1e-2],n
         if stel.omn == True:
             print('        # Max |curvature| =',max(abs(stel.curvature)))
         if stel.order == 'r3':
-            print('        # DMerc mean  = ',np.mean(stel.DMerc_times_r2))
-            print('        # DWell mean  = ',np.mean(stel.DWell_times_r2))
-            print('        # DGeod mean  = ',np.mean(stel.DGeod_times_r2))
+            print('        # DMerc mean  =',np.mean(stel.DMerc_times_r2))
+            print('        # DWell mean  =',np.mean(stel.DWell_times_r2))
+            print('        # DGeod mean  =',np.mean(stel.DGeod_times_r2))
             print('        # B20 variation =',stel.B20_variation)
             print('        # Max |X20| =',max(abs(stel.X20)))
             print('        # Max |X3c1| =',max(abs(stel.X3c1)))
-            print('        # gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
-        print('        # mean gradB inverse length: ', np.mean(stel.inv_L_grad_B))
+            print('        # gradgradB inverse length:', stel.grad_grad_B_inverse_scale_length)
+        print('        # mean gradB inverse length:', np.mean(stel.inv_L_grad_B))
         print('        # Max |X1c| =',max(abs(stel.X1c)))
-        print('        # Max elongation  = ',stel.max_elongation)
+        print('        # Max elongation =',stel.max_elongation)
+        print('        # d2_volume_d_psi2 =,',stel.d2_volume_d_psi2)
         print('        # objective function: ', prob.objective())
