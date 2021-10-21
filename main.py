@@ -19,7 +19,7 @@ stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(24, nph
 #####
 
 iota_target = 0.42
-nIterations = 20
+nIterations = 50
 # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 # rel_step_array = [1e-1,1e-2,1e-3]
 # abs_step_array = [1e-2]
