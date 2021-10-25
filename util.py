@@ -99,7 +99,7 @@ def runVMEC(name,executables_path,plotting_path):
     # np.testing.assert_equal(ictrl[1], 0)
 
     bashCommand = executables_path+"/./xvmec2000 input."+name
-    # run(bashCommand.split())
+    run(bashCommand.split())
     print("Plot VMEC result")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
