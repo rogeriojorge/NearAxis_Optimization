@@ -85,22 +85,21 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 ]
             else:
                 term = [
-                        (stel, 'iota', stel.N_helicity*stel.nfp, 2e1),
+                        # (stel, 'iota', stel.N_helicity*stel.nfp, 2e1),
                         (stel, 'max_elongation', 0.0, 1e-1),
-                        (stel, 'elongation', 0.0, 1e-3),
-                        (stel, 'sigma', 0.0, 1e-1),
-                        (stel, 'torsion', 0.0, 3e-2),
-                        (stel, 'curvature', 1/stel.rc[0], 1e-2),
-                        (stel, 'd', 0.0, 1e-1),
-                        (stel, 'd_svals', 0.0, 4e2),
-                        (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
-                        (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
-                        (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
-                        (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel, 'delta', 0.0, 3e2),
-                        (stel, 'B0_well_depth', 0.15, 3e4),
-
-                        # (stel, 'inv_L_grad_B', 0.0, 1e-1),
+                        (stel, 'elongation', 0.0, 1e-2),
+                        # (stel, 'sigma', 0.0, 1e-1),
+                        # (stel, 'torsion', 0.0, 3e-2),
+                        # (stel, 'curvature', 1/stel.rc[0], 1e-2),
+                        # (stel, 'd', 0.0, 1e-1),
+                        (stel, 'd_svals', 0.0, 2e2),
+                        # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
+                        # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
+                        # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
+                        # (stel.min_R0_penalty, 0.0, 1e9),
+                        (stel, 'delta', 0.0, 1e2),
+                        # (stel, 'B0_well_depth', 0.15, 3e4),
+                        (stel, 'inv_L_grad_B', 0.0, 1e-2),
                 ]
         else:
             term = [
