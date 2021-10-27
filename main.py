@@ -19,12 +19,12 @@ stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(24, nph
 #####
 
 iota_target = 0.42
-nIterations = 30
+nIterations = 150
 abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
-max_fourier_coefficients = 6
+max_fourier_coefficients = 4
 
 Optimize = False
 # Optimize = True
@@ -53,15 +53,15 @@ if Optimize:
 # stel.plot_boundary(r=r_edge,fieldlines=True,savefig='pyQSC_out.'+name+'.boundary')
 # stel.B_contour(r=0.06)
 
-# stel.to_vmec('input.'+name,r=r_edge, ntheta=26, 
-#         params={"ns_array": [16, 49, 101, 151, 201, 251],
-#                 "ftol_array": [1e-17,1e-16,1e-15,1e-14,1e-14,1e-13],
-#                 "niter_array": [2000,2000,2000,3000,4000,6000]})
-# runVMEC(name,executables_path,plotting_path)
+stel.to_vmec('input.'+name,r=r_edge, ntheta=26, 
+        params={"ns_array": [16, 49, 101, 151, 201, 251],
+                "ftol_array": [1e-17,1e-16,1e-15,1e-14,1e-14,1e-13],
+                "niter_array": [2000,2000,2000,3000,4000,6000]})
+runVMEC(name,executables_path,plotting_path)
 
-# runBOOZXFORM(name)
-# runNEO(name,executables_path,plotting_path)
-# runSPEC(name,executables_path,plotting_path,stel,r_edge)
+runBOOZXFORM(name)
+runNEO(name,executables_path,plotting_path)
+runSPEC(name,executables_path,plotting_path,stel,r_edge)
 # runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 
 # Go back to main
