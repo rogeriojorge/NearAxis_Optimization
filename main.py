@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(24, nphi=131)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(25, nphi=131)
 ## Optimize for magnetic well d2_volume_d_psi2
 
 #####

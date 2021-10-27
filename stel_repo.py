@@ -491,6 +491,20 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # mean gradB inverse length: 7.886964648107345
         # Max elongation = 6.351384904251
         # objective function:  662.2277709720398
+    if ind==25:
+        name   = 'QI_NFP3_r1'
+        rc     = [ 1.0,0.0,-0.02702702702702703,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs     = [ 0.0,0.0,0.010138733020673663,0.0,0.0005849084664402123,0.0,4.512344677756868e-05,0.0,2.46503704709991e-05 ]
+        B0_vals = [ 1.0,0.2555320910661915 ]
+        d_svals = [ 0.0,1.055539626648749,-0.1307012259812955,0.026658757852800283,0.08652454960835025 ]
+        delta   = 1.1635788789649653
+        nfp     = 3
+        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        iota    =  6.931557344543944
+        r_edge  = 0.001
+        # mean gradB inverse length: 6.5224068450136405
+        # Max elongation = 4.156172790212236
+        # objective function:  790.6848977314742
     try:
         stel.omn
     except:
