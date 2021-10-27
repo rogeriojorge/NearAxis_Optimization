@@ -41,7 +41,10 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print(' number of Fourier coefficients =',n_coeffs)
         if stel.omn == True:
             if n_coeffs < len(stel.d_svals)-1: continue
-            stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
+            if stel.order == 'r1':
+                stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
+            else:
+                stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2')
             stel.change_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
@@ -70,6 +73,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 stel.set_fixed('zs('+str(2*i)+')', False)
                 stel.set_fixed('B0(1)', False)
                 stel.set_fixed('delta', False)
+                if stel.order != 'r1':
+                    stel.set_fixed('B2ss('+str(i)+')', False)
         if stel.order=='r1':
             if stel.omn == False:
                 term = [
@@ -102,32 +107,57 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel, 'inv_L_grad_B', 0.0, 2e-2),
                 ]
         else:
-            term = [
-                    (stel, 'iota', iota_target, 1e5),
-                    (stel, 'max_elongation', 0.0, 3e+0),
-                    (stel, 'elongation', 0.0, 4e-1),
-                    (stel, 'B20_anomaly', 0.0, 1e1),
-                    (stel, 'B20_variation', 0.0, 3e2),
-                    (stel, 'X20', 0.0, 2e-1),
-                    (stel, 'X2c', 0.0, 2e-1),
-                    (stel, 'X2s', 0.0, 2e-1),
-                    (stel, 'Y20', 0.0, 2e-1),
-                    (stel, 'Y2c', 0.0, 2e-1),
-                    (stel, 'Y2s', 0.0, 2e-1),
-                    (stel, 'Z20', 0.0, 2e-1),
-                    (stel, 'Z2c', 0.0, 2e-1),
-                    (stel, 'Z2s', 0.0, 2e-1),
-                    (stel, 'X3c1', 0.0, 5e-1),
-                    (stel, 'Y3c1', 0.0, 5e-1),
-                    (stel, 'Y3s1', 0.0, 5e-1),
-                    # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                    (stel, 'd2_volume_d_psi2', -50, 1e-1),
-                    # (stel, 'DWell_times_r2', 0.1, 1e3),
-                    # (stel, 'DGeod_times_r2', 0.1, 1e3),
-                    (stel, 'grad_grad_B_inverse_scale_length', 0.0, 1e+1),
-                    (stel.min_R0_penalty, 0.0, 1e9),
-                    (stel, 'inv_L_grad_B', 0.0, 1e0)
-            ]
+            if stel.omn == False:
+                term = [
+                        (stel, 'iota', iota_target, 1e5),
+                        (stel, 'max_elongation', 0.0, 3e+0),
+                        (stel, 'elongation', 0.0, 4e-1),
+                        (stel, 'B20_anomaly', 0.0, 1e1),
+                        (stel, 'B20_variation', 0.0, 3e2),
+                        (stel, 'X20', 0.0, 2e-1),
+                        (stel, 'X2c', 0.0, 2e-1),
+                        (stel, 'X2s', 0.0, 2e-1),
+                        (stel, 'Y20', 0.0, 2e-1),
+                        (stel, 'Y2c', 0.0, 2e-1),
+                        (stel, 'Y2s', 0.0, 2e-1),
+                        (stel, 'Z20', 0.0, 2e-1),
+                        (stel, 'Z2c', 0.0, 2e-1),
+                        (stel, 'Z2s', 0.0, 2e-1),
+                        (stel, 'X3c1', 0.0, 5e-1),
+                        (stel, 'Y3c1', 0.0, 5e-1),
+                        (stel, 'Y3s1', 0.0, 5e-1),
+                        # (stel, 'DMerc_times_r2', 0.3, 3e5),
+                        (stel, 'd2_volume_d_psi2', -50, 1e-1),
+                        # (stel, 'DWell_times_r2', 0.1, 1e3),
+                        # (stel, 'DGeod_times_r2', 0.1, 1e3),
+                        (stel, 'grad_grad_B_inverse_scale_length', 0.0, 1e+1),
+                        (stel.min_R0_penalty, 0.0, 1e9),
+                        (stel, 'inv_L_grad_B', 0.0, 1e0)
+                ]
+            else:
+                term = [
+                        # (stel, 'iota', iota_target, 1e5),
+                        # (stel, 'max_elongation', 0.0, 3e+0),
+                        # (stel, 'elongation', 0.0, 4e-1),
+                        # (stel, 'B20', 0.0, 1e1),
+                        # (stel, 'B20_variation', 0.0, 3e2),
+                        (stel, 'X20', 0.0, 2e-1),
+                        (stel, 'X2c', 0.0, 2e-1),
+                        (stel, 'X2s', 0.0, 2e-1),
+                        (stel, 'Y20', 0.0, 2e-1),
+                        (stel, 'Y2c', 0.0, 2e-1),
+                        (stel, 'Y2s', 0.0, 2e-1),
+                        (stel, 'Z20', 0.0, 2e-1),
+                        (stel, 'Z2c', 0.0, 2e-1),
+                        (stel, 'Z2s', 0.0, 2e-1),
+                        # (stel, 'DMerc_times_r2', 0.3, 3e5),
+                        # (stel, 'd2_volume_d_psi2', -50, 1e-1),
+                        # (stel, 'DWell_times_r2', 0.1, 1e3),
+                        # (stel, 'DGeod_times_r2', 0.1, 1e3),
+                        # (stel, 'grad_grad_B_inverse_scale_length', 0.0, 1e+1),
+                        # (stel.min_R0_penalty, 0.0, 1e9),
+                        # (stel, 'inv_L_grad_B', 0.0, 1e0)
+                ]
 
         if grad==False:
             prob = LeastSquaresProblem(term)
@@ -170,8 +200,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('Quasi-axisymmetric solution')
             else:
                 print('Quasi-helically symmetric solution with N =',nN)
-        print('        rc     = [',','.join([str(elem) for elem in stel.rc]),']')
-        print('        zs     = [',','.join([str(elem) for elem in stel.zs]),']')
+        print('        rc      = [',','.join([str(elem) for elem in stel.rc]),']')
+        print('        zs      = [',','.join([str(elem) for elem in stel.zs]),']')
         if stel.omn:
             if stel.d_svals[-1]==0:
                 stel.d_svals = stel.d_svals[0:-1]
@@ -179,29 +209,34 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print('        d_svals = [',','.join([str(elem) for elem in stel.d_svals]),']')
             print('        delta   =',stel.delta)
             print('        nfp     =',stel.nfp)
-            print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))")
+            if stel.order == 'r1':
+                print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))")
+            else:
+                if stel.B2s_svals[-1]==0:
+                    stel.B2s_svals = stel.B2s_svals[0:-1]
+                print('        B2s_svals = [',','.join([str(elem) for elem in stel.B2s_svals]),']')
+                print('        p2      = ',stel.p2)
+                print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
-            print('        B2c    = ',stel.B2c)
-            print('        p2     = ',stel.p2)
             if stel.order == 'r1':
-                print("        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))")
+                print("        stel   = make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))")
             else:
-                print("        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))")
-        print('        iota   = ',stel.iota)
-        # if stel.omn == True:
-        #     print('        # Max |curvature| =',max(abs(stel.curvature)))
-        #     print('        # Max |torsion| =',max(abs(stel.torsion)))
-        if stel.order == 'r3':
+                print('        B2c    = ',stel.B2c)
+                print('        p2     = ',stel.p2)
+                print("        stel   = make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))")
+        print('        iota    = ',stel.iota)
+        if stel.order != 'r1':
             print('        # DMerc mean  =',np.mean(stel.DMerc_times_r2))
             print('        # DWell mean  =',np.mean(stel.DWell_times_r2))
             print('        # DGeod mean  =',np.mean(stel.DGeod_times_r2))
             print('        # B20 variation =',stel.B20_variation)
             print('        # Max |X20| =',max(abs(stel.X20)))
-            print('        # Max |X3c1| =',max(abs(stel.X3c1)))
+            if stel.order == 'r3':
+                print('        # Max |X3c1| =',max(abs(stel.X3c1)))
             print('        # gradgradB inverse length:', stel.grad_grad_B_inverse_scale_length)
-            print('        # d2_volume_d_psi2 =,',stel.d2_volume_d_psi2)
+            print('        # d2_volume_d_psi2 mean =,',np.mean(stel.d2_volume_d_psi2))
         print('        # mean gradB inverse length:', np.mean(stel.inv_L_grad_B))
         print('        # Max elongation =',stel.max_elongation)
         print('        # objective function: ', prob.objective())

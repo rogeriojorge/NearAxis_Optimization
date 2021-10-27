@@ -505,6 +505,28 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # mean gradB inverse length: 6.5224068450136405
         # Max elongation = 4.156172790212236
         # objective function:  790.6848977314742
+    if ind==26:
+        name   = 'QI_NFP1_r2'
+        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.35219833557188224,0.0,-0.01018135850951804,0.0,-0.0006444691573610481,0.0,-0.0006759456407755526 ]
+        B0_vals = [ 1.0,0.15495604362658902 ]
+        d_svals = [ 0.0,1.633425822154945,0.011664387632709706,0.2301139984334109,-0.1415334752357951 ]
+        delta   = 2.755207397273854
+        nfp     = 1
+        B2s_svals = [ 0.0,-0.8239710214941398,-1.531454325569703,-0.021691930670584014,0.9229533653427789,0.0 ]
+        p2      =  0.0
+        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))
+        iota    =  -0.52583093917374
+        # DMerc mean  = 0.0
+        # DWell mean  = 0.0
+        # DGeod mean  = 0.0
+        # B20 variation = 7.249526789286177
+        # Max |X20| = 7.5631398627983835
+        # gradgradB inverse length: 12.02710486730052
+        # d2_volume_d_psi2 mean =, -529.3905855501567
+        # mean gradB inverse length: 2.3659316671112807
+        # Max elongation = 3.203467079484805
+        # objective function:  1609.3093608185852
     try:
         stel.omn
     except:
