@@ -10,7 +10,7 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(26, nphi=251)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(26, nphi=231)
 ## Optimize for magnetic well d2_volume_d_psi2
 
 #####
@@ -24,7 +24,7 @@ abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
-max_fourier_coefficients = 4
+max_fourier_coefficients = 2
 
 Optimize = False
 # Optimize = True
@@ -50,6 +50,9 @@ if Optimize:
 
 ## runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
 # stel.plot(savefig='pyQSC_out.'+name+'.params')
+# import matplotlib.pyplot as plt
+# plt.plot(stel.B2c_array)
+# plt.show()
 # stel.plot_boundary(r=r_edge,fieldlines=True,savefig='pyQSC_out.'+name+'.boundary')
 # stel.B_contour(r=0.06)
 

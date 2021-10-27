@@ -139,8 +139,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'iota', iota_target, 1e5),
                         # (stel, 'max_elongation', 0.0, 3e+0),
                         # (stel, 'elongation', 0.0, 4e-1),
-                        # (stel, 'B20', 0.0, 1e1),
-                        # (stel, 'B20_variation', 0.0, 3e2),
+                        (stel, 'B20', 0.0, 1e4),
+                        (stel, 'B20_variation', 0.0, 1e3),
                         (stel, 'X20', 0.0, 2e-1),
                         (stel, 'X2c', 0.0, 2e-1),
                         (stel, 'X2s', 0.0, 2e-1),
@@ -232,6 +232,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print('        # DWell mean  =',np.mean(stel.DWell_times_r2))
             print('        # DGeod mean  =',np.mean(stel.DGeod_times_r2))
             print('        # B20 variation =',stel.B20_variation)
+            print('        # B20 mean =',np.mean(stel.B20))
             print('        # Max |X20| =',max(abs(stel.X20)))
             if stel.order == 'r3':
                 print('        # Max |X3c1| =',max(abs(stel.X3c1)))
