@@ -230,7 +230,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                     stel.B2s_svals = stel.B2s_svals[0:-1]
                 print('        B2s_svals = [',','.join([str(elem) for elem in stel.B2s_svals]),']')
                 print('        p2      = ',stel.p2)
-                if stel.k_second_order_SS != 0:
+                if stel.k_second_order_SS == 0:
                     print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))")
                 else:
                     print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))")
