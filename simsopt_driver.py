@@ -41,10 +41,16 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print(' number of Fourier coefficients =',n_coeffs)
         if stel.omn == True:
             if n_coeffs < len(stel.d_svals)-1: continue
-            if stel.order == 'r1':
-                stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
+            if stel.k_second_order_SS == 0:
+                if stel.order == 'r1':
+                    stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
+                else:
+                    stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2')
             else:
-                stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2')
+                if stel.order == 'r1':
+                    stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, k_second_order_SS=stel.k_second_order_SS)
+                else:
+                    stel = Qsc(rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2', k_second_order_SS=stel.k_second_order_SS)
             stel.change_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
@@ -69,10 +75,13 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 stel.set_fixed('B2c',False)
         else:
             for i in range(1,n_coeffs+1):
-                stel.set_fixed('ds('+str(i)+')', False)
                 stel.set_fixed('zs('+str(2*i)+')', False)
                 stel.set_fixed('B0(1)', False)
                 stel.set_fixed('delta', False)
+                if stel.k_second_order_SS != 0:
+                    stel.set_fixed('k_second_order_SS', False)
+                else:
+                    stel.set_fixed('ds('+str(i)+')', False)
                 if stel.order != 'r1':
                     stel.set_fixed('B2ss('+str(i)+')', False)
         if stel.order=='r1':
@@ -207,16 +216,24 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 stel.d_svals = stel.d_svals[0:-1]
             print('        B0_vals = [',','.join([str(elem) for elem in stel.B0_vals]),']')
             print('        d_svals = [',','.join([str(elem) for elem in stel.d_svals]),']')
+            if stel.k_second_order_SS != 0:
+                print('        k_second_order_SS   =',stel.k_second_order_SS)
             print('        delta   =',stel.delta)
             print('        nfp     =',stel.nfp)
             if stel.order == 'r1':
-                print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))")
+                if stel.k_second_order_SS == 0:
+                    print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))")
+                else:
+                    print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, k_second_order_SS=k_second_order_SS))")
             else:
                 if stel.B2s_svals[-1]==0:
                     stel.B2s_svals = stel.B2s_svals[0:-1]
                 print('        B2s_svals = [',','.join([str(elem) for elem in stel.B2s_svals]),']')
                 print('        p2      = ',stel.p2)
-                print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))")
+                if stel.k_second_order_SS != 0:
+                    print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))")
+                else:
+                    print("        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
