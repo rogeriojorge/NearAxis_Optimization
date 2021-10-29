@@ -99,21 +99,21 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 ]
             else:
                 term = [
-                        # (stel, 'iota', 1.02*stel.nfp, 1e4),
+                        (stel, 'iota', 1.05*stel.nfp+1, 1e4),
                         (stel, 'max_elongation', 0.0, 5e-1),
                         (stel, 'elongation', 0.0, 5e-2),
                         # (stel, 'sigma', 0.0, 1e-1),
                         # (stel, 'torsion', 0.0, 3e-2),
                         # (stel, 'curvature', 1/stel.rc[0], 1e-2),
                         # (stel, 'd', 0.0, 1e-1),
-                        (stel, 'd_svals', 0.0, 2e2),
+                        (stel, 'd_svals', 0.0, 1e2),
                         # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
                         # (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel, 'delta', 0.0, 8e1),
+                        (stel, 'delta', 0.0, 7e1),
                         (stel, 'B0_well_depth', 0.15, 1e3),
-                        (stel, 'inv_L_grad_B', 0.0, 3e-2),
+                        (stel, 'inv_L_grad_B', 0.0, 4e-2),
                 ]
         else:
             if stel.omn == False:
