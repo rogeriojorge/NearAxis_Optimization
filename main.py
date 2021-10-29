@@ -5,35 +5,35 @@ from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL
 from simsopt_driver import optimize
 from pathlib import Path
 import os
-import input
+import Input
 
 print('Starting Near-Axis Optimization')
 
 # If not optimizing, use a fine resolution
-nphi_refined = max(input.nphi, 251)
+nphi_refined = max(Input.nphi, 251)
 try:
-    if input.Optimize:
-        nphi = input.nphi
+    if Input.Optimize:
+        nphi = Input.nphi
     else:
         nphi = nphi_refined
 except:
     nphi = nphi_refined
 
 # Get stellarator from the repository
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(input.ind, nphi=nphi)
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(Input.ind, nphi=nphi)
 
 ## Folders operations
 # Set the name of important folders
 try:
-    input.results_folder
+    Input.results_folder
 except:
     results_folder = 'Results'
 try:
-    input.executables_folder
+    Input.executables_folder
 except:
     executables_folder = 'Executables'
 try:
-    input.plotting_folder
+    Input.plotting_folder
 except:
     plotting_folder = 'Plotting'
 # Create folder for the results
@@ -49,26 +49,26 @@ os.chdir(results_path)
 
 # Run Optimization
 try:
-    if input.Optimize:
+    if Input.Optimize:
         # if rel_step_array is specified, perform gradient based optimization
         try:
-            input.rel_step_array
-            input.abs_step_array
-            optimize(stel,input.iota_target,nIterations=input.nIterations,rel_step_array=input.rel_step_array,abs_step_array=input.abs_step_array,grad=True,max_fourier_coefficients=input.max_fourier_coefficients)
+            Input.rel_step_array
+            Input.abs_step_array
+            optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients)
         except:
-            optimize(stel,input.iota_target,nIterations=input.nIterations,max_fourier_coefficients=input.max_fourier_coefficients)
+            optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients)
 except:
-    input.Optimize = False
+    Input.Optimize = False
 
 # Check if user specified r_edge
 try:
-    r_edge = input.r_edge
+    r_edge = Input.r_edge
 except:
     r_edge = r_edge
 
 # Do the plotting
 try:
-    if input.Plot:
+    if Input.Plot:
         print('Plotting...')
         # runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
         print('  plot()')
@@ -83,55 +83,55 @@ try:
         # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
         stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False)
 except:
-    input.Plot = False
+    Input.Plot = False
 
-if input.Optimize:
+if Input.Optimize:
     input("Copy new optimized configuration into repo")
 
 # Run VMEC
 try:
-    if input.VMEC:
+    if Input.VMEC:
         print('Outputing to VMEC...')
-        stel.to_vmec('input.'+name,r=r_edge,
+        stel.to_vmec('Input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-17,1e-16,1e-15,1e-14],
                         "niter_array": [2000,2000,2000,3000]})
         print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
 except:
-    input.VMEC = False
+    Input.VMEC = False
 
 # Run BOOZ_XFORM
 try:
-    if input.BOOZ_XFORM:
+    if Input.BOOZ_XFORM:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
 except:
-    input.BOOZ_XFORM = False
+    Input.BOOZ_XFORM = False
 
 # Run NEO
 try:
-    if input.NEO:
+    if Input.NEO:
         print('Running NEO...')
         runNEO(name,executables_path,plotting_path)
 except:
-    input.NEO = False
+    Input.NEO = False
 
 # Run SPEC
 try:
-    if input.SPEC:
+    if Input.SPEC:
         print('Running SPEC...')
         runSPEC(name,executables_path,plotting_path,stel,r_edge)
 except:
-    input.SPEC = False
+    Input.SPEC = False
 
 # Run REGCOIL
 try:
-    if input.REGCOIL:
+    if Input.REGCOIL:
         print('Running REGCOIL...')
         runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 except:
-    input.REGCOIL = False
+    Input.REGCOIL = False
 
 # Go back to main
 os.chdir(main_path)
