@@ -7,6 +7,8 @@ Executables/xbooz_xform
 Executables/regcoil
 Executables/quasisymmetry
 .DS_Store
+Results/*.h5
+*.h5
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

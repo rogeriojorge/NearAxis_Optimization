@@ -10,7 +10,9 @@ results_folder = 'Results'
 executables_folder = 'Executables'
 plotting_folder = 'Plotting'
 
-stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(26, nphi=131)
+ind=24
+nphi=131
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(ind, nphi=nphi)
 
 #####
 # Chaning weights of least_squares_problem
@@ -23,10 +25,10 @@ abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2]
 # abs_step_array = [1e-2]
 # rel_step_array = [1e-1]
-max_fourier_coefficients = 3
+max_fourier_coefficients = 4
 
-# Optimize = False
-Optimize = True
+Optimize = False
+# Optimize = True
 
 # Create folder for the results
 Path(results_folder+'/'+name).mkdir(parents=True, exist_ok=True)
@@ -47,18 +49,16 @@ if Optimize:
     except:
         optimize(stel,iota_target,nIterations,max_fourier_coefficients=max_fourier_coefficients)
 
+stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(ind, nphi=251)
 ## runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
-# stel.plot(savefig='pyQSC_out.'+name+'.params')
-# import matplotlib.pyplot as plt
-# plt.plot(stel.B2c_array)
-# plt.show()
+# stel.plot(savefig='pyQSC_out.'+name+'.params)
 # stel.plot_boundary(r=r_edge,fieldlines=True,savefig='pyQSC_out.'+name+'.boundary')
-# stel.B_contour(r=0.06)
+# stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name)
 
 # stel.to_vmec('input.'+name,r=r_edge, ntheta=26, 
 #         params={"ns_array": [16, 49, 101, 151, 201, 251],
 #                 "ftol_array": [1e-17,1e-16,1e-15,1e-14,1e-14,1e-13],
-#                 "niter_array": [2000,2000,2000,3000,4000,6000]})
+#                 "niter_array": [2000,2000,2000,3000,4000,4000]})
 # runVMEC(name,executables_path,plotting_path)
 
 # runBOOZXFORM(name)

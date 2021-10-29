@@ -479,18 +479,17 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # objective function:  240.9861459479161
     if ind==24:
         name   = 'QI_NFP2_r1'
-        rc     = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs     = [ 0.0,0.0,0.01209128995076437,0.0,0.003042581799538996,0.0,7.945611170593634e-06,0.0,-1.9331543658597153e-05 ]
-        B0_vals = [ 1.0,0.17696326718965785 ]
-        d_svals = [ 0.0,0.8725104433010822,-0.007125723995617353,-0.007859854466243633,0.025890615049836384 ]
-        delta   = 0.49344993841566404
+        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.014228807305200406,0.0,0.0028163971998425596,0.0,-0.00016263592607228668,0.0,6.494755620682256e-05 ]
+        B0_vals = [ 1.0,0.13059992164080697 ]
+        d_svals = [ 0.0,0.901983612397383,0.010710330094565174,-0.027906839918043214,0.013053594392306599 ]
+        delta   = 0.41807070161876314
         nfp     = 2
         stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota   =  3.0792207535685585
-        r_edge = 0.001
-        # mean gradB inverse length: 7.886964648107345
-        # Max elongation = 6.351384904251
-        # objective function:  662.2277709720398
+        iota    =  3.1228609767039934
+        # mean gradB inverse length: 2.495053472409434
+        # Max elongation = 6.051336074172916
+        # objective function:  561.2556025978084
     if ind==25:
         name   = 'QI_NFP3_r1'
         rc     = [ 1.0,0.0,-0.02702702702702703,0.0,0.0,0.0,0.0,0.0,0.0 ]
@@ -505,30 +504,6 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # mean gradB inverse length: 6.5224068450136405
         # Max elongation = 4.156172790212236
         # objective function:  790.6848977314742
-    if ind==26:
-        name    = 'QI_NFP1_r2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.45811642772448713,0.0,-0.018669998974371674,0.0,0.0050899413720927765 ]
-        B0_vals = [ 1.0,0.5025325956994797 ]
-        d_svals = [ 0.0,0.0 ]
-        k_second_order_SS   = -1.9822783354790776
-        delta   = 2.800092399544872
-        nfp     = 1
-        B2s_svals = [ 0.0,-18.335197537337418,2.6482414249641795,2.4118068045183785 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2'))
-        iota    =  0.5873638948879659
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 6.122381451390174
-        # B20 mean = 0.11641271373592517
-        # Max |X20| = 20.576084870295443
-        # gradgradB inverse length: 19.81198449902543
-        # d2_volume_d_psi2 mean =, -212.60729082807566
-        # mean gradB inverse length: 4.133702297137182
-        # Max elongation = 12.695060847291606
-        # objective function:  4102683.8984228405
     try:
         stel.omn
     except:

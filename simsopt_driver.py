@@ -112,7 +112,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
                         # (stel.min_R0_penalty, 0.0, 1e9),
                         (stel, 'delta', 0.0, 1e2),
-                        (stel, 'B0_well_depth', 0.15, 5e2),
+                        (stel, 'B0_well_depth', 0.15, 1e3),
                         (stel, 'inv_L_grad_B', 0.0, 2e-2),
                 ]
         else:
