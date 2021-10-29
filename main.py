@@ -7,6 +7,8 @@ from pathlib import Path
 import os
 import input
 
+print('Starting Near-Axis Optimization')
+
 # If not optimizing, use a fine resolution
 nphi_refined = max(input.nphi, 251)
 try:
@@ -58,25 +60,43 @@ try:
 except:
     input.Optimize = False
 
+# Check if user specified r_edge
+try:
+    r_edge = input.r_edge
+except:
+    r_edge = r_edge
+
 # Do the plotting
 try:
     if input.Plot:
+        print('Plotting...')
         # runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
+        print('  plot()')
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
+        print('  B_contour()')
         stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
-        stel.plot_axis(savefig='pyQSC_out.'+name+'axis', show=False)
+        # print('  plot_axis()')
+        # stel.plot_axis(savefig='pyQSC_out.'+name+'axis', show=False)
+        print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
-        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
+        print('  plot_boundary()')
+        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
+        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False)
 except:
     input.Plot = False
+
+if input.Optimize:
+    input("Copy new optimized configuration into repo")
 
 # Run VMEC
 try:
     if input.VMEC:
+        print('Outputing to VMEC...')
         stel.to_vmec('input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-17,1e-16,1e-15,1e-14],
                         "niter_array": [2000,2000,2000,3000]})
+        print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
 except:
     input.VMEC = False
@@ -84,6 +104,7 @@ except:
 # Run BOOZ_XFORM
 try:
     if input.BOOZ_XFORM:
+        print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
 except:
     input.BOOZ_XFORM = False
@@ -91,6 +112,7 @@ except:
 # Run NEO
 try:
     if input.NEO:
+        print('Running NEO...')
         runNEO(name,executables_path,plotting_path)
 except:
     input.NEO = False
@@ -98,6 +120,7 @@ except:
 # Run SPEC
 try:
     if input.SPEC:
+        print('Running SPEC...')
         runSPEC(name,executables_path,plotting_path,stel,r_edge)
 except:
     input.SPEC = False
@@ -105,9 +128,12 @@ except:
 # Run REGCOIL
 try:
     if input.REGCOIL:
+        print('Running REGCOIL...')
         runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 except:
     input.REGCOIL = False
 
 # Go back to main
 os.chdir(main_path)
+
+print('Done')
