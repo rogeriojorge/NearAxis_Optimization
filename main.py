@@ -95,7 +95,7 @@ try:
         stel.to_vmec('Input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-17,1e-16,1e-15,1e-14],
-                        "niter_array": [2000,2000,2000,3000]})
+                        "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
 except:
