@@ -1,5 +1,5 @@
-ind=25
-nphi=131
+ind=27
+nphi=251
 
 iota_target = 0.42
 nIterations = 50
