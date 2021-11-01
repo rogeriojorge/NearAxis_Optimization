@@ -146,10 +146,10 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         # (stel, 'iota', iota_target, 1e5),
-                        # (stel, 'max_elongation', 0.0, 3e+0),
-                        # (stel, 'elongation', 0.0, 4e-1),
-                        # (stel, 'B20', 0.0, 1e4),
-                        # (stel, 'B20_variation', 0.0, 1e3),
+                        (stel, 'max_elongation', 0.0, 3e+0),
+                        (stel, 'elongation', 0.0, 4e-1),
+                        (stel, 'B20', 0.0, 1e4),
+                        (stel, 'B20_variation', 0.0, 1e3),
                         (stel, 'X20', 0.0, 1e-0),
                         (stel, 'X2c', 0.0, 1e-0),
                         (stel, 'X2s', 0.0, 1e-0),
@@ -160,7 +160,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel, 'Z2c', 0.0, 1e-0),
                         (stel, 'Z2s', 0.0, 1e-0),
                         (stel, 'delta', 0.0, 5e3),
-                        # (stel, 'B0_well_depth', 0.15, 2e3),
+                        (stel, 'B0_well_depth', 0.15, 2e3),
                         # (stel, 'DMerc_times_r2', 0.3, 3e5),
                         # (stel, 'd2_volume_d_psi2', -50, 1e-1),
                         # (stel, 'DWell_times_r2', 0.1, 1e3),

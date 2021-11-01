@@ -1,28 +1,28 @@
  ====================== PARALLEL TIMINGS ====================
-               total  :        0.023716
+               total  :        0.024204
                 rank  :               0
 mgrid file read time  :        0.000000
         No. of procs  :               1
 
       --- non-vacuum  :               0              3              1       0.000000
-      --- non-vacuum  :               1     1073741824     1073741824       0.000441
-      --- non-vacuum  :               0              0     1549673406       0.000000
-      --- non-vacuum  :               0     1073741824           2042       0.000000
+      --- non-vacuum  :               1    -1342177280    -1342177280       0.000436
+      --- non-vacuum  :               0    -1301540286              0       0.000000
+      --- non-vacuum  :               0      536872954    -1342177280       0.000000
 
-             runvmec  :        0.022298
+             runvmec  :        0.022787
 
          init radial  :        0.000000
              eqsolve  :        0.000000
-             fileout  :        0.004059
+             fileout  :        0.005370
 
-              evolve  :        0.000452
-             funct3d  :        0.003916
+              evolve  :        0.000446
+             funct3d  :        0.003938
             nfunct3d  :               3
 
-             totzsps  :        0.003431
+             totzsps  :        0.003448
              totzspa  :        0.000000
               symrzl  :        0.000000
-            jacobian  :        0.000160
+            jacobian  :        0.000157
               bcovar  :        0.000151
               vacuum  :        0.000000
 
