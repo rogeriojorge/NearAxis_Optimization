@@ -55,6 +55,7 @@ try:
             Input.rel_step_array
             Input.abs_step_array
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients)
+        # except Exception as e: print(e)
         except:
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients)
 except:
@@ -85,12 +86,12 @@ try:
 except:
     Input.Plot = False
 
-if Input.Optimize:
-    input("Copy new optimized configuration into repo")
 
 # Run VMEC
 try:
     if Input.VMEC:
+        if Input.Optimize:
+            input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
         stel.to_vmec('Input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
