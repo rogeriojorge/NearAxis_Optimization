@@ -76,10 +76,11 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         else:
             stel.set_fixed('B0(1)', False)
             stel.set_fixed('delta', False)
+            stel.set_fixed('zs(2)', False)
             if stel.order != 'r1':
                 stel.set_fixed('B2cc(0)', False)
             for i in range(1,n_coeffs+1):
-                stel.set_fixed('zs('+str(2*i)+')', False)
+                # stel.set_fixed('zs('+str(2*i)+')', False)
                 if stel.k_second_order_SS != 0:
                     stel.set_fixed('k_second_order_SS', False)
                 else:
@@ -151,10 +152,10 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'iota', iota_target, 1e5),
                         (stel, 'max_elongation', 0.0, 3e+0),
                         (stel, 'elongation', 0.0, 5e-1),
-                        (stel, 'B20', 0.0, 5e3),
-                        (stel, 'B20_variation', 0.0, 1e2),
-                        (stel, 'B2s_array', 0.0, 3e2),
-                        (stel, 'B2c_array', 0.0, 3e2),
+                        (stel, 'B20', 0.0, 1e4),
+                        (stel, 'B20_variation', 0.0, 1e3),
+                        (stel, 'B2sQI', 0.0, 1e4),
+                        (stel, 'B2cQI', 0.0, 1e4),
                         (stel, 'X20', 0.0, 1e-0),
                         (stel, 'X2c', 0.0, 1e-0),
                         (stel, 'X2s', 0.0, 1e-0),
@@ -164,7 +165,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel, 'Z20', 0.0, 1e-0),
                         (stel, 'Z2c', 0.0, 1e-0),
                         (stel, 'Z2s', 0.0, 1e-0),
-                        (stel, 'delta', 0.0, 7e3),
+                        (stel, 'delta', 0.0, 1e4),
                         (stel, 'B0_well_depth', 0.15, 5e3),
                         (stel, 'k_second_order_SS', 0.15, 2e3),
                         # (stel, 'd_svals', 0.0, 1e2),
