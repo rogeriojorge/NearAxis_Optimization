@@ -526,51 +526,55 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # Max elongation = 4.14495826338057
         # objective function:  502.5745643547155
     if ind==28:
-        name   = 'QI_NFP1_r2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.32620128424586337,0.0,-0.0038724422371866395,0.0,8.365829785833849e-05,0.0,-0.00022738751440524,0.0,-7.01762768374263e-05,0.0,-2.0898213457605116e-05 ]
-        B0_vals = [ 1.0,0.00031149624279502153 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 2618.5868284641483
-        delta   = 2.6205047584443326
+        name   = 'QI_NFP1_r1_SS'
+        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.014886672586652126,0.0,-0.007471326790449868,0.0,-0.0031107118750482938,0.0,-7.719166883667557e-07 ]
+        B0_vals = [ 1.0,0.18484280326106978 ]
+        d_svals = [ 0.0,0.0,0.0,0.0 ]
+        k_second_order_SS   = 8.018023550730048
+        delta   = 0.6584132948474427
         nfp     = 1
-        B2s_svals = [ 0.0,0.6841344666403569,0.7774411366324806,-1.1315527676727914,-0.11801331386758662,0.5507001703926689,-0.1065011194556542 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  0.7707843967964311
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 0.47851844016532674
-        # B20 mean = 0.028404581996443044
-        # Max |X20| = 17.30795315541191
-        # gradgradB inverse length: 9.109129279171478
-        # d2_volume_d_psi2 mean =, -4.942506040789547
-        # mean gradB inverse length: 1.5726086067061968
-        # Max elongation = 14.05610563707894
-        # objective function:  136369.66969997744
+        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, k_second_order_SS=k_second_order_SS))
+        iota    =  -0.5086815368095723
+        # mean gradB inverse length: 1.7719972496061238
+        # Max elongation = 4.356208527306083
+        # objective function:  194.65602983139752
     if ind==29:
-        name   = 'QI_NFP2_r2'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.12547629929144424,0.0,0.00532889701264859,0.0,0.0009217390813850313,0.0,6.262812088662872e-05,0.0,2.346506163153904e-05,0.0,6.311545482868999e-07 ]
-        B0_vals = [ 1.0,0.05681308941411802 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 54.222615463100475
-        delta   = 1.6021333713190833
-        nfp     = 2
-        B2s_svals = [ 0.0,-2.32021849616276,9.202070876079159,0.357170977954289,-8.297487641049502,0.5568362499478339,-0.1903936265340767 ]
+        name   = 'QI_NFP1_r2'
+        rc      = [ 1.0,0.0,-0.2]#,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.3543612597889279]#,0.0,-0.0022766052607618467,0.0,-0.00034922912176380667,0.0,2.7097088730752483e-05 ]
+        B0_vals = [ 1.0,0.41552460767930927 ]
+        d_svals = [ 0.0]#,0.0,0.0,0.0 ]
+        k_second_order_SS   = 6.959928471763973
+        delta   = 1.8809738191882055
+        nfp     = 1
+        B2s_svals = [ 0.0,-6.437364200591502]#,1.9220211073988358,-0.14311564591544101,1.1318038052886925 ]
+        B2c_cvals = [ -1.1809431323274682]#,1.9094904877534358,2.733138234529726,-2.001445230247953,-0.05784881311825439,0.0 ]
         p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  2.9143400285529757
+        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
+        iota    =  0.6064329357257501
         # DMerc mean  = 0.0
         # DWell mean  = 0.0
         # DGeod mean  = 0.0
-        # B20 variation = 19.5321036742567
-        # B20 mean = 0.46213871050441363
-        # Max |X20| = 47.483586138461355
-        # gradgradB inverse length: 46.255912609015866
-        # d2_volume_d_psi2 mean =, -59.98863030594714
-        # mean gradB inverse length: 2.5969794401936603
-        # Max elongation = 4.9232097276595095
-        # objective function:  54477.136474632076
+        # B20 variation = 3.1555098608774363
+        # B20 mean = -0.15368780521006262
+        # Max |X20| = 2.3813959292008655
+        # gradgradB inverse length: 9.229625389295094
+        # d2_volume_d_psi2 mean =, 76.00127812599986
+        # mean gradB inverse length: 1.710304015533587
+        # Max elongation = 11.320198230952544
+        # objective function:  750542.3843422836
+    if ind==30:
+        name   = 'QI_NFP2_r2'
+        rc      = [ 1.0,0.0,-1/(4*4+1)]#,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.2543612597889279]#,0.0,-0.0022766052607618467,0.0,-0.00034922912176380667,0.0,2.7097088730752483e-05 ]
+        B0_vals = [ 1.0,0.11552460767930927 ]
+        d_svals = [ 0.0]#,0.0,0.0,0.0 ]
+        k_second_order_SS   = 6.959928471763973
+        delta   = 0.8809738191882055
+        nfp     = 2
+        B2s_svals = [ 0.0,-0.437364200591502]#,1.9220211073988358,-0.14311564591544101,1.1318038052886925 ]
+        B2c_cvals = [ -0.1809431323274682]#,1.9094904877534358,2.733138234529726,-2.001445230247953,-0.05784881311825439,0.0 ]
+        p2      =  0.0
+        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
