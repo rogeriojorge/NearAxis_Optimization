@@ -714,4 +714,53 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # mean gradB inverse length: 1.8848280387735263
         # Max elongation = 2.714925173508388
         # objective function:  18576409.74033313
+    if ind==36:
+        name   = 'QI_NFP1_r1_nonzone'
+        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.1397949264254904,0.0,-0.00810573985709628,0.0,0.0008818580606172528,0.0,0.00021147851486692356 ]
+        B0_vals = [ 1.0,0.14509915766529308 ]
+        d_svals = [ 0.0,0.9955168315407747,0.017589665471546796,0.15645497864477934,0.016090584001390004 ]
+        omn_method ='non-zone'
+        k_buffer = 5
+        delta   = 0.0
+        nfp     = 1
+        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        iota    =  0.5136324119727455
+        # mean gradB inverse length: 1.4924485357308344
+        # Max elongation = 4.844542364761806
+        # objective function:  245.94618993608606
+    if ind==37:
+        name   = 'QI_NFP2_r1_nonzone'
+        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.033830345840842886,0.0,-0.0010777044550142844,0.0,-3.720841331878793e-05,0.0,1.2152409323333044e-06 ]
+        B0_vals = [ 1.0,0.13929869885868335 ]
+        d_svals = [ 0.0,0.9977053556535078,0.020332184806570022,-0.00012147031465132214,0.00040628108684519676 ]
+        omn_method ='non-zone'
+        k_buffer = 5
+        delta   = 0.0
+        nfp     = 2
+        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        iota    =  -3.177897153187313
+        # mean gradB inverse length: 2.3886046190052186
+        # Max elongation = 5.398128031942707
+        # objective function:  331.3800169955423
+    if ind==38:
+        name   = 'QI_NFP1_r2_nonzone'
+        rc      = [ 1.0,0.0,-0.2]#,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.1397949264254904]#,0.0,-0.00810573985709628,0.0,0.0008818580606172528,0.0,0.00021147851486692356 ]
+        B0_vals = [ 1.0,0.14509915766529308 ]
+        d_svals = [ 0.0]#,0.9955168315407747]#,0.017589665471546796,0.15645497864477934,0.016090584001390004 ]
+        k_second_order_SS = -2
+        omn_method ='non-zone'
+        k_buffer = 5
+        delta   = 0.0
+        nfp     = 1
+        B2s_svals = [ 0.0]#,0.05670716654120618,-0.2798307339335515,0.18726568327658522,0.11256337364185769,-0.02651311009286304,-0.006873099172420944 ]
+        B2c_cvals = [ -0.2851884682997825]#,0.055164361914420326,0.6051276329340877,-0.09272205592740322,0.02058312505918864,-0.23781715643732,0.1107305486403026 ]
+        p2      =  0.0
+        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
+        iota    =  0.5136324119727455
+        # mean gradB inverse length: 1.4924485357308344
+        # Max elongation = 4.844542364761806
+        # objective function:  245.94618993608606
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
