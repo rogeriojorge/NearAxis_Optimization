@@ -16,7 +16,7 @@ try:
         nphi = Input.nphi
     else:
         nphi = nphi_refined
-except:
+except Exception as e:
     nphi = nphi_refined
 
 # Get stellarator from the repository
@@ -26,15 +26,15 @@ stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(Input.i
 # Set the name of important folders
 try:
     Input.results_folder
-except:
+except Exception as e:
     results_folder = 'Results'
 try:
     Input.executables_folder
-except:
+except Exception as e:
     executables_folder = 'Executables'
 try:
     Input.plotting_folder
-except:
+except Exception as e:
     plotting_folder = 'Plotting'
 # Create folder for the results
 Path(results_folder+'/'+name).mkdir(parents=True, exist_ok=True)
@@ -56,15 +56,15 @@ try:
             Input.abs_step_array
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients)
         # except Exception as e: print(e)
-        except:
+        except Exception as e:
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients)
-except:
+except Exception as e:
     Input.Optimize = False
 
 # Check if user specified r_edge
 try:
     r_edge = Input.r_edge
-except:
+except Exception as e:
     r_edge = r_edge
 
 # Do the plotting
@@ -83,9 +83,8 @@ try:
         print('  plot_boundary()')
         # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
         stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False)
-except:
+except Exception as e:
     Input.Plot = False
-
 
 # Run VMEC
 try:
@@ -99,7 +98,7 @@ try:
                         "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
-except:
+except Exception as e:
     Input.VMEC = False
 
 # Run BOOZ_XFORM
@@ -107,7 +106,7 @@ try:
     if Input.BOOZ_XFORM:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
-except:
+except Exception as e:
     Input.BOOZ_XFORM = False
 
 # Run NEO
@@ -115,7 +114,7 @@ try:
     if Input.NEO:
         print('Running NEO...')
         runNEO(name,executables_path,plotting_path)
-except:
+except Exception as e:
     Input.NEO = False
 
 # Run SPEC
@@ -123,7 +122,7 @@ try:
     if Input.SPEC:
         print('Running SPEC...')
         runSPEC(name,executables_path,plotting_path,stel,r_edge)
-except:
+except Exception as e:
     Input.SPEC = False
 
 # Run REGCOIL
@@ -131,7 +130,7 @@ try:
     if Input.REGCOIL:
         print('Running REGCOIL...')
         runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
-except:
+except Exception as e:
     Input.REGCOIL = False
 
 # Go back to main

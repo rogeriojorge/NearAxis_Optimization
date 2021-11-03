@@ -140,7 +140,7 @@ def runNEO(name,executables_path,plotting_path):
     shutil.copy(executables_path+'/neo_in.example', 'neo_in.'+name)
     replace("neo_in."+name,'example',name)
     bashCommand = executables_path+"/./xneo "+name
-    # run(bashCommand.split())
+    run(bashCommand.split())
     print("Plot NEOresult")
     sys.path.insert(1, plotting_path)
     import neoPlot
