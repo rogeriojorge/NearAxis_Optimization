@@ -1,4 +1,4 @@
-ind=31
+ind=29
 nphi=331
 
 iota_target = 0.42
@@ -9,7 +9,7 @@ max_fourier_coefficients = 6
 r_edge = 1/30
 
 # Optimize = True
-Plot = True
+# Plot = True
 # VMEC = True
 # BOOZ_XFORM = True
 NEO = True
