@@ -12,7 +12,7 @@ def main(file,qvfilename):
 	eps_eff=[]
 	s_radial=[]
 	for x in linestoken:
-	    s_radial.append(float(x.split()[0])/251)
+	    s_radial.append(float(x.split()[0])/150)
 	    eps_eff.append(float(x.split()[1]))
 	token.close()
 	fig = plt.figure()

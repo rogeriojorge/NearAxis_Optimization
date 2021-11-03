@@ -75,7 +75,7 @@ try:
         print('  plot()')
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
         print('  B_contour()')
-        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
+        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=int(25/stel.nfp), show=False)
         # print('  plot_axis()')
         # stel.plot_axis(savefig='pyQSC_out.'+name+'axis', show=False)
         print('  B_fieldline()')
