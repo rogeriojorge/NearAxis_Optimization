@@ -3,8 +3,8 @@
 '#'
 example           ! Boozer output file to utilize in calculation.
 neo_out.example         ! NEO output file name
- 10                  ! Number of surfaces on which to conduct calculation
- 4 10 27 52 72 92 112 127 137 147! Surfaces on which calculation is to be conducted (number must match above number)
+ 9                  ! Number of surfaces on which to conduct calculation
+ 4 10 27 52 72 92 112 127 137! Surfaces on which calculation is to be conducted (number must match above number)
  200                ! Number of points in theta (>100)
  200                ! Number of points in zeta (>100)
  0                  ! Maximum poloidal mode number

@@ -1,4 +1,4 @@
-ind=30
+ind=31
 nphi=331
 
 iota_target = 0.42
@@ -10,8 +10,8 @@ r_edge = 1/30
 
 # Optimize = True
 Plot = True
-VMEC = True
-BOOZ_XFORM = True
+# VMEC = True
+# BOOZ_XFORM = True
 NEO = True
-SPEC = True
+# SPEC = True
 # REGCOIL = True

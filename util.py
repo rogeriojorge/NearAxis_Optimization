@@ -115,12 +115,13 @@ def runBOOZXFORM(name):
     b1.nboz = 60
     b1.run()
     b1.write_boozmn("boozmn_"+name+".nc")
+    # b1.read_boozmn("boozmn_"+name+".nc")
     print("Plot BOOZ_XFORM")
     fig = plt.figure(); bx.surfplot(b1, js=5,  fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_1_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = plt.figure(); bx.surfplot(b1, js=15, fill=False, ncontours=35)
+    fig = plt.figure(); bx.surfplot(b1, js=11, fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_2_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = plt.figure(); bx.surfplot(b1, js=21, fill=False, ncontours=35)
+    fig = plt.figure(); bx.surfplot(b1, js=16, fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_3_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
     if name[0:2] == 'QH':
         helical_detail = True
