@@ -156,7 +156,10 @@ def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
         zs = f.variables['Z0s'][()]
         nfp = f.variables['nfp'][()]
     except:
-        stel.to_vmec('input.'+qvfilename,r=r_edge)
+        stel.to_vmec('Input.'+name,r=r_edge,
+                params={"ns_array": [16, 49, 101, 151],
+                        "ftol_array": [1e-17,1e-16,1e-15,1e-14],
+                        "niter_array": [3000,3000,4000,5000]})
         RBC=stel.RBC
         ZBS=stel.ZBS
         rc=stel.rc
