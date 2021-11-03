@@ -10,8 +10,8 @@ r_edge = 1/25
 
 # Optimize = True
 Plot = True
-VMEC = True
-BOOZ_XFORM = True
-NEO = True
-SPEC = True
+# VMEC = True
+# BOOZ_XFORM = True
+# NEO = True
+# SPEC = True
 # REGCOIL = True
