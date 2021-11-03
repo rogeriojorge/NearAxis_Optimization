@@ -1,4 +1,4 @@
-ind=30
+ind=34
 nphi=331
 
 iota_target = 0.42
