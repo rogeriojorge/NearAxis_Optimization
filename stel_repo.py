@@ -541,233 +541,30 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # objective function:  194.65602983139752
     if ind==29:
         name   = 'QI_NFP1_r2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.2939271897652697,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.13316637482701932 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 15.995839419785655
-        delta   = 1.5881396166322306
-        nfp     = 1
-        B2s_svals = [ 0.0,0.03451151626698531,-0.007480243679185379,0.011182159633965015,0.062474131330755266,-0.023861534254626802,0.03900187550376565 ]
-        B2c_cvals = [ 0.08981934925600449,-0.07299139751276616,0.13358666995161866,-0.03857831183556674,0.1124979011220162,-0.14685732317823472,0.1165874110086043,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  0.46015297936340455
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 3.4383295488216348
-        # B20 mean = -0.3375898785725443
-        # Max |X20| = 1.3085633492463216
-        # gradgradB inverse length: 3.2539482558255357
-        # d2_volume_d_psi2 mean =, 62.51998463436709
-        # mean gradB inverse length: 1.4213610831436017
-        # Max elongation = 5.744428620376548
-        # objective function:  8870828.991261816
-    if ind==30:
-        name   = 'QI_NFP2_r2'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.07528873507012057,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.07817908136390093 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 23.586592202981475
-        delta   = 1.6238680021937162
-        nfp     = 2
-        B2s_svals = [ 0.0,0.10540353685723612,-0.13753137067467147,0.19833912544824087,-0.024027123305674122,-0.01160715138007099,0.34639212729079705 ]
-        B2c_cvals = [ 0.3387144846349213,-0.821953112999297,0.7327929530049881,-0.6780967356938528,0.31093358856588427,-0.18729357514357514,0.2561611199438063,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  2.669049107092044
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 5.590989708290003
-        # B20 mean = -0.8120200966252973
-        # Max |X20| = 1.6924126028160418
-        # gradgradB inverse length: 4.583962579967983
-        # d2_volume_d_psi2 mean =, 134.68058331637332
-        # mean gradB inverse length: 1.9067444004219223
-        # Max elongation = 2.6057258004590875
-        # objective function:  44741226.301524356
-    if ind==31:
-        name   = 'QI_NFP3_r2'
-        rc      = [ 1.0,0.0,-0.02702702702702703,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.033746314862218865,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.03335766590298326 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 49.839765850346616
-        delta   = 1.0974370904535753
-        nfp     = 3
-        B2s_svals = [ 0.0,0.05812968002986467,-0.2507284655193638,0.23558673092836063,-0.07048781866800931,0.1338392098099129,-0.06994867295595512 ]
-        B2c_cvals = [ 0.61459792448044,-1.7839558113049863,1.4245451892819263,-1.0810035623495848,0.7185778340020665,-1.0835698268602703,0.1069089482776935,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  7.039253232922371
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 10.175497487238783
-        # B20 mean = -1.9920772357556633
-        # Max |X20| = 6.478930967223145
-        # gradgradB inverse length: 11.066549231001687
-        # d2_volume_d_psi2 mean =, 321.23690123830715
-        # mean gradB inverse length: 2.5477139544250478
-        # Max elongation = 2.707758302359829
-        # objective function:  192010229.7867295
-    if ind==32:
-        name   = 'QI_NFP4_r2'
-        rc      = [ 1.0,0.0,-0.015384615384615385,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.018182723498359823,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.0355202316597529 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 44.10036941705642
-        delta   = 0.8220904146083504
-        nfp     = 4
-        B2s_svals = [ 0.0,-0.2976692262076281,-0.7140584130641658,-0.010880432089209212,-0.05944203801642607,0.08393736174976615,-0.11695264258302791 ]
-        B2c_cvals = [ 1.1988510324359356,-2.2763912734455523,3.2211115633595724,-1.391070240448885,2.126178172007997,0.2185807634701301,1.0314058412475973,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  13.443215422486029
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 22.73013379454219
-        # B20 mean = -3.673819614736149
-        # Max |X20| = 10.015941971319492
-        # gradgradB inverse length: 37.59451057891876
-        # d2_volume_d_psi2 mean =, 589.9150912506208
-        # mean gradB inverse length: 3.28647598605352
-        # Max elongation = 2.9329215055795674
-        # objective function:  699947557.5804279
-    if ind==33:
-        name   = 'QI_NFP5_r2'
-        rc      = [ 1.0,0.0,-0.009900990099009901,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.011458942844896307,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.011228307354558922 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = 135.80394367265518
-        delta   = 0.658529734018417
-        nfp     = 5
-        B2s_svals = [ 0.0,-0.9806467863420885,-1.4884287561753018,0.3505226097583207,0.3287889590052092,-0.28262674709217206,-0.21525596577413936 ]
-        B2c_cvals = [ 0.7555031419068624,-1.9558431396224565,4.055920687288362,-1.0714929514148168,1.7208495696349122,-1.7270289795375167,1.944451266874337,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  21.800575138646106
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 30.282118472415448
-        # B20 mean = -6.296298698745492
-        # Max |X20| = 14.447780433342478
-        # gradgradB inverse length: 53.307285219658844
-        # d2_volume_d_psi2 mean =, 1002.0263203064774
-        # mean gradB inverse length: 4.018296701937881
-        # Max elongation = 3.018678470049123
-        # objective function:  1730925427.420048
-    if ind==34:
-        name   = 'QI_NFP1_r2_2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.29410099953148855,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,9.393656850459907e-05 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = -21783.827939274714
-        delta   = 1.4273016317003935
-        nfp     = 1
-        B2s_svals = [ 0.0,0.05670716654120618,-0.2798307339335515,0.18726568327658522,0.11256337364185769,-0.02651311009286304,-0.006873099172420944 ]
-        B2c_cvals = [ -0.2851884682997825,0.055164361914420326,0.6051276329340877,-0.09272205592740322,0.02058312505918864,-0.23781715643732,0.1107305486403026 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  0.46607354051356203
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 3.121825447943162
-        # B20 mean = -0.26867346145194315
-        # Max |X20| = 1.1216847799784937
-        # gradgradB inverse length: 4.07284977815112
-        # d2_volume_d_psi2 mean =, 42.44383301167138
-        # mean gradB inverse length: 1.4224805300130945
-        # Max elongation = 5.7336260179955705
-        # objective function:  3727965.418613415
-    if ind==35:
-        name   = 'QI_NFP2_r2_2'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,-0.07070425527350858,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        B0_vals = [ 1.0,0.009515546590958207 ]
-        d_svals = [ 0.0,0.0,0.0,0.0,0.0,0.0 ]
-        k_second_order_SS   = -202.5721724961007
-        delta   = 1.6333018623125912
-        nfp     = 2
-        B2s_svals = [ 0.0,0.5869187718791995,-0.7117512237813564,0.756342405280584,-0.32274113825081363,0.04653654132123417,0.21116001047780514 ]
-        B2c_cvals = [ -0.4789081320651521,0.5675595488382337,-0.437401485077491,-0.1325588500101617,-0.0381267455106499,0.06869176287196258,-0.1748286527435563 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
-        iota    =  -2.6050270128044275
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 variation = 4.9699738558682185
-        # B20 mean = -0.43713976827509055
-        # Max |X20| = 1.4208462825596215
-        # gradgradB inverse length: 4.111952603364814
-        # d2_volume_d_psi2 mean =, 68.59016331629519
-        # mean gradB inverse length: 1.8848280387735263
-        # Max elongation = 2.714925173508388
-        # objective function:  18576409.74033313
-    if ind==36:
-        name   = 'QI_NFP1_r1_nonzone'
         rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.1397949264254904,0.0,-0.00810573985709628,0.0,0.0008818580606172528,0.0,0.00021147851486692356 ]
-        B0_vals = [ 1.0,0.14509915766529308 ]
-        d_svals = [ 0.0,0.9955168315407747,0.017589665471546796,0.15645497864477934,0.016090584001390004 ]
-        omn_method ='non-zone'
-        k_buffer = 5
-        delta   = 0.0
-        nfp     = 1
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  0.5136324119727455
-        # mean gradB inverse length: 1.4924485357308344
-        # Max elongation = 4.844542364761806
-        # objective function:  245.94618993608606
-    if ind==37:
-        name   = 'QI_NFP2_r1_nonzone'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,-0.033830345840842886,0.0,-0.0010777044550142844,0.0,-3.720841331878793e-05,0.0,1.2152409323333044e-06 ]
-        B0_vals = [ 1.0,0.13929869885868335 ]
-        d_svals = [ 0.0,0.9977053556535078,0.020332184806570022,-0.00012147031465132214,0.00040628108684519676 ]
-        omn_method ='non-zone'
-        k_buffer = 5
-        delta   = 0.0
-        nfp     = 2
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  -3.177897153187313
-        # mean gradB inverse length: 2.3886046190052186
-        # Max elongation = 5.398128031942707
-        # objective function:  331.3800169955423
-    if ind==38:
-        name   = 'QI_NFP1_r2_nonzone'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.27491732544383574,0.0,-0.004967064120805755,0.0,-0.0005531700928924573,0.0,-0.00013863407580305803,0.0,-7.632922636517624e-05 ]
-        B0_vals = [ 1.0,-0.30916768909662096 ]
-        d_svals = [ 0.0,2.060041789289149,0.6839019653307105,0.507476500755606,0.16572193571239074,-0.004020831780817807 ]
-        omn_method ='non-zone'
+        zs      = [ 0.0,0.0,0.34289658802296114,0.0,-0.0276007733206484,0.0,0.001202579509891968,0.0,-0.0005330818871103828 ]
+        B0_vals = [ 1.0,0.3924742648340807 ]
+        omn_method ='buffer'
         k_buffer = 1
-        delta   = 0.0
+        k_second_order_SS   = 3.947984749334029
+        d_svals = [0.]
+        delta   = 2.2659633661263445
         nfp     = 1
-        B2s_svals = [ 0.0,0.7558446503476316,-0.15275057521551544,0.29997740681847895,0.02530461651042575,0.006843175333876816 ]
-        B2c_cvals = [ -0.4014869763642827,-0.07861935902696936,0.26861779026096494,0.0078419248298154,0.2603923962321688,0.008408015705990307,0.0 ]
+        B2s_svals = [ 0.0,0.9909048439620359,-1.6459561832348442,0.8683623512020431,-0.5071081604195181 ]
+        B2c_cvals = [ -1.0573555059188127,2.277671382682197,2.2743469116008375,-1.7203003472931098,0.9143802518261585,0.0 ]
         p2      =  0.0
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2'))
-        iota    =  0.6065121548886009
+        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))
+        iota    =  0.42376541917569677
         # DMerc mean  = 0.0
         # DWell mean  = 0.0
         # DGeod mean  = 0.0
-        # B20 variation = 1.8918525872793537
-        # B20 mean = 0.1087304532281575
-        # Max |X20| = 0.777974880379155
-        # gradgradB inverse length: 2.175001109269162
-        # d2_volume_d_psi2 mean =, -34.31298616414534
-        # mean gradB inverse length: 1.517121863358197
-        # Max elongation = 3.6260323379998067
-        # objective function:  1680174.5786745918
+        # B20 mean = -0.5472630070651383
+        # B20QI_deviation_max = 5.031979382077
+        # B2cQI_deviation_max = 1.9517218523079807
+        # Max |X20| = 3.8349880455025773
+        # gradgradB inverse length: 6.712421575766947
+        # d2_volume_d_psi2 mean =, 245.30213884249665
+        # mean gradB inverse length: 1.5006902696999709
+        # Max elongation = 5.4532958769003175
+        # objective function:  102.0284455281582
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
