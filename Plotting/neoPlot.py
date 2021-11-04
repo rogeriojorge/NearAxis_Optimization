@@ -25,7 +25,7 @@ def main(file,qvfilename):
     plt.plot(s_radial,eps_eff, label='eps eff '+qvfilename)
     # ax.set_yscale('log')
     plt.xlabel(r'$s=\psi/\psi_a$', fontsize=12)
-    plt.ylabel(r'$\epsilon_{eff}$', fontsize=12)
+    plt.ylabel(r'$\epsilon_{eff}^{3/2}$', fontsize=12)
 
     from scipy.optimize import curve_fit
     def objective(x, a, b):

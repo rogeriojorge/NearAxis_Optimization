@@ -166,7 +166,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'Z20', 0.0, 1e-0),
                         # (stel, 'Z2c', 0.0, 1e-0),
                         # (stel, 'Z2s', 0.0, 1e-0),
-                        (stel, 'delta', 0.0, 1e4),
+                        # (stel, 'delta', 0.0, 1e4),
                         # (stel, 'B0_well_depth', 0.2, 5e3),
                         # (stel, 'k_second_order_SS', 0.15, 2e3),
                         # (stel, 'd_svals', 0.0, 1e2),
@@ -245,9 +245,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('        B2c_cvals = [',','.join([str(elem) for elem in stel.B2c_cvals]),']')
                 print('        p2      = ',stel.p2)
                 if stel.k_second_order_SS == 0:
-                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_bufferrc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2'))")
+                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2'))")
                 else:
-                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_bufferrc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))")
+                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
