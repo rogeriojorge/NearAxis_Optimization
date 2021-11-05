@@ -166,7 +166,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'Z20', 0.0, 1e-0),
                         # (stel, 'Z2c', 0.0, 1e-0),
                         # (stel, 'Z2s', 0.0, 1e-0),
-                        (stel, 'delta', 0.0, 1e0),
+                        (stel, 'delta', 0.0, 1e1),
                         # (stel, 'B0_well_depth', 0.2, 5e3),
                         # (stel, 'k_second_order_SS', 0.15, 2e3),
                         # (stel, 'd_svals', 0.0, 1e2),
