@@ -8,7 +8,7 @@ import numpy as np
 from simsopt.solve.mpi import least_squares_mpi_solve
 from simsopt.util.mpi import MpiPartition
 
-def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_array=[],grad=False,max_fourier_coefficients=5):
+def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_array=[],grad=False,max_fourier_coefficients=5,ftol=1e-3):
     mpi = MpiPartition()
     mpi.write()
 
@@ -45,12 +45,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 if stel.order == 'r1':
                     stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
                 else:
-                    stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2')
+                    stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order)
             else:
                 if stel.order == 'r1':
                     stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, k_second_order_SS=stel.k_second_order_SS)
                 else:
-                    stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order='r2', k_second_order_SS=stel.k_second_order_SS)
+                    stel = Qsc(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, k_second_order_SS=stel.k_second_order_SS)
             stel.change_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
@@ -166,8 +166,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'Z20', 0.0, 1e-0),
                         # (stel, 'Z2c', 0.0, 1e-0),
                         # (stel, 'Z2s', 0.0, 1e-0),
-                        (stel, 'delta', 0.0, 1e1),
-                        # (stel, 'B0_well_depth', 0.2, 5e3),
+                        (stel, 'X3c1', 0.0, 5e-1),
+                        (stel, 'X3s1', 0.0, 5e-1),
+                        (stel, 'Y3c1', 0.0, 5e-1),
+                        (stel, 'Y3s1', 0.0, 5e-1),
+                        (stel, 'delta', 0.0, 1.5e2),
+                        (stel, 'B0_well_depth', 0.12, 1e3),
                         # (stel, 'k_second_order_SS', 0.15, 2e3),
                         # (stel, 'd_svals', 0.0, 1e2),
                         # (stel, 'DMerc_times_r2', 0.3, 3e5),
@@ -181,7 +185,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
 
         if grad==False:
             prob = LeastSquaresProblem(term)
-            least_squares_serial_solve(prob, max_nfev=nIterations)#, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
+            least_squares_serial_solve(prob, max_nfev=nIterations, ftol=ftol)#, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
 
         else:
             for rel_step in rel_step_array:
@@ -197,7 +201,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         stelold = stel
                         probold = prob
                         # least_squares_serial_solve(prob, grad=grad, max_nfev=nIterations, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
-                        least_squares_mpi_solve(prob, mpi, grad=grad, max_nfev=nIterations)#, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
+                        least_squares_mpi_solve(prob, mpi, grad=grad, max_nfev=nIterations, ftol=ftol)#, ftol=1e-10, xtol=1e-10, gtol=1e-10)#, method='lm')
                     except KeyboardInterrupt:
                         print("Terminated optimization - no change")
                         stel = stelold
@@ -247,9 +251,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('        B2c_cvals = [',','.join([str(elem) for elem in stel.B2c_cvals]),']')
                 print('        p2      = ',stel.p2)
                 if stel.k_second_order_SS == 0:
-                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2'))")
+                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3'))")
                 else:
-                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r2', k_second_order_SS=k_second_order_SS))")
+                    print("        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS))")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)

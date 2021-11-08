@@ -47,6 +47,12 @@ plotting_path = str(Path(plotting_folder).resolve())
 # Go to results folder
 os.chdir(results_path)
 
+# Check if user specified ftol
+try:
+    ftol = Input.ftol
+except Exception as e:
+    ftol = 1e-4
+
 # Run Optimization
 try:
     if Input.Optimize:
@@ -54,10 +60,10 @@ try:
         try:
             Input.rel_step_array
             Input.abs_step_array
-            optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients)
+            optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
         # except Exception as e: print(e)
         except Exception as e:
-            optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients)
+            optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
 except Exception as e:
     Input.Optimize = False
 
@@ -84,6 +90,7 @@ try:
         # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
         stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False)
 except Exception as e:
+    print(e)
     Input.Plot = False
 
 # Run VMEC

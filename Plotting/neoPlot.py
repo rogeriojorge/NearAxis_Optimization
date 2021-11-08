@@ -28,12 +28,20 @@ def main(file,qvfilename):
     plt.ylabel(r'$\epsilon_{eff}^{3/2}$', fontsize=12)
 
     from scipy.optimize import curve_fit
-    def objective(x, a, b):
-        return a * x + b
-    popt, _ = curve_fit(objective, s_radial, eps_eff)
-    a, b = popt
-    y_new = objective(s_radial, a, b)
-    plt.plot(s_radial,y_new, label='linear fit'+str(popt))
+
+    # def objective_linear(x, a, b):
+    #     return a * x + b
+    # popt_linear, _ = curve_fit(objective_linear, s_radial, eps_eff)
+    # a_linear, b_linear = popt_linear
+    # y_new_linear = objective_linear(s_radial, a_linear, b_linear)
+    # plt.plot(s_radial,y_new_linear, label='linear fit'+str(popt_linear))
+
+    def objective_quadratic(x, a, b, c):
+        return a * x*x + b * x + c
+    popt_quadratic, _ = curve_fit(objective_quadratic, s_radial, eps_eff)
+    a_quadratic, b_quadratic, c_quadratic = popt_quadratic
+    y_new_quadratic = objective_quadratic(s_radial, a_quadratic, b_quadratic, c_quadratic)
+    plt.plot(s_radial,y_new_quadratic, label='quadratic fit'+str(popt_quadratic))
 
     plt.legend()
     
