@@ -106,6 +106,7 @@ try:
         print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
 except Exception as e:
+    print(e)
     Input.VMEC = False
 
 # Run BOOZ_XFORM
@@ -114,6 +115,7 @@ try:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
 except Exception as e:
+    print(e)
     Input.BOOZ_XFORM = False
 
 # Run NEO
@@ -122,6 +124,7 @@ try:
         print('Running NEO...')
         runNEO(name,executables_path,plotting_path)
 except Exception as e:
+    print(e)
     Input.NEO = False
 
 # Run SPEC
@@ -130,6 +133,7 @@ try:
         print('Running SPEC...')
         runSPEC(name,executables_path,plotting_path,stel,r_edge)
 except Exception as e:
+    print(e)
     Input.SPEC = False
 
 # Run REGCOIL
