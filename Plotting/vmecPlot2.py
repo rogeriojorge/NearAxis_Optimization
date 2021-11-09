@@ -325,8 +325,8 @@ def main(file,s_plot_ignore=0.3):
 
     fig = plt.figure()
 
-    ntheta = 40
-    nzeta = 150
+    ntheta = 80
+    nzeta = int(150*nfp)
     theta1D = np.linspace(0,2*np.pi,num=ntheta)
     zeta1D = np.linspace(0,2*np.pi,num=nzeta)
     zeta2D, theta2D = np.meshgrid(zeta1D,theta1D)

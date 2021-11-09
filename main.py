@@ -81,14 +81,14 @@ try:
         print('  plot()')
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
         print('  B_contour()')
-        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=int(25/stel.nfp), show=False)
+        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
         # print('  plot_axis()')
         # stel.plot_axis(savefig='pyQSC_out.'+name+'axis', show=False)
         print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
         print('  plot_boundary()')
         # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
-        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False)
+        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
 except Exception as e:
     print(e)
     Input.Plot = False
