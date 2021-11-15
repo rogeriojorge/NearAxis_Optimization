@@ -1,6 +1,4 @@
-from qsc import Qsc
-from simsopt import make_optimizable
-import numpy as np
+from QSCwrapper import QSCWrapper
 
 def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nCoilsPerNFP = 6):
     if ind==0:
@@ -12,7 +10,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.4551751876618826
         p2     =  0.0
         iota   =  0.40376036676890553
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.2
         targetValue = 0.005
@@ -26,7 +24,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -0.915195507869042
         p2     =  -500000.0
         iota   =  0.39160446975249485
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.18
         targetValue = 0.03
@@ -40,7 +38,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.6726004478276207
         p2     =  0.0
         iota   =  0.3999857272555072
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.18
         targetValue = 0.03
@@ -54,7 +52,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -1.1823423764823269
         p2     =  -500000.0
         iota   =  0.4183742218322489
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.17
         targetValue = 0.05
@@ -68,7 +66,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.055309698986764286
         p2     =  0.0
         iota   =  0.3369558032942888
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.05
         coilSeparation = 0.16
         targetValue = 0.05
@@ -82,7 +80,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.5528452930602289
         p2     =  0.0
         iota   =  -1.638024385998008
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.1
         targetValue = 0.25
@@ -99,7 +97,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B0_vals = [ 1.0,-0.003759072330629602 ]
         d_svals = [ 0.0,1.0594127385850904,3.65993529337379e-05,0.3892573325353277,0.00029829921421492366,-0.026720277634932094,0.00026679451432573466,-0.25437872550520174 ]
         delta   = 0.2
-        stel   =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=1, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel   =  QSCWrapper(rc=rc,zs=zs, nfp=1, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         r_edge =  0.1
         coilSeparation = 0.05
         targetValue = 0.25
@@ -113,7 +111,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -1.3148495687068937
         p2     =  -500000.0
         iota   =  0.4377598860159437
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r2', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.31
         targetValue = 0.02
@@ -127,7 +125,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.09655841297334804
         p2     =  0.0
         iota   =  -1.2865657607802559
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  0.15
         coilSeparation = 0.15
         targetValue = 0.08
@@ -149,7 +147,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.09140051741116116
         p2     =  0.0
         iota   =  -1.28572842947075
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  0.15
         coilSeparation = 0.15
         targetValue = 0.08
@@ -171,7 +169,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -1.8171228141489864
         p2     =  -500000.0
         iota   =  -2.903776561280769
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  0.05
         coilSeparation = 0.15
         targetValue = 0.08
@@ -193,7 +191,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -0.22565885565267826
         p2     =  0.0
         iota   =  -1.302123928937576
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/6
         coilSeparation = 0.15
         targetValue = 0.08
@@ -215,7 +213,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.3406199032028608
         p2     =  -1000000.0
         iota   =  -1.4767262784829156
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/14
         coilSeparation = 0.1
         targetValue = 0.08
@@ -237,7 +235,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.40056018426804035
         p2     =  0.0
         iota   =  0.4075404037099618
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/6
         coilSeparation = 0.1
         targetValue = 0.08
@@ -259,7 +257,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -1.998280780569248
         p2     =  -500000.0
         iota   =  0.40267356191820125
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/200
         coilSeparation = 0.1
         targetValue = 0.08
@@ -281,7 +279,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.2923484029933731
         p2     =  0.0
         iota   =  1.9132977908943651
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/100
         coilSeparation = 0.1
         targetValue = 0.08
@@ -303,7 +301,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -1.56289502358437
         p2     =  -500000.0
         iota   =  1.3827723353676435
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/100
         coilSeparation = 0.1
         targetValue = 0.08
@@ -325,7 +323,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  2.1121434634154563
         p2     =  0.0
         iota   =  0.4076794866225493
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  0.1
         coilSeparation = 0.1
         targetValue = 0.08
@@ -347,7 +345,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -3.212844879693586
         p2     =  -500000.0
         iota   =  0.4074195627908438
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/12
         coilSeparation = 0.1
         targetValue = 0.08
@@ -369,7 +367,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -0.25130771525326506
         p2     =  0.0
         iota   =  2.2850300916357633
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/50
         coilSeparation = 0.1
         targetValue = 0.08
@@ -391,7 +389,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  0.014978229496948308
         p2     =  0.0
         iota   =  -1.2850584906730413
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/6
         coilSeparation = 0.1
         targetValue = 0.08
@@ -413,7 +411,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         B2c    =  -0.9336381190413221
         p2     =  -500000.0
         iota   =  2.44870850972142
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)
         r_edge =  1/22
         coilSeparation = 0.1
         targetValue = 0.08
@@ -434,7 +432,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         nfp    =  2
         B2c    =  0.0
         p2     =  0.0
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1')
         iota   =  0.4198790908227896
         r_edge =  0.1
         coilSeparation = 0.1
@@ -451,7 +449,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         nfp    =  4
         B2c    =  0.0
         p2     =  0.0
-        stel   =  make_optimizable(Qsc(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))
+        stel   =  QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1')
         iota   =  -2.2663872307770703
         r_edge =  0.06
         coilSeparation = 0.1
@@ -468,7 +466,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_svals = [ 0.0,1.0406687319250656,-0.008459506894986953,0.11710250798554353,0.0607991113831632 ]
         delta   = 0.4854813680461505
         nfp     = 1
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel    =  QSCWrapper(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         iota    =  0.5317023102263984
         # mean gradB inverse length: 1.770579342267488
         # Max elongation = 5.367464071620833
@@ -483,7 +481,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_svals = [ 0.0,1.1088411917982361,0.017973620697862628,-0.011425509526404738,0.006518601304722906,-0.036240601093422566,-0.01802845211316228 ]
         delta   = 0.5693015351745679
         nfp     = 2
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         iota    =  3.0901517238422334
         # mean gradB inverse length: 2.1933713387119127
         # Max elongation = 4.736913755423312
@@ -498,7 +496,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_svals = [ 0.0,1.157434226358934,-0.0906930370194109,-0.03268988409749938,0.04217276982254017,-0.02037848232674979,0.008951819535706436 ]
         delta   = 1.0358364126043096
         nfp     = 3
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         iota    =  7.24022477852022
         # mean gradB inverse length: 2.771861367208283
         # Max elongation = 3.816036187136197
@@ -513,7 +511,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_svals = [ 0.0,1.182740359937991,0.0008708512746856015,-0.030920637745993632,0.038548898680746194,0.00403042492393054,-0.001967065210734984 ]
         delta   = 0.8867657277089598
         nfp     = 4
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         iota    =  13.305436020938252
         # mean gradB inverse length: 3.191714827576698
         # Max elongation = 3.9211586110477423
@@ -528,7 +526,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_svals = [ 0.0,1.212132452699293,-0.004191029163770682,-0.008492634445044545,0.017775730160102712,0.0011987711214041697,0.00238154327651364 ]
         delta   = 0.5991613656736158
         nfp     = 5
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)
         iota    =  22.126444921877454
         # mean gradB inverse length: 4.321146341682953
         # Max elongation = 4.073735380366915
@@ -542,200 +540,39 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         k_second_order_SS   = 8.018023550730048
         delta   = 0.6584132948474427
         nfp     = 1
-        stel    =  make_optimizable(Qsc(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, k_second_order_SS=k_second_order_SS))
+        stel    =  QSCWrapper(rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, k_second_order_SS=k_second_order_SS)
         iota    =  -0.5086815368095723
         # mean gradB inverse length: 1.7719972496061238
         # Max elongation = 4.356208527306083
         # objective function:  194.65602983139752
     if ind==29:
         name   = 'QI_NFP1_r2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.26443390548300216,0.0,-0.01566057704554211,0.0,0.0022396012358901997,0.0,-0.0009650267041755669,0.0,7.207283882530656e-05,0.0,3.775829720639504e-05,0.0,-1.3146652962906995e-05,0.0,3.1591666411150446e-06 ]
-        B0_vals = [ 1.0,0.21379635338650388 ]
-        omn_method ='buffer'
-        k_buffer = 2
-        k_second_order_SS   = 6.557610594867123
-        d_svals = [0.]
-        delta   = 1.3316877731759529
-        nfp     = 1
-        B2s_svals = [ 0.0,0.12356397260960127,-0.3703624809486158,-0.03495724243250028,-0.024264380562857745,-0.2363887868868969,-0.05181276831340249,0.08138881214364944,0.005241997297581 ]
-        B2c_cvals = [ -0.40251233990996754,0.10398784730800278,0.5170167340215038,-0.2255734311522203,0.044645330385214954,0.21871024881966092,-0.06764902501780555,0.014096798551213216,-0.05415701995955931,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS))
-        iota    =  0.508545813109349
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 mean = -1.2962954314346937
-        # B20QI_deviation_max = 6.7544383056407025
-        # B2cQI_deviation_max = 2.459149638724826
-        # Max |X20| = 1.2096028161437566
-        # Max |X3c1| = 0.22014333853517132
-        # gradgradB inverse length: 5.808598929146807
-        # d2_volume_d_psi2 mean =, 284.70098320948387
-        # mean gradB inverse length: 1.5293965683757964
-        # Max elongation = 7.379140281256001
-        # objective function:  642.3758827067624
-    if ind==30:
-        name   = 'QI_NFP2_r2'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.04987871153206903,0.0,-0.000962419487400595,0.0,-9.274039796045881e-05,0.0,2.1428593375177277e-05,0.0,-2.3499542495450946e-07,0.0,-7.698601257534701e-07,0.0,2.837700963315547e-07,0.0,-3.4195958024419606e-08 ]
-        B0_vals = [ 1.0,0.2787282378235594 ]
-        omn_method ='buffer'
-        k_buffer = 2
-        k_second_order_SS   = 4.161601109583618
-        d_svals = [0.]
-        delta   = 1.1101277069321156
-        nfp     = 2
-        B2s_svals = [ 0.0,0.39535173151563563,0.742037489385448,-0.05838650915766332,-0.34890138017595484,-0.01825549957567183,0.05457576933331543,-0.03166623251193151,0.2817728540027842,0.0 ]
-        B2c_cvals = [ -0.5444798877519897,-0.30819501817573813,0.5786195428110554,0.03250117687201227,0.20527028317050364,-0.12820830654975948,0.13032631019435262,-0.2607724712516366,0.20447003909280667,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS))
-        iota    =  2.9354170412142033
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 mean = -2.8937611263139
-        # B20QI_deviation_max = 13.415104978914922
-        # B2cQI_deviation_max = 3.9413445778912664
-        # Max |X20| = 3.531173675260962
-        # Max |X3c1| = 0.19389367589899967
-        # gradgradB inverse length: 8.34547385128012
-        # d2_volume_d_psi2 mean =, 769.7373288921605
-        # mean gradB inverse length: 2.1382199963778254
-        # Max elongation = 4.8465622896864415
-        # objective function:  1943.2519010728947
-    if ind==31:
-        name   = 'QI_NFP3_r2'
-        rc      = [ 1.0,0.0,-0.02702702702702703,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,-0.02531883960895677,0.0,0.0003492227906768492,0.0,-2.6757612318999827e-05,0.0,4.2401118595343865e-06,0.0,1.8128277320258303e-06,0.0,-4.2503333838101683e-07,0.0,-4.4504323237507005e-07,0.0,1.337377876730282e-07 ]
-        B0_vals = [ 1.0,0.3114845756465555 ]
-        omn_method ='buffer'
-        k_buffer = 3
-        k_second_order_SS   = 4.05705992246579
-        d_svals = [0.]
-        delta   = 1.0826632384086834
-        nfp     = 3
-        B2s_svals = [ 0.0,0.8066990196028119,-1.1717559229471994,0.43629428065557874,0.4379258130518515,-0.3952054188171817,-0.3538520172469195,0.284770141697414,0.06776138381874786,0.0 ]
-        B2c_cvals = [ -0.43665249575231885,0.06428974494718098,0.9270156052458148,-0.010066357176995458,-0.8340466889409603,0.4631366652573985,0.2937107159431829,-0.21362840976495343,-0.1230950282739234,0.0 ]
-        p2      =  0.0
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS))
-        iota    =  -7.295519707371247
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 mean = -8.586740702120254
-        # B20QI_deviation_max = 33.10193137865104
-        # B2cQI_deviation_max = 8.836562568476511
-        # Max |X20| = 10.56187180932227
-        # Max |X3c1| = 0.8387996884406564
-        # gradgradB inverse length: 18.72718218725467
-        # d2_volume_d_psi2 mean =, 2555.3777640847084
-        # mean gradB inverse length: 2.8116775818388766
-        # Max elongation = 4.156350172693245
-        # objective function:  13134.731618908037
-    if ind==32:
-        name   = 'QI_NFP1_r2_noQI'
         rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,-0.21549823573000906,0.0,0.017276547980394526,0.0,0.00021849021977990093,0.0,-0.00010915184922393724 ]
-        B0_vals = [ 1.0,0.1657834504605428 ]
+        zs      = [ 0.0,0.0,0.34349471341991955,0.0,-0.02736641330433227,0.0,0.0020258424464328264,0.0,-0.0005656595138266223 ]
+        B0_vals = [ 1.0,0.3524615838580497 ]
         omn_method ='buffer'
         k_buffer = 2
-        k_second_order_SS   = 5.804852558468755
+        k_second_order_SS   = 4.143248896901411
         d_svals = [0.]
-        delta   = 1.7347094485498158
+        delta   = 2.3038894148984643
         nfp     = 1
-        B2s_svals = [ 0.0,0.01728275754992624,0.014476899943246217,-0.037352429625494725,0.006741407400473139 ]
-        B2c_cvals = [ -0.11618141351503093,0.18694563144181536,-0.04768573504896362,0.1384349238825149,-0.092692973685223,0.0,0.0 ]
+        B2s_svals = [ 0.0,-0.02578148872091448,0.0538352946652912,-0.012626238494269424,0.03285702704564608 ]
+        B2c_cvals = [ 0.01781636754192034,-0.024539020311237822,-0.06556831701776375,0.008667120525973944,-0.0018105449242320814,0.0 ]
         p2      =  0.0
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS))
-        iota    =  -0.5989096669504248
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS)
+        iota    =  0.4319839008996964
         # DMerc mean  = 0.0
         # DWell mean  = 0.0
         # DGeod mean  = 0.0
-        # B20 mean = -2.1242920722496663
-        # B20QI_deviation_max = 11.68491805934776
-        # B2cQI_deviation_max = 8.320496536378046
-        # Max |X20| = 0.6115176155330169
-        # Max |X3c1| = 0.19955179423976746
-        # gradgradB inverse length: 9.551430276808597
-        # d2_volume_d_psi2 mean =, 376.26917813965787
-        # mean gradB inverse length: 1.5706803955569968
-        # Max elongation = 6.66793860465823
-        # objective function:  8202.80015630963
-    if ind==33:
-        name   = 'QI_NFP1_r1_nonzone_kbuffer1'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.2463654260367217,0.0,-0.01359961539360938,0.0,0.0019036791303759057,0.0,-0.0006472538752136014,0.0,-6.15968378454046e-05,0.0,8.889159826678929e-05 ]
-        B0_vals = [ 1.0,0.13636226658747652 ]
-        omn_method ='non-zone'
-        k_buffer = 1
-        d_svals = [ 0.0,1.0429615845146891,-0.02520588732413796,0.26285822054829494,0.025408931921352657,0.03215194015882739,0.04423427758863477 ]
-        delta   = 0.5693015351745679
-        nfp     = 1
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  0.41150503154036994
-        # mean gradB inverse length: 1.3428424309716658
-        # Max elongation = 3.9637803025290674
-        # objective function:  269.2649572115125
-    if ind==34:
-        name   = 'QI_NFP1_r1_nonzone_kbuffer2'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.19801552417070872,0.0,-0.010803247817676295,0.0,0.0009149486835309795,0.0,0.0001551218148523069,0.0,-6.967144912367638e-05,0.0,1.5169628084148721e-05 ]
-        B0_vals = [ 1.0,0.14035693651445336 ]
-        omn_method ='non-zone'
-        k_buffer = 2
-        d_svals = [ 0.0,1.0314976998845382,-0.0015161999478187135,0.19353078508623903,0.012768916787242688,0.01592840133928485,2.0696002294259076e-06 ]
-        delta   = 0.5693015351745679
-        nfp     = 1
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  0.46639486626941007
-        # mean gradB inverse length: 1.3907472258799252
-        # Max elongation = 4.129077551167251
-        # objective function:  296.4876340484302
-    if ind==35:
-        name   = 'QI_NFP1_r1_nonzone_kbuffer3'
-        rc      = [ 1.0,0.0,-0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.13949898960470475,0.0,-0.003176161776019942,0.0,-0.0003938347190949249,0.0,0.00012060467892653817,0.0,6.241826996112064e-05,0.0,3.8705945190512e-08 ]
-        B0_vals = [ 1.0,0.14373028105604332 ]
-        omn_method ='non-zone'
-        k_buffer = 3
-        d_svals = [ 0.0,1.0365601237715842,-0.0017347351764699002,0.15495839610113007,0.01409615069292102,7.0166461925717554e-06,3.9518836297337194e-10 ]
-        delta   = 0.5693015351745679
-        nfp     = 1
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  0.4762731700969323
-        # mean gradB inverse length: 1.4368686541675326
-        # Max elongation = 4.599780405814277
-        # objective function:  311.96933981364293
-    if ind==36:
-        name   = 'QI_NFP2_r1_nonzone_kbuffer1'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.03846330893119571,0.0,0.00048426204338750556,0.0,-9.148550034482775e-05,0.0,3.097399899371287e-05,0.0,-2.9395097913991293e-08,0.0,-3.694897887831231e-08 ]
-        B0_vals = [ 1.0,0.13038095331741503 ]
-        omn_method ='non-zone'
-        k_buffer = 1
-        d_svals = [ 0.0,1.0996097313463566,-0.015218869039555223,0.02884907940576655,0.04497687405469232,6.657779908014349e-10,-8.62693335602814e-11 ]
-        delta   = 0.5693015351745679
-        nfp     = 2
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  2.791989467131165
-        # mean gradB inverse length: 2.0004343525306703
-        # Max elongation = 4.171273974696159
-        # objective function:  346.2983821716273
-    if ind==37:
-        name   = 'QI_NFP2_r1_nonzone_kbuffer2'
-        rc      = [ 1.0,0.0,-0.058823529411764705,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.03050018994248715,0.0,0.0011378283706950658,0.0,-1.5999249540143283e-05,0.0,-2.035125644960376e-05,0.0,7.899922792616665e-06,0.0,-1.6261699253550115e-08 ]
-        B0_vals = [ 1.0,0.12945370134807635 ]
-        omn_method ='non-zone'
-        k_buffer = 2
-        d_svals = [ 0.0,1.0975533820268235,0.0021218919825674843,-0.011136004271383544,0.03219615285828394,6.999943044739819e-08,-3.880512557291405e-12 ]
-        delta   = 0.5693015351745679
-        nfp     = 2
-        stel    =  make_optimizable(Qsc(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta))
-        iota    =  2.9165036687170556
-        # mean gradB inverse length: 2.207575072141906
-        # Max elongation = 4.478876861028043
-        # objective function:  387.4207692515766
+        # B20 mean = -1.3849315965995563
+        # B20QI_deviation_max = 4.339612577198461
+        # B2cQI_deviation_max = 1.9621454770677524
+        # Max |X20| = 2.2087075831829144
+        # Max |X3c1| = 1.010733925849302
+        # gradgradB inverse length: 5.4974057956386355
+        # d2_volume_d_psi2 mean =, 564.4011747572295
+        # mean gradB inverse length: 1.4739385185401614
+        # Max elongation = 4.831312736642348
+        # objective function:  184.70576497264742
+
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

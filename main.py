@@ -61,10 +61,11 @@ try:
             Input.rel_step_array
             Input.abs_step_array
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
-        # except Exception as e: print(e)
         except Exception as e:
+            print(e)
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
 except Exception as e:
+    print(e)
     Input.Optimize = False
 
 # Check if user specified r_edge
@@ -87,8 +88,8 @@ try:
         print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
         print('  plot_boundary()')
-        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
-        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False)
+        # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
 except Exception as e:
     print(e)
     Input.Plot = False
