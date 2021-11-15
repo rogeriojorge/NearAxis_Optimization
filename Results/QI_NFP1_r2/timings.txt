@@ -1,29 +1,29 @@
  ====================== PARALLEL TIMINGS ====================
-               total  :      330.880361
+               total  :      300.981159
                 rank  :               0
 mgrid file read time  :        0.000000
         No. of procs  :               1
 
-      --- non-vacuum  :            3000             16              1      17.130088
-      --- non-vacuum  :            3000             49              1      51.753523
-      --- non-vacuum  :            4000            101              1     152.111187
-      --- non-vacuum  :            1816            151              1     106.617139
+      --- non-vacuum  :            3000             16              1      17.965785
+      --- non-vacuum  :            3000             49              1      57.359610
+      --- non-vacuum  :            3599            101              1     140.725857
+      --- non-vacuum  :            1461            151              1      81.867944
 
-             runvmec  :      330.878674
+             runvmec  :      300.979325
 
          init radial  :        0.000000
-             eqsolve  :      329.888403
-             fileout  :        0.919170
+             eqsolve  :      299.976716
+             fileout  :        0.926964
 
-              evolve  :      329.814842
-             funct3d  :      327.611937
-            nfunct3d  :           11832
+              evolve  :      299.867638
+             funct3d  :      297.919196
+            nfunct3d  :           11073
 
-             totzsps  :       89.980096
+             totzsps  :       81.949327
              totzspa  :        0.000000
               symrzl  :        0.000000
-            jacobian  :        5.042104
-              bcovar  :       22.985517
+            jacobian  :        4.532817
+              bcovar  :       20.672884
               vacuum  :        0.000000
 
             - precal  :        0.000000
@@ -44,20 +44,20 @@ mgrid file read time  :        0.000000
 
             - solver  :        0.000000
 
-               alias  :       50.153845
-              forces  :       25.924998
+               alias  :       45.778352
+              forces  :       23.293981
            symforces  :        0.000000
-             tomnsps  :      104.477945
+             tomnsps  :       95.253104
              tomnspa  :        0.000000
-             residue  :       25.563741
-          -- tridslv  :       22.227776
+             residue  :       23.314629
+          -- tridslv  :       20.256309
 
  ============================================================
 
            allgather  :        0.000000
-           allreduce  :        0.264974
-           broadcast  :        0.003749
-           sendrecv   :        0.107439
+           allreduce  :        0.242705
+           broadcast  :        0.003929
+           sendrecv   :        0.106215
 
      Fill_blocks      :        0.000000
      Compute blocks   :        0.000000

@@ -101,22 +101,22 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 ]
             else:
                 term = [
-                        # (stel, 'iota', -6.95, 1e4),
-                        (stel, 'max_elongation', 0.0, 5e-1),
-                        (stel, 'elongation', 0.0, 5e-2),
+                        # (stel.get_iota, -2.8, 1e5),
+                        (stel.get_max_elongation, 0.0, 3e+0),
+                        (stel.get_elongation, 0.0, 5e-1),
                         # (stel, 'sigma', 0.0, 1e-1),
-                        (stel, 'torsion', 0.0, 3e-2),
+                        # (stel, 'torsion', 0.0, 3e-2),
                         # (stel, 'curvature', 1/stel.rc[0], 1e-2),
                         # (stel, 'd', 0.0, 1e-1),
-                        (stel, 'd_svals', 0.0, 1e2),
-                        (stel, 'k_second_order_SS', 0.0, 5e0),
+                        (stel.get_d_svals, 0.0, 5e2),
+                        # (stel, 'k_second_order_SS', 0.0, 5e0),
                         # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
                         # (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel, 'delta', 0.0, 7e1),
-                        (stel, 'B0_well_depth', 0.15, 5e3),
-                        (stel, 'inv_L_grad_B', 0.0, 4e-2),
+                        (stel.get_delta, 0.0, 7e2),
+                        (stel.get_B0_well_depth, 0.15, 2e4),
+                        (stel.get_inv_L_grad_B, 0.0, 1e-3),
                 ]
         else:
             if stel.omn == False:
@@ -212,6 +212,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         for f in glob("jac_log*.dat"):
             remove(f)
         for f in glob("objective_*.dat"):
+            remove(f)
+        for f in glob("residuals_*.dat"):
             remove(f)
 
     ## Print final conditions

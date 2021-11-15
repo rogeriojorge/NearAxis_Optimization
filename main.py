@@ -10,7 +10,7 @@ import Input
 print('Starting Near-Axis Optimization')
 
 # If not optimizing, use a fine resolution
-nphi_refined = max(Input.nphi, 251)
+nphi_refined = max(Input.nphi, 301)
 try:
     if Input.Optimize:
         nphi = Input.nphi

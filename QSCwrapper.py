@@ -92,3 +92,6 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_Z2s(self):
         return self.Z2s
+
+    def get_d_svals(self):
+        return self.d_svals
