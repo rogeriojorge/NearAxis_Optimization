@@ -43,12 +43,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 if stel.order == 'r1':
                     stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
                 else:
-                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order)
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
             else:
                 if stel.order == 'r1':
                     stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, k_second_order_SS=stel.k_second_order_SS)
                 else:
-                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, k_second_order_SS=stel.k_second_order_SS)
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, k_second_order_SS=stel.k_second_order_SS, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
             stel.change_qsc_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
@@ -77,6 +77,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             stel.unfix('zs(2)')
             if stel.order != 'r1':
                 stel.unfix('B2cc(0)')
+                stel.unfix('B2sc(0)')
             for i in range(1,n_coeffs+1):
                 stel.unfix('zs('+str(2*i)+')')
                 if stel.k_second_order_SS != 0:
@@ -86,13 +87,15 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 if stel.order != 'r1':
                     stel.unfix('B2ss('+str(i)+')')
                     stel.unfix('B2cc('+str(i)+')')
+                    stel.unfix('B2sc('+str(i)+')')
+                    stel.unfix('B2cs('+str(i)+')')
         if stel.order=='r1':
             if stel.omn == False:
                 term = [
                         # (stel, 'iota', iota_target, 1e5),
                         # (stel, 'max_elongation', 0.0, 3e+0),
                         # (stel, 'elongation', 0.0, 4e-1),
-                        (stel, 'inv_L_grad_B', 0.0, 1e-1),
+                        (stel.inv_L_grad_B, 0.0, 1e-1),
                         # (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
@@ -114,7 +117,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
                         # (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel.get_delta, 0.0, 7e2),
+                        (stel.get_delta, 0.0, 1e3),
                         (stel.get_B0_well_depth, 0.15, 2e4),
                         (stel.get_inv_L_grad_B, 0.0, 1e-3),
                 ]
@@ -149,39 +152,41 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         # (stel, 'iota', iota_target, 1e5),
-                        # (stel.get_max_elongation, 0.0, 5e+0),
-                        # (stel.get_elongation, 0.0, 6e-1),
-                        (stel.get_B20QI_deviation, 0.0, 1e-1),
-                        (stel.get_B2cQI_deviation, 0.0, 1e-1),
-                        (stel.get_B20QI_deviation_max, 0.0, 1e0),
-                        (stel.get_B2cQI_deviation_max, 0.0, 1e0),
+                        (stel.get_max_elongation, 0.0, 1e+0),
+                        (stel.get_elongation, 0.0, 1e-1),
+                        (stel.get_B20QI_deviation, 0.0, 3e-0),
+                        (stel.get_B2cQI_deviation, 0.0, 3e-0),
+                        (stel.get_B2sQI_deviation, 0.0, 3e-0),
+                        (stel.get_B20QI_deviation_max, 0.0, 5e1),
+                        (stel.get_B2cQI_deviation_max, 0.0, 5e1),
+                        (stel.get_B2sQI_deviation_max, 0.0, 5e1),
                         # (stel.get_B20, 0.0, 1e-1),
                         # (stel.get_B2c_array, 0.0, 1e-1),
                         # (stel.get_B2s_array, 0.0, 1e-1),
-                        # (stel.get_X20, 0.0, 1e-1),
-                        # (stel.get_X2c, 0.0, 1e-1),
-                        # (stel.get_X2s, 0.0, 1e-1),
-                        # (stel.get_Y20, 0.0, 1e-1),
-                        # (stel.get_Y2c, 0.0, 1e-1),
-                        # (stel.get_Y2s, 0.0, 1e-1),
-                        # (stel.get_Z20, 0.0, 1e-1),
-                        # (stel.get_Z2c, 0.0, 1e-1),
-                        # (stel.get_Z2s, 0.0, 1e-1),
-                        # (stel.get_X3c1, 0.0, 1e-1),
-                        # (stel.get_X3s1, 0.0, 1e-1),
-                        # (stel.get_Y3c1, 0.0, 1e-1),
-                        # (stel.get_Y3s1, 0.0, 1e-1),
-                        # (stel.get_delta, 0.0, 1.e2),
-                        # (stel.get_B0_well_depth, 0.1, 3e5),
+                        (stel.get_X20, 0.0, 8e-2),
+                        (stel.get_X2c, 0.0, 8e-2),
+                        (stel.get_X2s, 0.0, 8e-2),
+                        (stel.get_Y20, 0.0, 8e-2),
+                        (stel.get_Y2c, 0.0, 8e-2),
+                        (stel.get_Y2s, 0.0, 8e-2),
+                        (stel.get_Z20, 0.0, 8e-2),
+                        (stel.get_Z2c, 0.0, 8e-2),
+                        (stel.get_Z2s, 0.0, 8e-2),
+                        (stel.get_X3c1, 0.0, 8e-2),
+                        (stel.get_X3s1, 0.0, 8e-2),
+                        (stel.get_Y3c1, 0.0, 8e-2),
+                        (stel.get_Y3s1, 0.0, 8e-2),
+                        (stel.get_delta, 0.0, 2e3),
+                        # (stel.get_B0_well_depth, 0.15, 2e4),
                         # (stel.get_k_second_order_SS, 0.0, 1e2),
-                        # (stel, 'd_svals', 0.0, 1e2),
+                        (stel.get_d_svals, 0.0, 1e2),
                         # (stel, 'DMerc_times_r2', 0.3, 3e5),
                         # (stel, 'd2_volume_d_psi2', -50, 1e-1),
                         # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # (stel, 'DGeod_times_r2', 0.1, 1e3),
                         # (stel, 'grad_grad_B_inverse_scale_length', 0.0, 1e+1),
                         # (stel.min_R0_penalty, 0.0, 1e9),
-                        # (stel.get_inv_L_grad_B, 0.0, 3e0)
+                        (stel.get_inv_L_grad_B, 0.0, 3e0)
                 ]
 
         if grad==False:
@@ -252,11 +257,13 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                     stel.B2s_svals = stel.B2s_svals[0:-1]
                 print('        B2s_svals = [',','.join([str(elem) for elem in stel.B2s_svals]),']')
                 print('        B2c_cvals = [',','.join([str(elem) for elem in stel.B2c_cvals]),']')
+                print('        B2s_cvals = [',','.join([str(elem) for elem in stel.B2s_cvals]),']')
+                print('        B2c_svals = [',','.join([str(elem) for elem in stel.B2c_svals]),']')
                 print('        p2      = ',stel.p2)
                 if stel.k_second_order_SS == 0:
-                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3')")
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
                 else:
-                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS)")
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
@@ -275,6 +282,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             if stel.omn:
                 print('        # B20QI_deviation_max =',stel.B20QI_deviation_max)
                 print('        # B2cQI_deviation_max =',stel.B2cQI_deviation_max)
+                print('        # B2sQI_deviation_max =',stel.B2sQI_deviation_max)
             else:
                 print('        # B20 variation =',stel.B20_variation)
             print('        # Max |X20| =',max(abs(stel.X20)))

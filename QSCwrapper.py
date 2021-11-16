@@ -30,11 +30,17 @@ class QSCWrapper(Qsc, Optimizable):
     def get_B2cQI_deviation(self):
         return self.B2cQI_deviation
 
+    def get_B2sQI_deviation(self):
+        return self.B2sQI_deviation
+
     def get_B20QI_deviation_max(self):
         return self.B20QI_deviation_max
 
     def get_B2cQI_deviation_max(self):
         return self.B2cQI_deviation_max
+
+    def get_B2sQI_deviation_max(self):
+        return self.B2sQI_deviation_max
 
     def get_X3c1(self):
         return self.X3c1
