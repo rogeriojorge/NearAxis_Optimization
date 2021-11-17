@@ -1,12 +1,12 @@
-ind=28
+ind=26
 nphi=101
 
 iota_target = 0.42
-nIterations = 50
+nIterations = 150
 abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2]
-max_fourier_coefficients = 10
-r_edge = 1/20
+max_fourier_coefficients = 12
+r_edge = 1/10
 ftol = 1e-3
 
 Optimize = True

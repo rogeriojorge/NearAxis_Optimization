@@ -1,6 +1,6 @@
 from qsc import Qsc
 from simsopt._core.graph_optimizable import Optimizable
-
+import numpy as np
 
 class QSCWrapper(Qsc, Optimizable):
     def __init__(self, *args, **kwargs):
@@ -101,3 +101,12 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_d_svals(self):
         return self.d_svals
+
+    def get_max_d(self):
+        return np.max(self.d)
+
+    def get_d_curvature_d_varphi_at_0(self):
+        return self.d_curvature_d_varphi_at_0
+
+    def get_d_d_d_varphi_at_0(self):
+        return self.d_d_d_varphi_at_0

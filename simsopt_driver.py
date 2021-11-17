@@ -75,6 +75,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             if stel.omn_method == 'buffer':
                 stel.unfix('delta')
             stel.unfix('zs(2)')
+            stel.unfix('rc(2)')
             if stel.order != 'r1':
                 stel.unfix('B2cc(0)')
                 stel.unfix('B2sc(0)')
@@ -111,15 +112,17 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel, 'torsion', 0.0, 3e-2),
                         # (stel, 'curvature', 1/stel.rc[0], 1e-2),
                         # (stel, 'd', 0.0, 1e-1),
-                        (stel.get_d_svals, 0.0, 5e2),
+                        # (stel.get_d_svals, 0.0, 5e2),
                         # (stel, 'k_second_order_SS', 0.0, 5e0),
                         # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
                         # (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel.get_delta, 0.0, 1e3),
-                        (stel.get_B0_well_depth, 0.15, 2e4),
-                        (stel.get_inv_L_grad_B, 0.0, 1e-3),
+                        # (stel.get_delta, 0.0, 1e3),
+                        (stel.get_B0_well_depth, 0.15, 1e4),
+                        # (stel.get_inv_L_grad_B, 0.0, 1e-3),
+                        # (stel.get_d_d_d_varphi_at_0,0.0,3e1),
+                        (stel.get_d_curvature_d_varphi_at_0,0.0,5e3)
                 ]
         else:
             if stel.omn == False:
@@ -220,6 +223,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             remove(f)
         for f in glob("residuals_*.dat"):
             remove(f)
+        for f in glob("simsopt_*.dat"):
+            remove(f)
 
     ## Print final conditions
     if mpi.proc0_world:
@@ -290,6 +295,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('        # Max |X3c1| =',max(abs(stel.X3c1)))
             print('        # gradgradB inverse length:', stel.grad_grad_B_inverse_scale_length)
             print('        # d2_volume_d_psi2 mean =,',np.mean(stel.d2_volume_d_psi2))
+        if stel.omn:
+            print("        # max curvature'(0):", stel.d_curvature_d_varphi_at_0)
+            print("        # max d'(0):", stel.d_d_d_varphi_at_0)
         print('        # mean gradB inverse length:', np.mean(stel.inv_L_grad_B))
         print('        # Max elongation =',stel.max_elongation)
         print('        # objective function: ', prob.objective())
