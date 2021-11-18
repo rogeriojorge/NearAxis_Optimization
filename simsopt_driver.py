@@ -112,7 +112,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 ]
             else:
                 term = [
-                        (stel.get_iota, 0.85, 1e5),
+                        # (stel.get_iota, -3.05, 8e5),
                         (stel.get_max_elongation, 0.0, 3e+0),
                         (stel.get_elongation, 0.0, 5e-1),
                         # (stel, 'sigma', 0.0, 1e-1),
@@ -127,11 +127,11 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_min_R0_penalty, 0.0, 1e4),
                         (stel.get_min_Z0_penalty, 0.0, 1e4),
                         # (stel.get_delta, 0.0, 3e2),
-                        (stel.get_B0_well_depth, 0.15, 6e5),
-                        (stel.get_inv_L_grad_B, 0.0, 5e1),
+                        (stel.get_B0_well_depth, 0.15, 1e4),
+                        (stel.get_inv_L_grad_B, 0.0, 1e2),
                         # (stel.get_d_d_d_varphi_at_0,0.0,3e1),
                         # (stel.get_d_curvature_d_varphi_at_0,0.0,1e4),
-                        (stel.get_d_over_curvature,1.0,2e3)
+                        (stel.get_d_over_curvature,1.0,1e3)
                 ]
         else:
             if stel.omn == False:
