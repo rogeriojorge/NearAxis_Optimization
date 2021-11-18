@@ -110,3 +110,18 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_d_d_d_varphi_at_0(self):
         return self.d_d_d_varphi_at_0
+    
+    def get_min_R0_penalty(self):
+        return self.min_R0_penalty()
+
+    def get_min_Z0_penalty(self):
+        return self.min_Z0_penalty()
+
+    def get_torsion(self):
+        return self.torsion
+
+    def get_curvature(self):
+        return self.curvature
+
+    def get_d_over_curvature(self):
+        return self.d_over_curvature

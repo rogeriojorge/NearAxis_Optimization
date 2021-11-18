@@ -39,16 +39,21 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print(' number of Fourier coefficients =',n_coeffs)
         if stel.omn == True:
             if n_coeffs < (len(stel.rc)-1)/2: continue
-            if stel.k_second_order_SS == 0:
-                if stel.order == 'r1':
-                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
-                else:
-                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
-            else:
+            if stel.k_second_order_SS != 0:
                 if stel.order == 'r1':
                     stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, k_second_order_SS=stel.k_second_order_SS)
                 else:
                     stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, k_second_order_SS=stel.k_second_order_SS, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
+            elif stel.d_over_curvature != 0:
+                if stel.order == 'r1':
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, d_over_curvature=stel.d_over_curvature)
+                else:
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, d_over_curvature=stel.d_over_curvature, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
+            else:
+                if stel.order == 'r1':
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta)
+                else:
+                    stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
             stel.change_qsc_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
@@ -61,7 +66,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             stel.omn
         except:
             stel.omn = False
-        stel.min_R0_threshold = 0.6
+        stel.min_R0_threshold = 0.4
         stel.fix_all()
         if stel.omn == False:
             for i in range(1,n_coeffs+1):
@@ -83,7 +88,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 stel.unfix('zs('+str(2*i)+')')
                 if stel.k_second_order_SS != 0:
                     stel.unfix('k_second_order_SS')
+                # if stel.d_over_curvature != 0:
                 else:
+                    stel.unfix('d_over_curvature')
                     stel.unfix('ds('+str(i)+')')
                 if stel.order != 'r1':
                     stel.unfix('B2ss('+str(i)+')')
@@ -105,24 +112,26 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 ]
             else:
                 term = [
-                        # (stel.get_iota, -2.8, 1e5),
+                        (stel.get_iota, 0.9, 6e4),
                         (stel.get_max_elongation, 0.0, 3e+0),
                         (stel.get_elongation, 0.0, 5e-1),
                         # (stel, 'sigma', 0.0, 1e-1),
-                        # (stel, 'torsion', 0.0, 3e-2),
-                        # (stel, 'curvature', 1/stel.rc[0], 1e-2),
+                        # (stel.get_torsion, 0.0, 5e2),
+                        # (stel.get_curvature, 0, 5e2),
                         # (stel, 'd', 0.0, 1e-1),
                         # (stel.get_d_svals, 0.0, 5e2),
                         # (stel, 'k_second_order_SS', 0.0, 5e0),
                         # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 2e-2),
-                        # (stel.min_R0_penalty, 0.0, 1e9),
-                        # (stel.get_delta, 0.0, 1e3),
+                        (stel.get_min_R0_penalty, 0.0, 1e4),
+                        (stel.get_min_Z0_penalty, 0.0, 1e4),
+                        (stel.get_delta, 0.0, 3e2),
                         (stel.get_B0_well_depth, 0.15, 1e4),
-                        # (stel.get_inv_L_grad_B, 0.0, 1e-3),
+                        (stel.get_inv_L_grad_B, 0.0, 5e1),
                         # (stel.get_d_d_d_varphi_at_0,0.0,3e1),
-                        (stel.get_d_curvature_d_varphi_at_0,0.0,5e3)
+                        (stel.get_d_curvature_d_varphi_at_0,0.0,1e2),
+                        (stel.get_d_over_curvature,1.0,2e3)
                 ]
         else:
             if stel.omn == False:
@@ -248,15 +257,20 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             if stel.k_second_order_SS != 0:
                 print('        k_second_order_SS   =',stel.k_second_order_SS)
                 print('        d_svals = [0.]')
+            # if stel.d_over_curvature != 0:
+                # print('        d_svals = [0.]')
             else:
+                print('        d_over_curvature   =',stel.d_over_curvature)
                 print('        d_svals = [',','.join([str(elem) for elem in stel.d_svals]),']')
             print('        delta   =',stel.delta)
             print('        nfp     =',stel.nfp)
             if stel.order == 'r1':
-                if stel.k_second_order_SS == 0:
-                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)")
-                else:
+                if stel.k_second_order_SS != 0:
                     print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, k_second_order_SS=k_second_order_SS)")
+                if stel.d_over_curvature != 0:
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)")
+                else:
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta)")
             else:
                 if stel.B2s_svals[-1]==0:
                     stel.B2s_svals = stel.B2s_svals[0:-1]
@@ -265,10 +279,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('        B2s_cvals = [',','.join([str(elem) for elem in stel.B2s_cvals]),']')
                 print('        B2c_svals = [',','.join([str(elem) for elem in stel.B2c_svals]),']')
                 print('        p2      = ',stel.p2)
-                if stel.k_second_order_SS == 0:
-                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
-                else:
+                if stel.k_second_order_SS != 0:
                     print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
+                if stel.d_over_curvature != 0:
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
+                else:
+                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)

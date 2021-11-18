@@ -11,7 +11,8 @@ def main(file,qvfilename):
     plt.close()
     fig = plt.figure(figsize=(14,7))
     # indPoincare=[0,12,24,36]
-    indPoincare=[0,24,48,72]
+    # indPoincare=[0,24,48,72]
+    indPoincare=[0,12,24,36,48,60,72]
     fig = plt.figure(figsize=(14,7))
     fig.patch.set_facecolor('white')
     for toroidalIdx in indPoincare:
