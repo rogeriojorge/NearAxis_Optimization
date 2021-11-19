@@ -2,9 +2,6 @@ from numpy import savetxt
 from subprocess import run
 import sys
 import shutil
-from scipy.io import netcdf
-from shutil import copyfile
-import booz_xform as bx
 import matplotlib.pyplot as plt
 
 ## Function to replace text in files
@@ -90,9 +87,8 @@ def runVMEC(name,executables_path,plotting_path):
     # reset_jacdt_flag = 32
 
     # fcomm = MPI.COMM_WORLD.py2f()
-
     # ictrl[:] = 0
-    # ictrl[0] = restart_flag + readin_flag# + timestep_flag + output_flag + cleanup_flag
+    # ictrl[0] = restart_flag + readin_flag + timestep_flag + output_flag + cleanup_flag
     # print("Calling runvmec. ictrl={} comm={}".format(ictrl, fcomm))
     # vmec.runvmec(ictrl, "input."+name, verbose, fcomm, reset_file)
 
@@ -107,6 +103,7 @@ def runVMEC(name,executables_path,plotting_path):
 
 # Run booz_xform
 def runBOOZXFORM(name):
+    import booz_xform as bx
     print("Run BOOZ_XFORM")
     b1 = bx.Booz_xform()
     b1.read_wout("wout_"+name+".nc")
@@ -148,14 +145,6 @@ def runNEO(name,executables_path,plotting_path):
 
 ## Run SPEC
 def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
-    # try:
-    #     f = netcdf.netcdf_file(qscfile,mode='r',mmap=False)
-    #     RBC = f.variables['RBC'][()]
-    #     ZBS = f.variables['ZBS'][()]
-    #     rc = f.variables['R0c'][()]
-    #     zs = f.variables['Z0s'][()]
-    #     nfp = f.variables['nfp'][()]
-    # except:
     stel.to_vmec('Input.'+qvfilename,r=r_edge,
             params={"ns_array": [16, 49, 101, 151],
                     "ftol_array": [1e-17,1e-16,1e-15,1e-14],
@@ -184,7 +173,7 @@ def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
     text="! Magnetic axis shape:\n"
     text=text+"rac(0:"+str(len(rc)-1)+")="+", ".join([str(elem) for elem in rc])+"\n\n"
     text=text+"zas(0:"+str(len(zs)-1)+")="+", ".join([str(-elem) for elem in zs])+"\n"
-    copyfile(executables_path+"/input.SPECexample.sp", qvfilename+".sp")
+    shutil.copyfile(executables_path+"/input.SPECexample.sp", qvfilename+".sp")
     replace(qvfilename+".sp","! Magnetic axis shape:",text)
     text="!----- Boundary Parameters -----\n"
     for countn in range(len(rbc)-1):
@@ -250,3 +239,85 @@ def runREGCOIL(name,executables_path,plotting_path,coilSeparation,targetValue,nC
 	print("Cut coils from regcoil")
 	bashCommand = plotting_path+"/./cutCoilsFromRegcoil regcoil_out."+name+".nc "+nescinfilename+" "+str(nCoilsPerNFP)+" 0 -1"
 	run(bashCommand.split())
+
+def runSTAGE2(name, plotting_path, ncoils=12, R0=1.0, R1=0.7, order=4, ALPHA=1e-6, MIN_DIST=0.05, BETA=30, MAXITER=600):
+    import numpy as np
+    from scipy.optimize import minimize
+    from simsopt.geo.surfacerzfourier import SurfaceRZFourier
+    from simsopt.objectives.fluxobjective import SquaredFlux, CoilOptObjective
+    from simsopt.geo.curve import RotatedCurve, curves_to_vtk, create_equally_spaced_curves
+    from simsopt.field.biotsavart import BiotSavart
+    from simsopt.field.coil import Current, coils_via_symmetries
+    from simsopt.geo.curveobjectives import CurveLength, MinimumDistance
+    filename = "input."+name
+    # Initialize the boundary magnetic surface:
+    nphi = 64
+    ntheta = 64
+    s = SurfaceRZFourier.from_vmec_input(filename, range="full torus", nphi=nphi, ntheta=ntheta)
+    # Create the initial coils:
+    base_curves = create_equally_spaced_curves(ncoils, s.nfp, stellsym=True, R0=R0, R1=R1, order=order)
+    base_currents = [Current(1e5) for i in range(ncoils)]
+    # Since the target field is zero, one possible solution is just to set all
+    # currents to 0. To avoid the minimizer finding that solution, we fix one
+    # of the currents:
+    base_currents[0].fix_all()
+
+    coils = coils_via_symmetries(base_curves, base_currents, s.nfp, True)
+    bs = BiotSavart(coils)
+    bs.set_points(s.gamma().reshape((-1, 3)))
+
+    curves = [c.curve for c in coils]
+    curves_to_vtk(curves, name+"_curves_init")
+    pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
+    s.to_vtk(name+"_surf_init", extra_data=pointData)
+
+    # Define the objective function:
+    Jf = SquaredFlux(s, bs)
+    Jls = [CurveLength(c) for c in base_curves]
+    Jdist = MinimumDistance(curves, MIN_DIST)
+
+    JF = CoilOptObjective(Jf, Jls, ALPHA, Jdist, BETA)
+
+    # We don't have a general interface in SIMSOPT for optimisation problems that
+    # are not in least-squares form, so we write a little wrapper function that we
+    # pass directly to scipy.optimize.minimize
+    def fun(dofs):
+        JF.x = dofs
+        J = JF.J()
+        grad = JF.dJ()
+        cl_string = ", ".join([f"{J.J():.3f}" for J in Jls])
+        mean_AbsB = np.mean(bs.AbsB())
+        jf = Jf.J()
+        print(f"J={J:.3e}, Jflux={jf:.3e}, sqrt(Jflux)/Mean(|B|)={np.sqrt(jf)/mean_AbsB:.3e}, CoilLengths=[{cl_string}], ||∇J||={np.linalg.norm(grad):.3e}")
+        return J, grad
+
+    print("""
+    ################################################################################
+    ### Perform a Taylor test ######################################################
+    ################################################################################
+    """)
+    f = fun
+    dofs = JF.x
+    np.random.seed(1)
+    h = np.random.uniform(size=dofs.shape)
+    J0, dJ0 = f(dofs)
+    dJh = sum(dJ0 * h)
+    for eps in [1e-3, 1e-4, 1e-5, 1e-6, 1e-7]:
+        J1, _ = f(dofs + eps*h)
+        J2, _ = f(dofs - eps*h)
+        print("err", (J1-J2)/(2*eps) - dJh)
+
+    print("""
+    ################################################################################
+    ### Run the optimisation #######################################################
+    ################################################################################
+    """)
+    res = minimize(fun, dofs, jac=True, method='L-BFGS-B', options={'maxiter': MAXITER, 'maxcor': 400}, tol=1e-15)
+    curves_to_vtk(curves, name+"_curves_opt")
+    pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
+    s.to_vtk(name+"_surf_opt", extra_data=pointData)
+
+    print("Plot STAGE2 result")
+    sys.path.insert(1, plotting_path)
+    import STAGE2plot
+    STAGE2plot.main(name)

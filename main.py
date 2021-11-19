@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from stel_repo import get_stel
-from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL
+from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2
 from simsopt_driver import optimize
 from pathlib import Path
 import os
@@ -21,7 +21,8 @@ except Exception as e:
 
 # Get stellarator from the repository
 stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(Input.ind, nphi=nphi)
-
+stel.plot_axis()
+exit()
 ## Folders operations
 # Set the name of important folders
 try:
@@ -65,7 +66,7 @@ try:
             print(e)
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.Optimize = False
 
 # Check if user specified r_edge
@@ -91,7 +92,7 @@ try:
         # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
         stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.Plot = False
 
 # Run VMEC
@@ -100,14 +101,14 @@ try:
         if Input.Optimize:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
-        stel.to_vmec('Input.'+name,r=r_edge,
+        stel.to_vmec('input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-17,1e-16,1e-15,1e-14],
                         "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
         runVMEC(name,executables_path,plotting_path)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.VMEC = False
 
 # Run BOOZ_XFORM
@@ -116,7 +117,7 @@ try:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.BOOZ_XFORM = False
 
 # Run NEO
@@ -125,7 +126,7 @@ try:
         print('Running NEO...')
         runNEO(name,executables_path,plotting_path)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.NEO = False
 
 # Run SPEC
@@ -134,7 +135,7 @@ try:
         print('Running SPEC...')
         runSPEC(name,executables_path,plotting_path,stel,r_edge)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.SPEC = False
 
 # Run REGCOIL
@@ -144,6 +145,14 @@ try:
         runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 except Exception as e:
     Input.REGCOIL = False
+
+# Run STAGE2
+try:
+    if Input.STAGE2:
+        print('Running STAGE2...')
+        runSTAGE2(name,plotting_path)
+except Exception as e:
+    Input.STAGE2 = False
 
 # Go back to main
 os.chdir(main_path)
