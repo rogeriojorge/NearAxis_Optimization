@@ -21,8 +21,7 @@ except Exception as e:
 
 # Get stellarator from the repository
 stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(Input.ind, nphi=nphi)
-stel.plot_axis()
-exit()
+
 ## Folders operations
 # Set the name of important folders
 try:
