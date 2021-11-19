@@ -66,6 +66,9 @@ class QSCWrapper(Qsc, Optimizable):
     def get_inv_L_grad_B(self):
         return self.inv_L_grad_B
 
+    def get_grad_grad_B_inverse_scale_length_vs_varphi(self):
+        return self.grad_grad_B_inverse_scale_length_vs_varphi
+
     def get_B2c_array(self):
         return self.B2c_array
 
