@@ -88,8 +88,8 @@ try:
         print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
         print('  plot_boundary()')
-        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
-        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
 except Exception as e:
     # print(e)
     Input.Plot = False
@@ -156,7 +156,7 @@ try:
         print('Running REGCOIL...')
         runREGCOIL(name,stel,r_edge,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.REGCOIL = False
 
 # Run STAGE2
@@ -165,7 +165,7 @@ try:
         print('Running STAGE2...')
         runSTAGE2(name, plotting_path, stel, r_edge, run_get_coils=True)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.STAGE2 = False
 
 # Go back to main

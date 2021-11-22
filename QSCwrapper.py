@@ -128,3 +128,9 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_d_over_curvature(self):
         return self.d_over_curvature
+
+    def get_alpha_deviation(self):
+        return self.alpha - self.alpha_no_buffer
+
+    def get_d(self):
+        return self.d

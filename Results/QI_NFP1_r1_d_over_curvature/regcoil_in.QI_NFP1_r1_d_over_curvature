@@ -4,7 +4,7 @@
  lambda_min = 1e-19
  lambda_max = 1e-12
  target_option = "max_Bnormal"
- target_value = 0.04
+ target_value = 0.08
  ntheta_plasma=64
  ntheta_coil  =64
  nzeta_plasma =64

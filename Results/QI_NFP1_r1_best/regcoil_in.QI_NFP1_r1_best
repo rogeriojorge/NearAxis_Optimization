@@ -1,0 +1,19 @@
+&regcoil_nml
+ general_option=5
+ nlambda=100
+ lambda_min = 1e-19
+ lambda_max = 1e-12
+ target_option = "max_Bnormal"
+ target_value = 0.04
+ ntheta_plasma=64
+ ntheta_coil  =64
+ nzeta_plasma =64
+ nzeta_coil   =64
+ mpol_potential = 8
+ ntor_potential = 8
+ geometry_option_plasma = 2
+ wout_filename = 'wout_QI_NFP1_r1_best.nc'
+ geometry_option_coil=2
+ separation = 0.35
+ nescin_filename = 'QI_NFP1_r1_best_nescin.out'
+/
