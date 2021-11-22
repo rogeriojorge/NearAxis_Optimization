@@ -138,19 +138,34 @@ except Exception as e:
     Input.SPEC = False
 
 # Run REGCOIL
+# Check if user specified coil parameters
 try:
     if Input.REGCOIL:
+        try:
+            coilSeparation = Input.coilSeparation
+        except Exception as e:
+            coilSeparation = 0.1
+        try:
+            targetValue = Input.targetValue
+        except Exception as e:
+            targetValue = 0.08
+        try:
+            nCoilsPerNFP = Input.nCoilsPerNFP
+        except Exception as e:
+            nCoilsPerNFP = 6
         print('Running REGCOIL...')
-        runREGCOIL(name,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
+        runREGCOIL(name,stel,r_edge,executables_path,plotting_path,coilSeparation = coilSeparation,targetValue = targetValue,nCoilsPerNFP = nCoilsPerNFP)
 except Exception as e:
+    print(e)
     Input.REGCOIL = False
 
 # Run STAGE2
 try:
     if Input.STAGE2:
         print('Running STAGE2...')
-        runSTAGE2(name,plotting_path)
+        runSTAGE2(name, plotting_path, stel, r_edge, run_get_coils=True)
 except Exception as e:
+    print(e)
     Input.STAGE2 = False
 
 # Go back to main

@@ -229,95 +229,141 @@ def output2regcoil(regcoilFile,vmecFile,nescinfilename,coilSeparation,targetValu
 		txt_file.write(" nescin_filename = '"+nescinfilename+"'\n")
 		txt_file.write("/\n")
 
-def runREGCOIL(name,executables_path,plotting_path,coilSeparation,targetValue,nCoilsPerNFP):
-	print("Output to REGCOIL")
-	nescinfilename = name+"_nescin.out"
-	output2regcoil("regcoil_in."+name,"wout_"+name+".nc",nescinfilename,coilSeparation,targetValue)
-	print("Run REGCOIL")
-	bashCommand = executables_path+"/./regcoil regcoil_in."+name
-	run(bashCommand.split())
-	print("Cut coils from regcoil")
-	bashCommand = plotting_path+"/./cutCoilsFromRegcoil regcoil_out."+name+".nc "+nescinfilename+" "+str(nCoilsPerNFP)+" 0 -1"
-	run(bashCommand.split())
+def runREGCOIL(name,stel,r_edge,executables_path,plotting_path,coilSeparation,targetValue,nCoilsPerNFP):
+    print("Output to REGCOIL")
+    nescinfilename = name+"_nescin.out"
+    output2regcoil("regcoil_in."+name,"wout_"+name+".nc",nescinfilename,coilSeparation,targetValue)
+    print("Run REGCOIL")
+    bashCommand = executables_path+"/./regcoil regcoil_in."+name
+    run(bashCommand.split())
+    print("Cut coils from regcoil")
+    bashCommand = plotting_path+"/./cutCoilsFromRegcoil regcoil_out."+name+".nc "+nescinfilename+" "+str(nCoilsPerNFP)+" 0 -1"
+    run(bashCommand.split())
+    print("Plot REGCOIL result")
+    sys.path.insert(1, plotting_path)
+    import REGCOILplot
+    REGCOILplot.main(name, stel, r_edge)
 
-def runSTAGE2(name, plotting_path, ncoils=12, R0=1.0, R1=0.7, order=4, ALPHA=1e-6, MIN_DIST=0.05, BETA=30, MAXITER=600):
-    import numpy as np
-    from scipy.optimize import minimize
-    from simsopt.geo.surfacerzfourier import SurfaceRZFourier
-    from simsopt.objectives.fluxobjective import SquaredFlux, CoilOptObjective
-    from simsopt.geo.curve import RotatedCurve, curves_to_vtk, create_equally_spaced_curves
-    from simsopt.field.biotsavart import BiotSavart
-    from simsopt.field.coil import Current, coils_via_symmetries
-    from simsopt.geo.curveobjectives import CurveLength, MinimumDistance
-    filename = "input."+name
-    # Initialize the boundary magnetic surface:
-    nphi = 64
-    ntheta = 64
-    s = SurfaceRZFourier.from_vmec_input(filename, range="full torus", nphi=nphi, ntheta=ntheta)
-    # Create the initial coils:
-    base_curves = create_equally_spaced_curves(ncoils, s.nfp, stellsym=True, R0=R0, R1=R1, order=order)
-    base_currents = [Current(1e5) for i in range(ncoils)]
-    # Since the target field is zero, one possible solution is just to set all
-    # currents to 0. To avoid the minimizer finding that solution, we fix one
-    # of the currents:
-    base_currents[0].fix_all()
+def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=16, R0=1.0, R1=0.6, order=5, ALPHA=1e-4, MIN_DIST=0, BETA=0, MAXITER=500, run_get_coils=True):
+    if run_get_coils:
+        import numpy as np
+        from scipy.optimize import minimize
+        from simsopt.geo.surfacerzfourier import SurfaceRZFourier
+        from simsopt.objectives.fluxobjective import SquaredFlux, CoilOptObjective
+        from simsopt.geo.curve import RotatedCurve, curves_to_vtk, create_equally_spaced_curves
+        from simsopt.field.biotsavart import BiotSavart
+        from simsopt.field.coil import Current, coils_via_symmetries, ScaledCurrent
+        from simsopt.geo.curveobjectives import CurveLength, MinimumDistance
+        filename = "input."+name
+        # Initialize the boundary magnetic surface:
+        nphi = 32
+        ntheta = 32
+        s = SurfaceRZFourier.from_vmec_input(filename, range="half period", nphi=nphi, ntheta=ntheta)
+        # Create the initial coils:
+        base_curves = create_equally_spaced_curves(ncoils, s.nfp, stellsym=True, R0=R0, R1=R1, order=order)
+        # Since the target field is zero, one possible solution is just to set all
+        # currents to 0. To avoid the minimizer finding that solution, we fix one
+        # of the currents:
+        # base_currents[0].fix_all()
+        # base_currents = [Current(3.6e5) for i in range(ncoils)]
+        base_currents = []
+        for i in range(ncoils):
+            curr = Current(1.)
+            # since the target field is zero, one possible solution is just to set all
+            # currents to 0. to avoid the minimizer finding that solution, we fix one
+            # of the currents
+            if i == 0:
+                curr.fix_all()
+            base_currents.append(ScaledCurrent(curr, 3.6e5))
 
-    coils = coils_via_symmetries(base_curves, base_currents, s.nfp, True)
-    bs = BiotSavart(coils)
-    bs.set_points(s.gamma().reshape((-1, 3)))
+        coils = coils_via_symmetries(base_curves, base_currents, s.nfp, True)
+        bs = BiotSavart(coils)
+        bs.set_points(s.gamma().reshape((-1, 3)))
 
-    curves = [c.curve for c in coils]
-    curves_to_vtk(curves, name+"_curves_init")
-    pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
-    s.to_vtk(name+"_surf_init", extra_data=pointData)
+        curves = [c.curve for c in coils]
+        curves_to_vtk(curves, name+"_curves_init")
+        pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
+        s.to_vtk(name+"_surf_init", extra_data=pointData)
 
-    # Define the objective function:
-    Jf = SquaredFlux(s, bs)
-    Jls = [CurveLength(c) for c in base_curves]
-    Jdist = MinimumDistance(curves, MIN_DIST)
+        # Define the objective function:
+        Jf = SquaredFlux(s, bs)
+        Jls = [CurveLength(c) for c in base_curves]
+        Jdist = MinimumDistance(curves, MIN_DIST)
 
-    JF = CoilOptObjective(Jf, Jls, ALPHA, Jdist, BETA)
+        JF = CoilOptObjective(Jf, Jls, ALPHA, Jdist, BETA)
 
-    # We don't have a general interface in SIMSOPT for optimisation problems that
-    # are not in least-squares form, so we write a little wrapper function that we
-    # pass directly to scipy.optimize.minimize
-    def fun(dofs):
-        JF.x = dofs
-        J = JF.J()
-        grad = JF.dJ()
-        cl_string = ", ".join([f"{J.J():.3f}" for J in Jls])
-        mean_AbsB = np.mean(bs.AbsB())
-        jf = Jf.J()
-        print(f"J={J:.3e}, Jflux={jf:.3e}, sqrt(Jflux)/Mean(|B|)={np.sqrt(jf)/mean_AbsB:.3e}, CoilLengths=[{cl_string}], ||∇J||={np.linalg.norm(grad):.3e}")
-        return J, grad
+        # We don't have a general interface in SIMSOPT for optimisation problems that
+        # are not in least-squares form, so we write a little wrapper function that we
+        # pass directly to scipy.optimize.minimize
+        def fun(dofs):
+            JF.x = dofs
+            J = JF.J()
+            grad = JF.dJ()
+            cl_string = ", ".join([f"{J.J():.3f}" for J in Jls])
+            mean_AbsB = np.mean(bs.AbsB())
+            jf = Jf.J()
+            print(f"J={J:.3e}, Jflux={jf:.3e}, sqrt(Jflux)/Mean(|B|)={np.sqrt(jf)/mean_AbsB:.3e}, CoilLengths=[{cl_string}], ||∇J||={np.linalg.norm(grad):.3e}")
+            return J, grad
 
-    print("""
-    ################################################################################
-    ### Perform a Taylor test ######################################################
-    ################################################################################
-    """)
-    f = fun
-    dofs = JF.x
-    np.random.seed(1)
-    h = np.random.uniform(size=dofs.shape)
-    J0, dJ0 = f(dofs)
-    dJh = sum(dJ0 * h)
-    for eps in [1e-3, 1e-4, 1e-5, 1e-6, 1e-7]:
-        J1, _ = f(dofs + eps*h)
-        J2, _ = f(dofs - eps*h)
-        print("err", (J1-J2)/(2*eps) - dJh)
+        # print("""
+        # ################################################################################
+        # ### Perform a Taylor test ######################################################
+        # ################################################################################
+        # """)
+        # f = fun
+        dofs = JF.x
+        # np.random.seed(1)
+        # h = np.random.uniform(size=dofs.shape)
+        # J0, dJ0 = f(dofs)
+        # dJh = sum(dJ0 * h)
+        # for eps in [1e-3, 1e-4, 1e-5, 1e-6, 1e-7]:
+        #     J1, _ = f(dofs + eps*h)
+        #     J2, _ = f(dofs - eps*h)
+        #     print("err", (J1-J2)/(2*eps) - dJh)
 
-    print("""
-    ################################################################################
-    ### Run the optimisation #######################################################
-    ################################################################################
-    """)
-    res = minimize(fun, dofs, jac=True, method='L-BFGS-B', options={'maxiter': MAXITER, 'maxcor': 400}, tol=1e-15)
-    curves_to_vtk(curves, name+"_curves_opt")
-    pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
-    s.to_vtk(name+"_surf_opt", extra_data=pointData)
+        print("""
+        ################################################################################
+        ### Run the optimisation #######################################################
+        ################################################################################
+        """)
+        res = minimize(fun, dofs, jac=True, method='L-BFGS-B', options={'maxiter': MAXITER, 'maxcor': 400}, tol=1e-15)
+        curves_to_vtk(curves, name+"_curves_opt")
+        pointData = {"B_N": np.sum(bs.B().reshape((nphi, ntheta, 3)) * s.unitnormal(), axis=2)[:, :, None]}
+        s.to_vtk(name+"_surf_opt", extra_data=pointData)
+
+        # Output the coil curves to a txt file
+        coilsFourier = np.array([coils[i].curve.get_dofs() for i in range(ncoils)])
+        coilsOutput = []
+        for j in range(ncoils):
+            coilsOutput.append(np.insert([coilsFourier[j][2*(i+0*order)+1] for i in range(order)],0,0.0))
+            coilsOutput.append([coilsFourier[j][2*(i+0*order)+0] for i in range(order+1)])
+            coilsOutput.append(np.insert([coilsFourier[j][2*(i+1*order)+2] for i in range(order)],0,0.0))
+            coilsOutput.append([coilsFourier[j][2*(i+1*order)+1] for i in range(order+1)])
+            coilsOutput.append(np.insert([coilsFourier[j][2*(i+2*order)+3] for i in range(order)],0,0.0))
+            coilsOutput.append([coilsFourier[j][2*(i+2*order)+2] for i in range(order+1)])
+        coilsOutput = np.array(coilsOutput).transpose()
+        np.savetxt(name+"_coil_curve_data.txt", coilsOutput, delimiter=',')
+
+        # Check that it was outputted correctly
+        coil_data = np.loadtxt(name+"_coil_curve_data.txt", delimiter=',')
+        np.testing.assert_allclose(coilsOutput,coil_data)
+
+        # Check that loading the data from the txt file yields the same coils
+        from simsopt.geo.curvexyzfourier import CurveXYZFourier
+        coil_data = CurveXYZFourier.load_curves_from_file(name+"_coil_curve_data.txt", order=order)
+        coils_data = coils_via_symmetries(coil_data, base_currents, s.nfp, True)
+        coilsFourier_data = np.array([coils_data[i].curve.get_dofs() for i in range(ncoils)])
+        np.testing.assert_allclose(coilsFourier,coilsFourier_data)
+
+        # Output the current data
+        base_currents_Output = np.array([coils[i].current.get_value() for i in range(ncoils)])
+        np.savetxt(name+"_coil_current_data.txt", base_currents_Output, delimiter=',')
+
+        # Check that it was outputted correctly
+        current_data = np.loadtxt(name+"_coil_current_data.txt", delimiter=',')
+        np.testing.assert_allclose(base_currents_Output,current_data)
 
     print("Plot STAGE2 result")
     sys.path.insert(1, plotting_path)
     import STAGE2plot
-    STAGE2plot.main(name)
+    STAGE2plot.main(name, order, stel, r_edge)

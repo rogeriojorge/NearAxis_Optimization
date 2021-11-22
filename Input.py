@@ -1,4 +1,4 @@
-ind=30
+ind=26
 nphi=131
 
 iota_target = 0.42
@@ -9,11 +9,15 @@ max_fourier_coefficients = 3
 r_edge = 1/10
 ftol = 1e-3
 
-Optimize = True
+# Optimize = True
 # Plot = True
 # VMEC = True
 # BOOZ_XFORM = True
 # NEO = True
 # SPEC = True
 # REGCOIL = True
-# STAGE2 = True
+STAGE2 = True
+
+nCoilsPerNFP   = 16
+targetValue    = 0.04
+coilSeparation = 0.35

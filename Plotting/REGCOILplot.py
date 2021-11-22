@@ -2,36 +2,38 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from pandas import read_csv
 
-def main(name, order, stel, r_edge, savefig=True):
-    from simsopt.field.coil import Current, coils_via_symmetries
-    from simsopt.geo.curvexyzfourier import CurveXYZFourier
-    from simsopt.geo.surfacerzfourier import SurfaceRZFourier
-
-    filename = "input."+name
-    # Initialize the boundary magnetic surface:
-    nphi = 32
-    ntheta = 32
-    s = SurfaceRZFourier.from_vmec_input(filename, range="full torus", nphi=nphi, ntheta=ntheta)
-
-    current_data = np.loadtxt(name+"_coil_current_data.txt", delimiter=',')
-    base_currents = [Current(currents) for currents in current_data]
-    coil_data = CurveXYZFourier.load_curves_from_file(name+"_coil_curve_data.txt", order=order)
-    coils = coils_via_symmetries(coil_data, base_currents, s.nfp, True)
-    ncoils = len(coils)
-    nbasecoils = len(base_currents)
+def main(name, stel, r_edge, savefig=True):
+    allCoils = read_csv("coils."+name)
+    allCoilsValues = allCoils.values
+    coilN=0
+    coilPosN=0
+    coilPos=[[],[]]
+    for nVals in range(len(allCoilsValues)-2):
+        listVals=allCoilsValues[nVals+2][0]
+        vals=listVals.split()
+        try:
+            floatVals = [float(nVals) for nVals in vals][0:3]
+            coilPos[coilN].append(floatVals)
+            coilPosN=coilPosN+1
+        except:
+            try:
+                floatVals = [float(nVals) for nVals in vals[0:3]][0:3]
+                coilPos[coilN].append(floatVals)
+                coilN=coilN+1
+                coilPos.append([])
+            except:
+                break
+    current=allCoilsValues[6][0].split()
+    current=float(current[3])
+    coilPos=np.array(coilPos[:-2])
 
     import mayavi.mlab as mlab
     from matplotlib.pyplot import cm
-    # mlab.options.offscreen = True
-
     fig = mlab.figure(bgcolor=(1,1,1), size=(430,720))
-    colors = tuple(map(tuple,np.delete(cm.rainbow(np.linspace(0, 1, int(ncoils/nbasecoils))),3,1)))
-    i=-1
-    for count, coil in enumerate(coils):
-        if count % nbasecoils == 0:
-            i += 1
-        mlab.plot3d(coil.curve.gamma()[:, 0], coil.curve.gamma()[:, 1], coil.curve.gamma()[:, 2], color=colors[i], tube_radius=0.02)
+    for count, coil in enumerate(coilPos):
+        mlab.plot3d(np.array(coil).transpose()[0], np.array(coil).transpose()[1], np.array(coil).transpose()[2], tube_radius=0.02, color=(1,0,0))
 
     ntheta=40
     nphi=130
@@ -59,6 +61,6 @@ def main(name, order, stel, r_edge, savefig=True):
     cb.title_text_property.bold = 1
 
     if savefig != None:
-        mlab.savefig(filename=name+'_3D_coils.png', figure=fig)
+        mlab.savefig(filename=name+'_3D_REGCOIL_coils.png', figure=fig)
 
     mlab.show()
