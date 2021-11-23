@@ -103,7 +103,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         # (stel.get_iota, 0.3, 1e2),
-                        # (stel.get_max_elongation, 0.0, 3e-1),
+                        (stel.get_max_elongation, 0.0, 3e-1),
                         (stel.get_elongation, 0.0, 5e-1/stel.nphi),
                         # (stel.get_sigma, 0.0, 1e+1/stel.nphi),
                         # (stel.get_torsion, 0.0, 1e+1/stel.nphi),
