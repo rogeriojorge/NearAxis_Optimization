@@ -244,7 +244,7 @@ def runREGCOIL(name,stel,r_edge,executables_path,plotting_path,coilSeparation,ta
     import REGCOILplot
     REGCOILplot.main(name, stel, r_edge)
 
-def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=16, R0=1.0, R1=0.6, order=5, ALPHA=1e-4, MIN_DIST=0, BETA=0, MAXITER=500, run_get_coils=True):
+def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=4, R0=1.0, R1=0.6, order=4, ALPHA=1e-4, MIN_DIST=0.04, BETA=30, MAXITER=500, run_get_coils=True):
     if run_get_coils:
         import numpy as np
         from scipy.optimize import minimize
