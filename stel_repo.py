@@ -575,6 +575,33 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # Max elongation = 5.402736072814011
         # objective function:  25243.16894816218
     if ind==29:
+        name   = 'QI_NFP1_r1_test'
+        rc      = [ 1.0,0.0,-0.2]
+        zs      = [ 0.0,0.0,0.35]
+        B0_vals = [ 1.0,0.15]
+        omn_method ='non-zone'
+        k_buffer = 3
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,0.01]
+        delta   = 0.1
+        nfp     = 1
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
+        # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
+        # (stel.get_d, 0.0, 1e+1/stel.nphi),
+        # (stel.get_min_R0_penalty, 0.0, 3e1),
+        # (stel.get_min_Z0_penalty, 0.0, 3e1),
+        # (stel.get_B0_well_depth,0.15, 3e2),
+        # (stel.get_inv_L_grad_B, 0.0, 3e-2),
+        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),
+        # (stel.get_d_over_curvature,1.0,1e1),
+        # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
+        # nIterations = 150
+        # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+        # rel_step_array = [1e-1,1e-2]
+        # max_fourier_coefficients = 5
+
+    if ind==299:
         name   = 'QI_NFP2'
         rc      = [ 1.0,0.0,-0.072884987883518,0.0,0.004096374610545693,0.0,-0.00018772107355630443,0.0,0.0 ]
         zs      = [ 0.0,0.0,0.05040061993378681,0.0,-0.003406104954106855,0.0,9.659014609666793e-05,0.0,-5.993220942844537e-05 ]

@@ -103,12 +103,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         # (stel.get_iota, 0.3, 1e2),
-                        (stel.get_max_elongation, 0.0, 3e-1),
+                        # (stel.get_max_elongation, 0.0, 3e-1),
                         (stel.get_elongation, 0.0, 5e-1/stel.nphi),
                         # (stel.get_sigma, 0.0, 1e+1/stel.nphi),
                         # (stel.get_torsion, 0.0, 1e+1/stel.nphi),
                         # (stel.get_curvature, 1.0, 5e-1/stel.nphi),
-                        # (stel.get_d, 0.0, 5e+0/stel.nphi),
+                        (stel.get_d, 0.0, 1e+1/stel.nphi),
                         # (stel.get_d_svals, 0.0, 1e2),
                         # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
@@ -120,7 +120,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_inv_L_grad_B, 0.0, 3e-2),
                         (stel.get_d_d_d_varphi_at_0,0.0,2e0),
                         # (stel.get_d_curvature_d_varphi_at_0,0.0,5e-1),
-                        # (stel.get_d_over_curvature,0.0,1e1),
+                        (stel.get_d_over_curvature,1.0,1e1),
                         # (stel.get_k_second_order_SS,0.0,5e0),
                         (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
                 ]
