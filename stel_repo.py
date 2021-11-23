@@ -588,37 +588,102 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         nfp     = 1
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
         # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
-        # (stel.get_d, 0.0, 1e+1/stel.nphi),
-        # (stel.get_min_R0_penalty, 0.0, 3e1),
-        # (stel.get_min_Z0_penalty, 0.0, 3e1),
+        # (stel.get_d, 0.0, 2e+1/stel.nphi),
+        # (stel.get_d_svals, 0.0, 1e2),
+        # (stel.get_min_R0_penalty, 0.0, 2e1),
+        # (stel.get_min_Z0_penalty, 0.0, 2e1),
         # (stel.get_B0_well_depth,0.15, 3e2),
         # (stel.get_inv_L_grad_B, 0.0, 3e-2),
-        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),
-        # (stel.get_d_over_curvature,1.0,1e1),
+        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),∂∂
         # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
         # nIterations = 150
         # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
         # rel_step_array = [1e-1,1e-2]
         # max_fourier_coefficients = 5
-
-    if ind==299:
-        name   = 'QI_NFP2'
-        rc      = [ 1.0,0.0,-0.072884987883518,0.0,0.004096374610545693,0.0,-0.00018772107355630443,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.05040061993378681,0.0,-0.003406104954106855,0.0,9.659014609666793e-05,0.0,-5.993220942844537e-05 ]
-        B0_vals = [ 1.0,0.18454612136804768 ]
+        rc      = [ 1.0,0.0,-0.3128567868276656,0.0,0.033421754548621244,0.0,-0.00010502414022251839,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.27212625571920984,0.0,0.044167669563470506,0.0,-6.574629652081523e-05,0.0,-9.893447860006291e-06,0.0,9.277608267145067e-06 ]
+        B0_vals = [ 1.0,0.15810011629203774 ]
         omn_method ='non-zone'
         k_buffer = 3
         k_second_order_SS   = 0.0
-        d_over_curvature   = 0.4562982813178595
-        d_svals = [ 0.0,0.19379254070586863,0.026942259847851428,-0.03277607568475465,-0.007274670261510247 ]
+        d_over_curvature   = 0.5356625931840477
+        d_svals = [ 0.0,-0.00216107652370974,0.0004036139788440245,1.2115865686228548e-06,-1.5895958585498093e-06,-1.268277691787932e-05 ]
+        delta   = 0.1
+        nfp     = 1
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
+        iota    =  -0.6545438578820277
+        # max curvature'(0): 0.16346295965506322
+        # max d'(0): 0.08614102277953053
+        # max gradB inverse length: 1.4851665891326913
+        # Max elongation = 5.02330125051389
+        # objective function:  35.67338668936966
+    if ind==30:
+        name   = 'QI_NFP2_r1'
+        rc      = [ 1.0,0.0,-0.01]
+        zs      = [ 0.0,0.0,0.01]
+        B0_vals = [ 1.0,0.15]
+        omn_method ='non-zone'
+        k_buffer = 3
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,0.01]
+        delta   = 0.1
+        nfp     = 2
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
+        # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
+        # (stel.get_d, 0.0, 2e+1/stel.nphi),
+        # (stel.get_d_svals, 0.0, 1e2),
+        # (stel.get_min_R0_penalty, 0.0, 2e1),
+        # (stel.get_min_Z0_penalty, 0.0, 2e1),
+        # (stel.get_B0_well_depth,0.15, 3e2),
+        # (stel.get_inv_L_grad_B, 0.0, 3e-2),
+        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),∂∂
+        # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
+        # nIterations = 150
+        # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+        # rel_step_array = [1e-1,1e-2]
+        # max_fourier_coefficients = 5
+        rc      = [ 1.0,0.0,-0.0672128837481924,0.0,0.0005161091974765925,0.0,0.0007522201785054648,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.05744182548136287,0.0,0.004041681120334309,0.0,0.0006438081403620847,0.0,-1.6028888785238425e-06,0.0,-5.693463641219853e-07 ]
+        B0_vals = [ 1.0,0.1527763458452509 ]
+        omn_method ='non-zone'
+        k_buffer = 3
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5313710785886832
+        d_svals = [ 0.0,-0.013021981438299298,0.020287548707225142,0.0005311381639614502,-0.013820065354867411,-0.002488174423325446 ]
         delta   = 0.1
         nfp     = 2
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
-        iota    =  1.21340645179365
-        # max curvature'(0): 1.7350006828847888
-        # max d'(0): 1.0322917907025961
-        # max gradB inverse length: 3.193370698036408
-        # Max elongation = 5.123473330014429
-        # objective function:  58.474770329828715
-
+        iota    =  -1.27947825864219
+        # max curvature'(0): 0.887692080909255
+        # max d'(0): 0.39464331889143905
+        # max gradB inverse length: 2.5185118415805303
+        # Max elongation = 5.847408583632515
+        # objective function:  61.13905988840333
+    if ind==31:
+        name   = 'QI_NFP5_r1'
+        rc      = [ 1.0,0.0,-0.01]
+        zs      = [ 0.0,0.0,0.01]
+        B0_vals = [ 1.0,0.15]
+        omn_method ='non-zone'
+        k_buffer = 3
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,0.01]
+        delta   = 0.1
+        nfp     = 5
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
+        # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
+        # (stel.get_d, 0.0, 2e+1/stel.nphi),
+        # (stel.get_d_svals, 0.0, 1e2),
+        # (stel.get_min_R0_penalty, 0.0, 2e1),
+        # (stel.get_min_Z0_penalty, 0.0, 2e1),
+        # (stel.get_B0_well_depth,0.15, 3e2),
+        # (stel.get_inv_L_grad_B, 0.0, 3e-2),
+        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),∂∂
+        # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
+        # nIterations = 150
+        # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+        # rel_step_array = [1e-1,1e-2]
+        # max_fourier_coefficients = 5
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
