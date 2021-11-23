@@ -519,62 +519,44 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # Max elongation = 9.601832283747992
         # objective function:  18559.816948294818
     if ind==26:
+        name   = 'QI_NFP1_r1_k_second_order_SS'
+        rc      = [ 1.0,0.0,-0.3215933546627156,0.0,0.04374904855292157,0.0,-0.0036693797861105035,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.1761894885594696,0.0,-0.03212484216647393,0.0,0.004288782017242512,0.0,-0.0002197285688705138 ]
+        B0_vals = [ 1.0,0.1494580658305839 ]
+        omn_method ='non-zone'
+        k_buffer = 4
+        k_second_order_SS   = -0.2945414999865881
+        d_over_curvature   = 0.0
+        d_svals = [ 0.0,-1.2734735798960166,-0.011728655941655858,0.06995110936196922,0.02501702564275091 ]
+        delta   = 0.1
+        nfp     = 1
+        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
+        iota    =  0.5171335081684099
+        # max curvature'(0): 1.3882301507705863
+        # max d'(0): -0.9487763169897289
+        # max gradB inverse length: 2.405695177762281
+        # Max elongation = 3.8972846007080695
+        # objective function:  29.070861104483427
+    if ind==27:
         name   = 'QI_NFP1_r1_d_over_curvature'
-        rc      = [ 1.0,0.0,-0.31156698348096523,0.0,0.03281381867087213,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.32596628468713607,0.0,-0.05148075653531195,0.0,0.00035721010864138127,0.0,-0.00025120004844148816,0.0,-9.681058605149824e-06 ]
-        B0_vals = [ 1.0,0.1611858881581418 ]
+        rc      = [ 1.0,0.0,-0.37510983559429445,0.0,0.0637209503308546,0.0,-0.005613702098731244,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.26383174888812866,0.0,-0.06099954215159932,0.0,0.0061269955241693205,0.0,0.00010252920801029004 ]
+        B0_vals = [ 1.0,0.162749191944802 ]
         omn_method ='non-zone'
         k_buffer = 3
-        d_over_curvature   = 0.4882661440608365
-        d_svals = [ 0.0,0.005743059145943575,0.0010017023515223697,-0.0030768469053832734,-0.0011614585411610532,-5.826410883440976e-06 ]
-        delta   = 0.1
-        nfp     = 1
-        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
-        iota    =  0.7056219688553746
-        # max curvature'(0): 0.2068350328820353
-        # max d'(0): 0.09483603670101105
-        # mean gradB inverse length: 1.2397283031308683
-        # Max elongation = 5.402736072814011
-        # objective function:  25243.16894816218
-    if ind==27:
-        name   = 'QI_NFP1_r1_k_second_order_SS'
-        rc      = [ 1.0,0.0,-0.3238146246916997,0.0,0.04167530809693878,0.0,-0.0024164084916070455 ]
-        zs      = [ 0.0,0.0,0.1472806014306981,0.0,-0.01885151573860073,0.0,0.0007057857247433639 ]
-        B0_vals = [ 1.0,0.1716935433063729 ]
-        omn_method ='non-zone'
-        k_buffer = 1
-        k_second_order_SS   = 5.9478710431746125
-        d_over_curvature   = 0.0
-        d_svals = [ 0.0,0.0,0.0,0.0 ]
-        delta   = 0.1
-        nfp     = 1
-        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
-        iota    =  0.42057958227802283
-        # max curvature'(0): 1.2210656254929453
-        # max d'(0): -0.8715498388090468
-        # max gradB inverse length: 1.7602810575300625
-        # Max elongation = 4.985526855443814
-        # objective function:  27.561696240310734
-    if ind==28:
-        name   = 'QI_NFP1_r1_d_over_curvature'
-        rc      = [ 1.0,0.0,-0.3124034481804526,0.0,0.03304983600137689,0.0,4.595375104215587e-06 ]
-        zs      = [ 0.0,0.0,0.280820570474603,0.0,-0.04565988752794105,0.0,-1.897028153118981e-05 ]
-        B0_vals = [ 1.0,0.1583271874211525 ]
-        omn_method ='non-zone'
-        k_buffer = 1
         k_second_order_SS   = 0.0
-        d_over_curvature   = 0.715120620894283
-        d_svals = [ 0.0,0.0,0.0 ]
+        d_over_curvature   = 0.6481405174969549
+        d_svals = [ 0.0,0.05367173687497751,0.05302220930256652,-0.03477317136890787,-0.02028376459985586 ]
         delta   = 0.1
         nfp     = 1
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
-        iota    =  0.4746023504280397
-        # max curvature'(0): 0.13162761022678943
-        # max d'(0): 0.09412961835222558
-        # max gradB inverse length: 1.4976869542234459
-        # Max elongation = 3.9179949234379667
-        # objective function:  27.653353146731217
-    if ind==29:
+        iota    =  0.5998169708699606
+        # max curvature'(0): 0.4844311966624933
+        # max d'(0): 0.2882883585584308
+        # max gradB inverse length: 1.5653267149603343
+        # Max elongation = 4.161353494303795
+        # objective function:  26.78191718287084
+    if ind==28:
         name   = 'QI_NFP1_r1_best'
         rc      = [ 1.0,0.0,-0.31156698348096523,0.0,0.03281381867087213,0.0,0.0,0.0,0.0,0.0,0.0 ]
         zs      = [ 0.0,0.0,0.32596628468713607,0.0,-0.05148075653531195,0.0,0.00035721010864138127,0.0,-0.00025120004844148816,0.0,-9.681058605149824e-06 ]
@@ -592,7 +574,7 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # mean gradB inverse length: 1.2397283031308683
         # Max elongation = 5.402736072814011
         # objective function:  25243.16894816218
-    if ind==30:
+    if ind==29:
         name   = 'QI_NFP2'
         rc      = [ 1.0,0.0,-1/(1+4*4) ]
         zs      = [ 0.0,0.0,0.2]

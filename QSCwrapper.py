@@ -134,3 +134,6 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_d(self):
         return self.d
+
+    def get_sigma(self):
+        return self.sigma
