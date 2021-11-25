@@ -600,6 +600,12 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
         # rel_step_array = [1e-1,1e-2]
         # max_fourier_coefficients = 5
+        # r_edge = 1/8
+        # ftol = 1e-3
+        # nCoilsPerNFP   = 20
+        # targetValue    = 0.042
+        # coilSeparation = 0.375
+        # stel.min_R0_threshold = 0.4
         rc      = [ 1.0,0.0,-0.3128567868276656,0.0,0.033421754548621244,0.0,-0.00010502414022251839,0.0,0.0,0.0,0.0 ]
         zs      = [ 0.0,0.0,-0.27212625571920984,0.0,0.044167669563470506,0.0,-6.574629652081523e-05,0.0,-9.893447860006291e-06,0.0,9.277608267145067e-06 ]
         B0_vals = [ 1.0,0.15810011629203774 ]
