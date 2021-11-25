@@ -1,63 +1,69 @@
  ====================== PARALLEL TIMINGS ====================
-               total  :      476.176647
+               total  :     1171.056226
                 rank  :               0
-mgrid file read time  :        0.000000
+mgrid file read time  :        0.069233
         No. of procs  :               1
 
-      --- non-vacuum  :            3000             16              1      20.353154
-      --- non-vacuum  :            3000             49              1      63.077243
-      --- non-vacuum  :            4000            101              1     166.626448
-      --- non-vacuum  :            3528            151              1     221.770275
+      --- non-vacuum  :            3000             16              1      24.019540
+      --- non-vacuum  :            3000             49              1      81.224073
+      --- non-vacuum  :            4000            101              1     219.911536
+      --- non-vacuum  :            5000            151              1     398.475662
 
-             runvmec  :      476.174043
+            VNRANKS   :               1
+         --- vacuum   :              16      92.854772
+         --- vacuum   :              49      89.465355
+         --- vacuum   :             101     115.067718
+         --- vacuum   :             151     138.671163
+
+             runvmec  :     1171.054023
 
          init radial  :        0.000000
-             eqsolve  :      475.078401
-             fileout  :        1.002607
+             eqsolve  :     1169.447023
+             fileout  :        1.450193
 
-              evolve  :      474.991670
-             funct3d  :      471.827120
-            nfunct3d  :           13550
+              evolve  :     1169.413698
+             funct3d  :     1159.689819
+            nfunct3d  :           15055
 
-             totzsps  :      128.609099
+             totzsps  :      204.451602
              totzspa  :        0.000000
               symrzl  :        0.000000
-            jacobian  :        7.411116
-              bcovar  :       33.946777
-              vacuum  :        0.000000
+            jacobian  :       11.028580
+              bcovar  :       51.209798
+              vacuum  :      436.059008
 
-            - precal  :        0.000000
-           - surface  :        0.000000
+            - precal  :        0.001887
+           - surface  :       27.943234
 
-           - bextern  :        0.000000
+           - bextern  :        8.930499
 
-           -- becoil  :        0.000000
+           -- becoil  :        0.647855
            -- tolicu  :        0.000000
-           -- belicu  :        0.000000
+           -- belicu  :        8.046369
 
-           - scalpot  :        0.000000
+           - scalpot  :     -379.306936
 
-           -- analyt  :        0.000000
-           -- greenf  :        0.000000
-            -- fourp  :        0.000000
-            -- fouri  :        0.000000
+           -- analyt  :      170.938016
+           -- greenf  :       27.944331
+            -- fourp  :       79.049665
+            -- fouri  :       98.877177
 
-            - solver  :        0.000000
+            - solver  :       10.190023
 
-               alias  :       71.601882
-              forces  :       38.656279
+               alias  :      111.358824
+              forces  :       59.420467
            symforces  :        0.000000
-             tomnsps  :      149.399172
+             tomnsps  :      233.594166
              tomnspa  :        0.000000
-             residue  :       36.827578
-          -- tridslv  :       31.920802
+             residue  :       50.647160
+          -- tridslv  :       44.070554
 
  ============================================================
 
            allgather  :        0.000000
-           allreduce  :        0.391446
-           broadcast  :        0.010481
-           sendrecv   :        0.148166
+           allreduce  :        0.545017
+           broadcast  :        0.017266
+           sendrecv   :        0.185471
 
      Fill_blocks      :        0.000000
      Compute blocks   :        0.000000

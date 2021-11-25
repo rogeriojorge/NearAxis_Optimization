@@ -20,7 +20,7 @@ def main(file,qvfilename):
     eps_eff = np.array(eps_eff)
     s_radial = s_radial[np.argwhere(~np.isnan(eps_eff))[:,0]]
     eps_eff = eps_eff[np.argwhere(~np.isnan(eps_eff))[:,0]]
-    fig = plt.figure()
+    fig = plt.figure(figsize=(8, 6), dpi=80)
     ax = fig.add_subplot(111)
     plt.plot(s_radial,eps_eff, label='eps eff '+qvfilename)
     # ax.set_yscale('log')
@@ -41,7 +41,7 @@ def main(file,qvfilename):
     popt_quadratic, _ = curve_fit(objective_quadratic, s_radial, eps_eff)
     a_quadratic, b_quadratic, c_quadratic = popt_quadratic
     y_new_quadratic = objective_quadratic(s_radial, a_quadratic, b_quadratic, c_quadratic)
-    plt.plot(s_radial,y_new_quadratic, label='quadratic fit'+str(popt_quadratic))
+    # plt.plot(s_radial,y_new_quadratic, label='quadratic fit'+str(popt_quadratic))
 
     plt.legend()
     
