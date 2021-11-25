@@ -10,16 +10,16 @@ r_edge = 1/8
 ftol = 1e-3
 
 # Optimize = True
-# Plot = True
+Plot = True
 # VMEC = True
 # BOOZ_XFORM = True
 # NEO = True
 # SPEC = True
 # REGCOIL = True
 # STAGE2 = True
-VMECfree = True
-BOOZ_XFORM_free = True
-NEO_free = True
+# VMECfree = True
+# BOOZ_XFORM_free = True
+# NEO_free = True
 
 nCoilsPerNFP   = 20
 targetValue    = 0.042

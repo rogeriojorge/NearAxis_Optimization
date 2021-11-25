@@ -83,13 +83,13 @@ try:
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
         print('  B_contour()')
         stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
-        # print('  plot_axis()')
-        # stel.plot_axis(savefig='pyQSC_out.'+name+'axis', show=False)
         print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
         print('  plot_boundary()')
         stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
         # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        print('  plot_axis()')
+        stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
         sys.path.insert(1, plotting_path)
         import Simple3Dplot
         Simple3Dplot.main(name, stel, r_edge, show=False)
@@ -118,6 +118,8 @@ try:
     if Input.BOOZ_XFORM:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
+        stel_from_boozxform = stel.from_boozxform(booz_xform_file, order='r2', max_s_for_fit = 0.4, N_phi = 200, max_n_to_plot = 2, show=False,
+                         vmec_file=None, rc=[], rs=[], zc=[], zs=[], sigma0=0, I2=0, p2=0, omn=False, nNormal=None)
 except Exception as e:
     # print(e)
     Input.BOOZ_XFORM = False
