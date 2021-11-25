@@ -95,7 +95,7 @@ def runVMEC(name,executables_path,plotting_path):
     # np.testing.assert_equal(ictrl[1], 0)
 
     bashCommand = executables_path+"/./xvmec2000 input."+name
-    # run(bashCommand.split())
+    run(bashCommand.split())
     print("Plot VMEC result")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
@@ -244,7 +244,7 @@ def runREGCOIL(name,stel,r_edge,executables_path,plotting_path,coilSeparation,ta
     import REGCOILplot
     REGCOILplot.main(name, stel, r_edge)
 
-def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=4, R0=1.0, R1=0.6, order=4, ALPHA=1e-4, MIN_DIST=0.04, BETA=30, MAXITER=500, run_get_coils=True):
+def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=12, R0=1.0, R1=0.6, order=4, ALPHA=1e-3, MIN_DIST=0.1, BETA=100, MAXITER=500, run_get_coils=True):
     if run_get_coils:
         import numpy as np
         from scipy.optimize import minimize
@@ -367,3 +367,63 @@ def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=4, R0=1.0, R1=0.6, order
     sys.path.insert(1, plotting_path)
     import STAGE2plot
     STAGE2plot.main(name, order, stel, r_edge)
+
+def runVMECfree(name, executables_path, plotting_path):
+    print("Run MAKEGRID")
+    MAKEGRID_file = "input_xgrid_"+name+".dat"
+    log_xgrid_file = "log_xgrid."+name
+    with open(MAKEGRID_file, "w") as txt_file:
+        txt_file.write(name+'\n')
+        txt_file.write('S\n')
+        txt_file.write('y\n')
+        txt_file.write('0.3\n')
+        txt_file.write('1.8\n')
+        txt_file.write('-0.6\n')
+        txt_file.write('0.6\n')
+        txt_file.write('36\n')
+        txt_file.write('201\n')
+        txt_file.write('201')
+    bashCommand = executables_path+"/xgrid < "+MAKEGRID_file+" > "+log_xgrid_file
+    run(bashCommand,shell=True)
+    
+    print("Run VMEC Free Boundary")
+    new_VMEC_input_file = "input."+name+"_free"
+    shutil.copy("input."+name,new_VMEC_input_file)
+
+    fp = open(log_xgrid_file)
+    two_lines_above = -10
+    for i, line in enumerate(fp):
+        if "Filamentary loops, current:" in line:
+            two_lines_above = i
+        if i == two_lines_above+2:
+            new_current = float(line.split()[0])
+            break
+    fp.close()
+
+    fp = open(new_VMEC_input_file)
+    for i, line in enumerate(fp):
+        if i == 18:
+            new_PHIEDGE = -float(line.split()[2])
+            break
+    fp.close()
+
+    replace(new_VMEC_input_file,
+        'PHIEDGE = '+str(-new_PHIEDGE),
+        'PHIEDGE = '+str(new_PHIEDGE)+"\n"+
+        "!----- Free Boundary Parameters -----\n"+
+        "  LFREEB = T\n"+
+        "  NZETA  =   36\n"+
+        "  MGRID_FILE = 'mgrid_"+name+".nc'\n"+
+        "  EXTCUR =   "+str(new_current)+"\n"+
+        "  NVACSKIP =    6"
+        )
+
+    bashCommand = executables_path+"/./xvmec2000 input."+name+"_free"
+    run(bashCommand.split())
+
+    print("Plot VMEC Free Boundary result")
+    sys.path.insert(1, plotting_path)
+    import vmecPlot2
+    vmecPlot2.main("wout_"+name+"_free.nc")
+    import VMECfreePlot
+    VMECfreePlot.main(name)

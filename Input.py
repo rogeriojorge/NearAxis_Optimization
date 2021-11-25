@@ -1,4 +1,4 @@
-ind=31
+ind=29
 nphi=131
 
 iota_target = 0.42
@@ -6,7 +6,7 @@ nIterations = 150
 abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 rel_step_array = [1e-1,1e-2]
 max_fourier_coefficients = 5
-r_edge = 1/15
+r_edge = 1/8
 ftol = 1e-3
 
 # Optimize = True
@@ -16,8 +16,11 @@ ftol = 1e-3
 # NEO = True
 # SPEC = True
 # REGCOIL = True
-STAGE2 = True
+# STAGE2 = True
+VMECfree = True
+BOOZ_XFORM_free = True
+NEO_free = True
 
-nCoilsPerNFP   = 4
-targetValue    = 0.1
-coilSeparation = 0.12
+nCoilsPerNFP   = 18
+targetValue    = 0.04
+coilSeparation = 0.38

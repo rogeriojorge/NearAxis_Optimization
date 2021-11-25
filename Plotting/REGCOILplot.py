@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
-import matplotlib.pyplot as plt
+import mayavi.mlab as mlab
 from pandas import read_csv
 
 def main(name, stel, r_edge, savefig=True):
@@ -29,14 +29,12 @@ def main(name, stel, r_edge, savefig=True):
     current=float(current[3])
     coilPos=np.array(coilPos[:-2])
 
-    import mayavi.mlab as mlab
-    from matplotlib.pyplot import cm
     fig = mlab.figure(bgcolor=(1,1,1), size=(430,720))
     for count, coil in enumerate(coilPos):
         mlab.plot3d(np.array(coil).transpose()[0], np.array(coil).transpose()[1], np.array(coil).transpose()[2], tube_radius=0.02, color=(1,0,0))
 
-    ntheta=40
-    nphi=130
+    ntheta=80
+    nphi=200
     X_qsc, Y_qsc, Z_qsc, R_qsc = stel.get_boundary(r=r_edge, ntheta=ntheta, nphi=nphi)
 
     theta1D = np.linspace(0, 2 * np.pi, ntheta)

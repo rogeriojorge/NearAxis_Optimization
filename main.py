@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 from stel_repo import get_stel
-from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2
+from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2, runVMECfree
 from simsopt_driver import optimize
 from pathlib import Path
-import os
+import os, sys
 import Input
 
 print('Starting Near-Axis Optimization')
@@ -88,8 +88,11 @@ try:
         print('  B_fieldline()')
         stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
         print('  plot_boundary()')
-        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
-        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        sys.path.insert(1, plotting_path)
+        import Simple3Dplot
+        Simple3Dplot.main(name, stel, r_edge, show=False)
 except Exception as e:
     # print(e)
     Input.Plot = False
@@ -167,6 +170,33 @@ try:
 except Exception as e:
     # print(e)
     Input.STAGE2 = False
+
+# Run VMEC free boundary
+try:
+    if Input.VMECfree:
+        print('Running VMEC free boundary...')
+        runVMECfree(name, executables_path, plotting_path)
+except Exception as e:
+    # print(e)
+    Input.VMECfree = False
+
+# Run BOOZ_XFORM
+try:
+    if Input.BOOZ_XFORM_free:
+        print('Running BOOZ_XFORM free boundary...')
+        runBOOZXFORM(name+"_free")
+except Exception as e:
+    # print(e)
+    Input.BOOZ_XFORM_free = False
+
+# Run NEO
+try:
+    if Input.NEO_free:
+        print('Running NEO free boundary...')
+        runNEO(name+"_free",executables_path,plotting_path)
+except Exception as e:
+    # print(e)
+    Input.NEO_free = False
 
 # Go back to main
 os.chdir(main_path)
