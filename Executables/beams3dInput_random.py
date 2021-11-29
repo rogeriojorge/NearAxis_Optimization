@@ -280,14 +280,12 @@ def main(name, s0 = 0.01, nparticles = 1000, ntheta = 60, nphi = 100):
     # Make figure of the points
     #######################################
 
-    exit(0)
+    # fig = plt.figure()
+    # plt.contourf(phi, theta, sqrtg, 25)
+    # plt.colorbar()
+    # plt.xlabel('phi')
+    # plt.ylabel('theta')
+    # plt.plot(phis, thetas, '.k', ms=2)
+    # plt.title('Color = sqrtg')
 
-    fig = plt.figure()
-    plt.contourf(phi, theta, sqrtg, 25)
-    plt.colorbar()
-    plt.xlabel('phi')
-    plt.ylabel('theta')
-    plt.plot(phis, thetas, '.k', ms=2)
-    plt.title('Color = sqrtg')
-
-    plt.show()
+    # plt.show()

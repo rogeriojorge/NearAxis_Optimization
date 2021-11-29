@@ -429,6 +429,35 @@ def runVMECfree(name, stel, executables_path, plotting_path):
     VMECfreePlot.main(name)
 
 def runBEAMS3D(name,executables_path,plotting_path):
-    sys.path.insert(1, executables_path)
-    import beams3dInput_random
-    beams3dInput_random.main(name)
+    # print("Create BEAMS3D input file")
+    # sys.path.insert(1, executables_path)
+    # import beams3dInput_random
+    # beams3dInput_random.main(name)
+    # with open(executables_path+'/input.beams3d') as f:
+    #     input_beams3d_1 = f.read()
+    # with open('beams3d_in.'+name+'_volumeJacobian_s0.01_n1000') as f:
+    #     input_beams3d_2 = f.read()
+    # # input_beams3d = input_beams3d.replace("RMIN =   0.72616","RMIN =   0.73")
+    # with open("input."+name) as f:
+    #     input_vmec = f.read()
+    # with open("input."+name, "a") as f:
+    #     if "&BEAMS3D_INPUT" not in input_vmec:
+    #         f.write(input_beams3d_1)
+    #         f.write(input_beams3d_2)
+    #         f.write('/\n&END\n')
+    #     else:
+    #         input_vmec = input_vmec[0:input_vmec.find("&BEAMS3D_INPUT")]
+    #         f.truncate(0)
+    #         f.write(input_vmec)
+    #         f.write(input_beams3d_1)
+    #         f.write(input_beams3d_2)
+    #         f.write('/\n&END\n')
+
+    # print("Run BEAMS3D")
+    # bashCommand = executables_path+"/./xbeams3d -vmec "+name+" -plasma -full"
+    # run(bashCommand.split())
+
+    print("Plot BEAMS3D")
+    sys.path.insert(1, plotting_path)
+    import beams3dPlot
+    beams3dPlot.main(name)

@@ -203,13 +203,13 @@ except Exception as e:
     Input.NEO_free = False
 
 # Run BEAMS3D
-try:
-    if Input.BEAMS3D:
-        print('Running BEAMS3D...')
-        runBEAMS3D(name,executables_path,plotting_path)
-except Exception as e:
-    # print(e)
-    Input.BEAMS3D = False
+# try:
+#     if Input.BEAMS3D:
+#         print('Running BEAMS3D...')
+runBEAMS3D(name,executables_path,plotting_path)
+# except Exception as e:
+#     print(e)
+#     Input.BEAMS3D = False
 
 # Go back to main
 os.chdir(main_path)
