@@ -13,7 +13,7 @@ from scipy.io import netcdf
 from scipy.interpolate import interp1d, RectBivariateSpline
 import matplotlib.pyplot as plt
 
-def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100):
+def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN=1e-5):
 
     filename = "wout_"+name+".nc"
     justwout = os.path.basename(filename)
@@ -222,7 +222,7 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100):
 
     numstr = str(nparticles) + '*'
 
-    f.write('T_END_IN = ' + numstr + '1.0d-5\n')
+    f.write('T_END_IN = ' + numstr + ' ' + str(T_END_IN) +'\n')
     f.write('ZATOM_IN = ' + numstr + '2.0d+0\n')
     f.write('CHARGE_IN = ' + numstr + fmt_left.format(2 * e_C) + '\n')
     f.write('MASS_IN = ' + numstr + fmt_left.format(m_kg) + '\n')

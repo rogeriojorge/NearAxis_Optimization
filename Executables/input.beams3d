@@ -1,13 +1,13 @@
 &BEAMS3D_INPUT
-  NR = 64
-  NZ = 64
-  NPHI = 36
-  RMIN =   0.4
-  RMAX =   1.45
-  ZMIN =  -0.55
-  ZMAX =   0.55
+  NR = 128
+  NZ = 128
+  NPHI = 64
+  RMIN =   8
+  RMAX =   20
+  ZMIN =  -5
+  ZMAX =   5
   PHIMIN =  0.
-  PHIMAX =  3.141593
+  PHIMAX =  6.3831853
   INT_TYPE = 'LSODE'
   FOLLOW_TOL =  1.E-12
   VC_ADAPT_TOL =  1.E-3

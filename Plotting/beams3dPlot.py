@@ -23,7 +23,7 @@ def main(name):
 
     time    = np.linspace(0,t_end,NPOINC+1,endpoint=True)
 
-    nParticles_plot = 100
+    nParticles_plot = 1000
 
     # print(Z_lines[1000])
 

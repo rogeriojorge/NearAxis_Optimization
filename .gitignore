@@ -141,3 +141,4 @@ dmypy.json
 .pyre/
 Executables/xgrid
 Executables/xbeams3d
+Executables/scale_vmec

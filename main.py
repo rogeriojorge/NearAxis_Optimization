@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from stel_repo import get_stel
-from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2, runVMECfree, runBEAMS3D
+from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2, runVMECfree, runBEAMS3D, runVMECrescale
 from simsopt_driver import optimize
 from pathlib import Path
 import os, sys
@@ -103,10 +103,10 @@ try:
         if Input.Optimize:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
-        # stel.to_vmec('input.'+name,r=r_edge,
-        #         params={"ns_array": [16, 49, 101, 151],
-        #                 "ftol_array": [1e-17,1e-16,1e-15,1e-14],
-        #                 "niter_array": [3000,3000,4000,5000]})
+        stel.to_vmec('input.'+name,r=r_edge,
+                params={"ns_array": [16, 49, 101, 151],
+                        "ftol_array": [1e-17,1e-16,1e-15,1e-14],
+                        "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
         runVMEC(name,stel,executables_path,plotting_path)
 except Exception as e:
@@ -202,14 +202,28 @@ except Exception as e:
     # print(e)
     Input.NEO_free = False
 
-# Run BEAMS3D
+# Check if user specified VMEC rescaling parameters
+try:
+    B_scale = Input.B_scale
+    R_scale = Input.R_scale
+except Exception as e:
+    B_scale = 6
+    R_scale = 15
+# Run VMEC rescaled
+try:
+    if Input.VMECrescale:
+        print('Running VMEC rescaled...')
+        runVMECrescale(name, stel, executables_path, plotting_path, B_scale=B_scale, R_scale=R_scale)
+except Exception as e:
+    # print(e)
+    Input.VMECrescale = False
 
 # Check if user specified runBEAMS
 try:
     runBEAMS = Input.runBEAMS
 except Exception as e:
     runBEAMS = True
-
+# Run BEAMS3D
 try:
     if Input.BEAMS3D:
         print('Running BEAMS3D...')
