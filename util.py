@@ -69,7 +69,7 @@ def runqsc(stel,name,rr,executables_path,plotting_path):
     quasisymmetryPlotSingle.main("quasisymmetry_out."+name+".nc")
 
 # Run VMEC code
-def runVMEC(name,executables_path,plotting_path):
+def runVMEC(name,stel,executables_path,plotting_path):
     print("Run VMEC")
     # import vmec
     # import numpy as np
@@ -99,7 +99,7 @@ def runVMEC(name,executables_path,plotting_path):
     print("Plot VMEC result")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
-    vmecPlot2.main("wout_"+name+".nc")
+    vmecPlot2.main("wout_"+name+".nc",stel)
 
 # Run booz_xform
 def runBOOZXFORM(name):
@@ -126,7 +126,7 @@ def runBOOZXFORM(name):
         helical_detail = False
     fig = plt.figure(); bx.symplot(b1, helical_detail = helical_detail, sqrts=True)
     plt.savefig("Boozxform_symplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = plt.figure(); bx.modeplot(b1, sqrts=True)
+    fig = plt.figure(); bx.modeplot(b1, sqrts=True); plt.xlabel(r'$s=\psi/\psi_b$')
     plt.savefig("Boozxform_modeplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
     fig = bx.wireplot(b1, orig = False)
     fig.write_image("Boozxform_wireplot_"+name+'.pdf')
@@ -368,7 +368,7 @@ def runSTAGE2(name, plotting_path, stel, r_edge, ncoils=12, R0=1.0, R1=0.6, orde
     import STAGE2plot
     STAGE2plot.main(name, order, stel, r_edge)
 
-def runVMECfree(name, executables_path, plotting_path):
+def runVMECfree(name, stel, executables_path, plotting_path):
     print("Run MAKEGRID")
     MAKEGRID_file = "input_xgrid_"+name+".dat"
     log_xgrid_file = "log_xgrid."+name
@@ -424,6 +424,11 @@ def runVMECfree(name, executables_path, plotting_path):
     print("Plot VMEC Free Boundary result")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
-    vmecPlot2.main("wout_"+name+"_free.nc")
+    vmecPlot2.main("wout_"+name+"_free.nc",stel)
     import VMECfreePlot
     VMECfreePlot.main(name)
+
+def runBEAMS3D(name,executables_path,plotting_path):
+    sys.path.insert(1, executables_path)
+    import beams3dInput_random
+    beams3dInput_random.main(name)

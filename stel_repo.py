@@ -709,4 +709,5 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # max gradB inverse length: 5.913173128376124
         # Max elongation = 6.797229664441179
         # objective function:  200.90160918928146
+
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

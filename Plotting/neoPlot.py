@@ -20,12 +20,12 @@ def main(file,qvfilename):
     eps_eff = np.array(eps_eff)
     s_radial = s_radial[np.argwhere(~np.isnan(eps_eff))[:,0]]
     eps_eff = eps_eff[np.argwhere(~np.isnan(eps_eff))[:,0]]
-    fig = plt.figure(figsize=(8, 6), dpi=80)
+    fig = plt.figure(figsize=(7, 2.5), dpi=200)
     ax = fig.add_subplot(111)
     plt.plot(s_radial,eps_eff, label='eps eff '+qvfilename)
     # ax.set_yscale('log')
-    plt.xlabel(r'$s=\psi/\psi_a$', fontsize=12)
-    plt.ylabel(r'$\epsilon_{eff}^{3/2}$', fontsize=12)
+    plt.xlabel(r'$s=\psi/\psi_b$', fontsize=12)
+    plt.ylabel(r'$\epsilon_{eff}^{3/2}$', fontsize=14)
 
     from scipy.optimize import curve_fit
 
@@ -43,6 +43,6 @@ def main(file,qvfilename):
     y_new_quadratic = objective_quadratic(s_radial, a_quadratic, b_quadratic, c_quadratic)
     # plt.plot(s_radial,y_new_quadratic, label='quadratic fit'+str(popt_quadratic))
 
-    plt.legend()
-    
-    fig.savefig('neo_out_'+qvfilename+'.pdf', dpi=fig.dpi)
+    # plt.legend()
+    plt.tight_layout()
+    fig.savefig('neo_out_'+qvfilename+'.pdf', dpi=fig.dpi)#, bbox_inches = 'tight', pad_inches = 0)

@@ -24,10 +24,10 @@ def main(name, stel, r_edge, show=True, savefig=True):
     cb.scalar_bar.unconstrained_font_size = True
     cb.label_text_property.font_family = 'times'
     cb.label_text_property.bold = 0
-    cb.label_text_property.font_size=18
+    cb.label_text_property.font_size=20
     cb.label_text_property.color=(0,0,0)
     cb.title_text_property.font_family = 'times'
-    cb.title_text_property.font_size=30
+    cb.title_text_property.font_size=20
     cb.title_text_property.color=(0,0,0)
     cb.title_text_property.bold = 1
 

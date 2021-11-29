@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from stel_repo import get_stel
-from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2, runVMECfree
+from util import runqsc, runVMEC, runBOOZXFORM, runNEO, runSPEC, runREGCOIL, runSTAGE2, runVMECfree, runBEAMS3D
 from simsopt_driver import optimize
 from pathlib import Path
 import os, sys
@@ -103,12 +103,12 @@ try:
         if Input.Optimize:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
-        stel.to_vmec('input.'+name,r=r_edge,
-                params={"ns_array": [16, 49, 101, 151],
-                        "ftol_array": [1e-17,1e-16,1e-15,1e-14],
-                        "niter_array": [3000,3000,4000,5000]})
+        # stel.to_vmec('input.'+name,r=r_edge,
+        #         params={"ns_array": [16, 49, 101, 151],
+        #                 "ftol_array": [1e-17,1e-16,1e-15,1e-14],
+        #                 "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
-        runVMEC(name,executables_path,plotting_path)
+        runVMEC(name,stel,executables_path,plotting_path)
 except Exception as e:
     # print(e)
     Input.VMEC = False
@@ -118,8 +118,8 @@ try:
     if Input.BOOZ_XFORM:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
-        stel_from_boozxform = stel.from_boozxform(booz_xform_file, order='r2', max_s_for_fit = 0.4, N_phi = 200, max_n_to_plot = 2, show=False,
-                         vmec_file=None, rc=[], rs=[], zc=[], zs=[], sigma0=0, I2=0, p2=0, omn=False, nNormal=None)
+        stel_from_boozxform = stel.from_boozxform('boozmn_'+name+'.nc', max_s_for_fit = 0.4, N_phi = stel.nphi,
+                                max_n_to_plot = 2, show=False, vmec_file='wout_'+name+'.nc', input_stel=stel, nNormal=stel.helicity)
 except Exception as e:
     # print(e)
     Input.BOOZ_XFORM = False
@@ -177,7 +177,7 @@ except Exception as e:
 try:
     if Input.VMECfree:
         print('Running VMEC free boundary...')
-        runVMECfree(name, executables_path, plotting_path)
+        runVMECfree(name, stel, executables_path, plotting_path)
 except Exception as e:
     # print(e)
     Input.VMECfree = False
@@ -187,6 +187,8 @@ try:
     if Input.BOOZ_XFORM_free:
         print('Running BOOZ_XFORM free boundary...')
         runBOOZXFORM(name+"_free")
+        stel_from_boozxform = stel.from_boozxform('boozmn_'+name+'_free.nc', max_s_for_fit = 0.4, N_phi = stel.nphi,
+                        max_n_to_plot = 2, show=False, vmec_file='wout_'+name+'_free.nc', input_stel=stel, nNormal=stel.helicity)
 except Exception as e:
     # print(e)
     Input.BOOZ_XFORM_free = False
@@ -199,6 +201,15 @@ try:
 except Exception as e:
     # print(e)
     Input.NEO_free = False
+
+# Run BEAMS3D
+try:
+    if Input.BEAMS3D:
+        print('Running BEAMS3D...')
+        runBEAMS3D(name,executables_path,plotting_path)
+except Exception as e:
+    # print(e)
+    Input.BEAMS3D = False
 
 # Go back to main
 os.chdir(main_path)

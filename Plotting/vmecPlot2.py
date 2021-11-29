@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-def main(file,s_plot_ignore=0.3):
+def main(file,stel,s_plot_ignore=0.3):
     print("usage: vmecPlot <woutXXX.nc>")
 
     import matplotlib.pyplot as plt
@@ -128,7 +128,7 @@ def main(file,s_plot_ignore=0.3):
     phi_half = [(i-0.5)*phiedge/(ns-1) for i in range(1,ns)]
 
     ntheta = 200
-    nzeta = 4
+    nzeta = 8
     theta = np.linspace(0,2*np.pi,num=ntheta)
     zeta = np.linspace(0,2*np.pi/nfp,num=nzeta,endpoint=False)
     iradius = ns-1
@@ -149,7 +149,7 @@ def main(file,s_plot_ignore=0.3):
             Raxis[izeta] += raxis_cc[n]*math.cos(angle) + raxis_cs[n]*math.sin(angle)
             Zaxis[izeta] += zaxis_cs[n]*math.sin(angle) + zaxis_cc[n]*math.cos(angle)
 
-    xLabel = r'$s = \psi_N$'
+    xLabel = r'$s = \psi/\psi_b$'
 
 
     fig = plt.figure(figsize=(14,7))
@@ -264,28 +264,31 @@ def main(file,s_plot_ignore=0.3):
     # Now make plot of flux surface shapes
     ########################################################
 
+    fig = plt.figure(figsize=(8,8))
+    fig.patch.set_facecolor('white')
+    plt.plot(R[:,0], Z[:,0], '-',label=r'$\phi$=0')
+    plt.plot(R[:,1], Z[:,1], '-',label='_nolegend_')
+    plt.plot(R[:,2], Z[:,2], '-',label=r'$\phi=\pi/2$')
+    plt.plot(R[:,3], Z[:,3], '-',label='_nolegend_')
+    plt.plot(R[:,4], Z[:,4], '-',label=r'$\phi=\pi$')
+    plt.plot(R[:,5], Z[:,5], '-',label='_nolegend_')
+    plt.plot(R[:,6], Z[:,6], '-',label=r'$\phi=3\pi/2$')
+    plt.plot(R[:,7], Z[:,7], '-',label='_nolegend_')
+    plt.gca().set_aspect('equal',adjustable='box')
+    plt.legend(fontsize=18)
+    plt.xlabel('R', fontsize=18)
+    plt.ylabel('Z', fontsize=18)
+    plt.savefig(filename+'_poloidal_plot.png')
+
     fig = plt.figure(figsize=(14,7))
     fig.patch.set_facecolor('white')
-
-    numCols = 3
+    # plt.subplot(numRows,numCols,plotNum)
+    numCols = 4
     numRows = 2
     plotNum = 1
-
-    plt.subplot(numRows,numCols,plotNum)
-    plotNum += 1
-    plt.plot(R[:,0], Z[:,0], '-',label='zeta=0')
-    plt.plot(R[:,1], Z[:,1], '-',label='1/4')
-    plt.plot(R[:,2], Z[:,2], '-',label='1/2')
-    plt.plot(R[:,3], Z[:,3], '-',label='3/4')
-    plt.gca().set_aspect('equal',adjustable='box')
-    plt.legend(fontsize='x-small')
-    plt.xlabel('R')
-    plt.ylabel('Z')
-
-
     ntheta = 200
-    nzeta = 4
-    nradius = 10
+    nzeta = 8
+    nradius = 8
     theta = np.linspace(0,2*np.pi,num=ntheta)
     zeta = np.linspace(0,2*np.pi/nfp,num=nzeta,endpoint=False)
     iradii = np.linspace(0,ns-1,num=nradius).round()
@@ -309,15 +312,16 @@ def main(file,s_plot_ignore=0.3):
             plt.plot(R[:,izeta,iradius], Z[:,izeta,iradius], '-')
         plt.plot(Raxis[izeta],Zaxis[izeta],'xr')
         plt.gca().set_aspect('equal',adjustable='box')
-        plt.xlabel('R')
-        plt.ylabel('Z')
-        plt.title('zeta = '+str(zeta[izeta]))
+        plt.xlabel('R', fontsize=10)
+        plt.ylabel('Z', fontsize=10)
+        plt.title(r'$\phi$ = '+str(round(zeta[izeta],2)))
 
     #maximizeWindow()
 
-    #plt.tight_layout()
-    plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
-    plt.savefig(file+'VMECsurfaces.pdf', bbox_inches = 'tight', pad_inches = 0)
+    plt.tight_layout()
+    # plt.subplots_adjust(wspace=0, hspace=0)
+    # plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
+    plt.savefig(file+'_VMECsurfaces.pdf', bbox_inches = 'tight', pad_inches = 0)
 
     ########################################################
     # Now make 3D surface plot
@@ -358,6 +362,36 @@ def main(file,s_plot_ignore=0.3):
     plt.savefig(file+'VMEC3Dplot.pdf', bbox_inches = 'tight', pad_inches = 0)
     #plt.show()
     plt.close()
+
+    #### Mayavi plot ######
+    import mayavi.mlab as mlab
+    fig = mlab.figure(bgcolor=(1,1,1), size=(550,450))
+
+    mlab.mesh(X, Y, Z, scalars=B, colormap='viridis')
+    mlab.view(azimuth=-90, elevation=180, distance=5.0, focalpoint=(-0.15,0,0), figure=fig)
+    # Create the colorbar and change its properties
+    cb = mlab.colorbar(orientation='horizontal', title='|B| [T]', nb_labels=7)
+    cb.scalar_bar_representation.position = [0.1, 0.85]
+    cb.scalar_bar_representation.position2 = [0.8, 0.05]
+    cb.scalar_bar.unconstrained_font_size = True
+    cb.label_text_property.font_family = 'times'
+    cb.label_text_property.bold = 0
+    cb.label_text_property.font_size=20
+    cb.label_text_property.color=(0,0,0)
+    cb.title_text_property.font_family = 'times'
+    cb.title_text_property.font_size=20
+    cb.title_text_property.color=(0,0,0)
+    cb.title_text_property.bold = 1
+
+    mlab.savefig(filename=file+'_simple_3Dplot_VMEC.png', figure=fig)
+
+    figIota = plt.figure(figsize=(5, 5), dpi=80)
+    plt.plot(s, iotaf, '.-',label=r'$\iota$ VMEC')
+    # plt.plot(s_half, iotas[1:],'.-',label=r'iotas')
+    plt.axhline(y=-stel.iota, color='r', linestyle='-', label=r'$\iota$ Near-Axis')
+    plt.legend(fontsize=14)
+    plt.xlabel(xLabel, fontsize=18)
+    figIota.savefig(file+'_iota_VMEC.png')
 
 if __name__ == "__main__":
     main(sys.argv[1])
