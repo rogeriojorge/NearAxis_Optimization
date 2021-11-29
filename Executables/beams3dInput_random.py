@@ -13,7 +13,7 @@ from scipy.io import netcdf
 from scipy.interpolate import interp1d, RectBivariateSpline
 import matplotlib.pyplot as plt
 
-def main(name, s0 = 0.3, nparticles = 1000, ntheta = 60, nphi = 100):
+def main(name, s0 = 0.01, nparticles = 1000, ntheta = 60, nphi = 100):
 
     filename = "wout_"+name+".nc"
     justwout = os.path.basename(filename)
