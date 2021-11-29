@@ -1,4 +1,4 @@
-ind=29
+ind=12
 nphi=131
 
 iota_target = 0.42
@@ -21,6 +21,8 @@ ftol = 1e-3
 # BOOZ_XFORM_free = True
 # NEO_free = True
 BEAMS3D = True
+
+runBEAMS = False
 
 nCoilsPerNFP   = 20
 targetValue    = 0.042

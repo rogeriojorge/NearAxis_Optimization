@@ -13,7 +13,7 @@ from scipy.io import netcdf
 from scipy.interpolate import interp1d, RectBivariateSpline
 import matplotlib.pyplot as plt
 
-def main(name, s0 = 0.01, nparticles = 1000, ntheta = 60, nphi = 100):
+def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100):
 
     filename = "wout_"+name+".nc"
     justwout = os.path.basename(filename)
@@ -181,9 +181,9 @@ def main(name, s0 = 0.01, nparticles = 1000, ntheta = 60, nphi = 100):
     max_norm_normal = np.max(norm_normal)
     max_sqrtg = np.max(sqrtg)
     for j in range(nparticles):
-        print('j={}: '.format(j), end='')
+        # print('j={}: '.format(j), end='')
         while True:
-            print('.', end='')
+            # print('.', end='')
             theta0 = rng.random() * 2 * np.pi
             phi0 = rng.random() * 2 * np.pi / nfp
             #f = rng.random() * max_norm_normal
@@ -194,7 +194,7 @@ def main(name, s0 = 0.01, nparticles = 1000, ntheta = 60, nphi = 100):
                 break
         thetas[j] = theta0
         phis[j] = phi0
-        print()
+        # print()
 
     rs = r_spl.ev(thetas, phis)
     zs = z_spl.ev(thetas, phis)
