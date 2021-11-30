@@ -1,7 +1,7 @@
  THIS IS PARVMEC (PARALLEL VMEC), VERSION 9.0
  Lambda: Full Radial Mesh. L-Force: hybrid full/half.
 
- COMPUTER:    OS:    RELEASE:   DATE = Nov 29,2021  TIME = 12:39:33
+ COMPUTER:    OS:    RELEASE:   DATE = Nov 30,2021  TIME = 03:46:18
  SHOT ID.: QI_NFP1_r1_test_scaled  SEQ. NO.:   0
  TIME SLICE =    0. ms
  '!----- Runtime Parameters -----'
@@ -331,7 +331,7 @@
 
 
   NS =   16 NO. FOURIER MODES =  276 FTOLV =  1.000E-17 NITER =   3000
-  PROCESSOR COUNT - RADIAL:    8
+  PROCESSOR COUNT - RADIAL:    1
 
   ITER    FSQR      FSQZ      FSQL      fsqr      fsqz      fsql      DELT    RAX(v=0)      WMHD      BETA      <M>        
 
@@ -355,7 +355,7 @@
  MHD Energy = 2.170145E+04   d(ln W)/dt = 8.978E-13   d(ln R0)/dt = 5.583E-09
 
   NS =   49 NO. FOURIER MODES =  276 FTOLV =  1.000E-16 NITER =   3000
-  PROCESSOR COUNT - RADIAL:    8
+  PROCESSOR COUNT - RADIAL:    1
 
   ITER    FSQR      FSQZ      FSQL      fsqr      fsqz      fsql      DELT    RAX(v=0)      WMHD      BETA      <M>        
 
@@ -379,7 +379,7 @@
  MHD Energy = 2.170140E+04   d(ln W)/dt = 2.796E-13   d(ln R0)/dt = 3.072E-08
 
   NS =  101 NO. FOURIER MODES =  276 FTOLV =  1.000E-15 NITER =   4000
-  PROCESSOR COUNT - RADIAL:    8
+  PROCESSOR COUNT - RADIAL:    1
 
   ITER    FSQR      FSQZ      FSQL      fsqr      fsqz      fsql      DELT    RAX(v=0)      WMHD      BETA      <M>        
 
@@ -408,11 +408,7 @@
  MHD Energy = 2.170140E+04   d(ln W)/dt = 1.348E-13   d(ln R0)/dt = 7.200E-09
 
   NS =  151 NO. FOURIER MODES =  276 FTOLV =  1.000E-14 NITER =   5000
-<<<<<<< HEAD
-  PROCESSOR COUNT - RADIAL:    8
-=======
   PROCESSOR COUNT - RADIAL:    1
->>>>>>> b28700a03eac9094f933797a50356e2b151f45b8
 
   ITER    FSQR      FSQZ      FSQL      fsqr      fsqz      fsql      DELT    RAX(v=0)      WMHD      BETA      <M>        
 
@@ -1030,35 +1026,19 @@
  FILE : QI_NFP1_r1_test_scaled
  NUMBER OF JACOBIAN RESETS =    3
 
-<<<<<<< HEAD
-    TOTAL COMPUTATIONAL TIME (SEC)       109.22
-    TIME TO INPUT/OUTPUT                   0.61
-       READ IN DATA                        0.10
-       WRITE OUT DATA TO WOUT              0.51
-    TIME IN FUNCT3D                      107.31
-       BCOVAR FIELDS                      11.94
-       FOURIER TRANSFORM                  20.70
-       INVERSE FOURIER TRANSFORM          22.06
-       FORCES AND SYMMETRIZE               8.62
-       RESIDUE                            21.81
-       EQFORCE                             0.00
-
- NO. OF PROCS:     8
-=======
-    TOTAL COMPUTATIONAL TIME (SEC)       834.97
-    TIME TO INPUT/OUTPUT                   1.22
-       READ IN DATA                        0.01
-       WRITE OUT DATA TO WOUT              1.21
-    TIME IN FUNCT3D                      830.65
-       BCOVAR FIELDS                      56.38
-       FOURIER TRANSFORM                 232.53
-       INVERSE FOURIER TRANSFORM         265.15
-       FORCES AND SYMMETRIZE              64.48
-       RESIDUE                            64.04
+    TOTAL COMPUTATIONAL TIME (SEC)       396.57
+    TIME TO INPUT/OUTPUT                   0.51
+       READ IN DATA                        0.04
+       WRITE OUT DATA TO WOUT              0.47
+    TIME IN FUNCT3D                      394.29
+       BCOVAR FIELDS                      28.51
+       FOURIER TRANSFORM                 104.39
+       INVERSE FOURIER TRANSFORM         128.98
+       FORCES AND SYMMETRIZE              31.58
+       RESIDUE                            29.92
        EQFORCE                             0.00
 
  NO. OF PROCS:     1
->>>>>>> b28700a03eac9094f933797a50356e2b151f45b8
  PARVMEC     :     T
  LPRECOND    :     F
  LV3FITCALL  :     F

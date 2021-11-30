@@ -1,7 +1,7 @@
 &BEAMS3D_INPUT
-  NR = 128
-  NZ = 128
-  NPHI = 64
+  NR = 256
+  NZ = 256
+  NPHI = 256
   RMIN =   6
   RMAX =   22
   ZMIN =  -8
