@@ -8,7 +8,7 @@ def main(name):
     beams3d_file = "beams3d_"+name+".h5"
     with h5py.File(beams3d_file, "r") as f:
         ## List all groups
-        print("Keys: %s" % f.keys())
+        # print("Keys: %s" % f.keys())
         # a_group_key = list(f.keys())[0]
         # print(a_group_key)
         ## Get the data
@@ -27,7 +27,9 @@ def main(name):
 
     nParticles_plot = 1000
 
-    print(PHI_lines[0])
+    print(R_lines[1])
+    print(Z_lines[1])
+    print(PHI_lines[1])
     # print(NPOINC)
     # print(t_end)
     # print(nsteps)
