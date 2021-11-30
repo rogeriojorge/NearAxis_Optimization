@@ -23,10 +23,10 @@ ftol = 1e-3
 # VMECrescale = True
 BEAMS3D = True
 
-B_scale = 6
-R_scale = 15
+B_scale = 5
+R_scale = 17.3
 
-runBEAMS = False
+runBEAMS = True
 nparticles = 1000
 s0 = 1e-10
 T_END_IN = 1e-4
