@@ -26,7 +26,7 @@ BEAMS3D = True
 B_scale = 6
 R_scale = 15
 
-runBEAMS = False
+runBEAMS = True
 nparticles = 1000
 s0 = 1e-10
 T_END_IN = 1e-4
