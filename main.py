@@ -108,7 +108,7 @@ try:
                         "ftol_array": [1e-17,1e-16,1e-15,1e-14],
                         "niter_array": [3000,3000,4000,5000]})
         print('Running VMEC...')
-        # runVMEC(name,stel,executables_path,plotting_path)
+        runVMEC(name,stel,executables_path,plotting_path)
 except Exception as e:
     # print(e)
     Input.VMEC = False
@@ -236,7 +236,7 @@ try:
         runBEAMS3D(name,executables_path,plotting_path,runBEAMS,
             nparticles=nparticles,s0=s0,T_END_IN=T_END_IN)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.BEAMS3D = False
 
 # Go back to main

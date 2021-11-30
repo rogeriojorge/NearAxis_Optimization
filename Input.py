@@ -26,9 +26,9 @@ BEAMS3D = True
 B_scale = 6
 R_scale = 15
 
-runBEAMS = False
-nparticles = 1000
-s0 = 1e-07
+runBEAMS = True
+nparticles = 8
+s0 = 1e-6
 T_END_IN = 1e-4
 
 nCoilsPerNFP   = 20

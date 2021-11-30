@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN=1e-5):
 
-    filename = "wout_"+name+".nc"
+    filename = "wout_"+name+"_scaled.nc"
     justwout = os.path.basename(filename)
 
     outfile = 'particles.{}_volumeJacobian_s{}_n{}'.format(justwout[5:-3], s0, nparticles)

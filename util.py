@@ -448,7 +448,7 @@ def runBEAMS3D(name,executables_path,plotting_path,runBEAMS,
     beams3dInput_random.main(name, nparticles=nparticles, s0=s0, T_END_IN=T_END_IN)
     with open(executables_path+'/input.beams3d') as f:
         input_beams3d_1 = f.read()
-    with open('beams3d_in.'+name+'_volumeJacobian_s'+str(s0)+'_n'+str(nparticles)) as f:
+    with open('beams3d_in.'+name+'_scaled_volumeJacobian_s'+str(s0)+'_n'+str(nparticles)) as f:
         input_beams3d_2 = f.read()
     # input_beams3d = input_beams3d.replace("RMIN =   0.72616","RMIN =   0.73")
     with open("input."+name+"_scaled") as f:

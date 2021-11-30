@@ -17,6 +17,8 @@ def main(name):
         PHI_lines = np.array(f['PHI_lines'])
         NPOINC    = f['npoinc'][()][0]
         t_end     = f['t_end'][()][0]
+        nsteps    = f['nsteps'][()][0]
+        vll_lines = f['vll_lines'][()][0]
         
     X_lines = R_lines * np.cos(PHI_lines)
     Y_lines = R_lines * np.sin(PHI_lines)
@@ -25,8 +27,11 @@ def main(name):
 
     nParticles_plot = 1000
 
-    # print(R_lines[0])
-    print(NPOINC)
+    print(PHI_lines[0])
+    # print(NPOINC)
+    # print(t_end)
+    # print(nsteps)
+    # print(vll_lines)
 
     # import mayavi.mlab as mlab
     # fig = mlab.figure(bgcolor=(1,1,1), size=(430,720))
