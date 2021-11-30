@@ -20,13 +20,16 @@ ftol = 1e-3
 # VMECfree = True
 # BOOZ_XFORM_free = True
 # NEO_free = True
-VMECrescale = True
-# BEAMS3D = True
+# VMECrescale = True
+BEAMS3D = True
 
 B_scale = 6
 R_scale = 15
 
-runBEAMS = True
+runBEAMS = False
+nparticles = 1000
+s0 = 1e-07
+T_END_IN = 1e-4
 
 nCoilsPerNFP   = 20
 targetValue    = 0.042

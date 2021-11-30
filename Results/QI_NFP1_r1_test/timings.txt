@@ -1,69 +1,63 @@
  ====================== PARALLEL TIMINGS ====================
-               total  :     1308.854885
+               total  :      109.748533
                 rank  :               0
-mgrid file read time  :        0.075363
-        No. of procs  :               1
+mgrid file read time  :        0.000000
+        No. of procs  :               8
 
-      --- non-vacuum  :            3000             16              1      24.700877
-      --- non-vacuum  :            3000             49              1      84.741880
-      --- non-vacuum  :            4000            101              1     247.008458
-      --- non-vacuum  :            5000            151              1     470.752929
+      --- non-vacuum  :            3000             16              8       7.615128
+      --- non-vacuum  :            3000             49              8      17.581127
+      --- non-vacuum  :            4000            101              8      35.383036
+      --- non-vacuum  :            3528            151              8      46.441675
 
-            VNRANKS   :               1
-         --- vacuum   :              16      90.668463
-         --- vacuum   :              49      91.969495
-         --- vacuum   :             101     128.264314
-         --- vacuum   :             151     162.356598
-
-             runvmec  :     1308.834506
+             runvmec  :      109.651322
 
          init radial  :        0.000000
-             eqsolve  :     1306.986108
-             fileout  :        1.669121
+             eqsolve  :      108.492470
+             fileout  :        0.937126
 
-              evolve  :     1306.942903
-             funct3d  :     1300.463014
-            nfunct3d  :           15024
+              evolve  :      108.424528
+             funct3d  :      107.020966
+            nfunct3d  :           13550
 
-             totzsps  :      231.453775
+             totzsps  :       20.703512
              totzspa  :        0.000000
               symrzl  :        0.000000
-            jacobian  :       12.675589
-              bcovar  :       59.282932
-              vacuum  :      473.258870
+            jacobian  :        8.275637
+              bcovar  :       11.931254
+              vacuum  :        0.000000
 
-            - precal  :        0.002378
-           - surface  :       30.332818
+            - precal  :        0.000000
+           - surface  :        0.000000
 
-           - bextern  :        9.717316
+           - bextern  :        0.000000
 
-           -- becoil  :        0.685100
+           -- becoil  :        0.000000
            -- tolicu  :        0.000000
-           -- belicu  :        8.776560
+           -- belicu  :        0.000000
 
-           - scalpot  :     -411.149194
+           - scalpot  :        0.000000
 
-           -- analyt  :      185.176522
-           -- greenf  :       30.027810
-            -- fourp  :       86.911591
-            -- fouri  :      106.366219
+           -- analyt  :        0.000000
+           -- greenf  :        0.000000
+            -- fourp  :        0.000000
+            -- fouri  :        0.000000
 
-            - solver  :       11.550611
+            - solver  :        0.000000
 
-               alias  :      125.633797
-              forces  :       68.387719
+               alias  :       11.460518
+              forces  :        8.624472
            symforces  :        0.000000
-             tomnsps  :      265.480248
+             tomnsps  :       22.058040
              tomnspa  :        0.000000
-             residue  :       57.556641
-          -- tridslv  :       50.073059
+             residue  :       21.800989
+          -- tridslv  :       10.644254
 
  ============================================================
 
-           allgather  :        0.000000
-           allreduce  :        0.633140
-           broadcast  :        0.025167
-           sendrecv   :        0.205050
+           allgather  :       10.132464
+           allreduce  :        6.908901
+           broadcast  :        0.038730
+           sendrecv   :        0.671814
 
      Fill_blocks      :        0.000000
      Compute blocks   :        0.000000

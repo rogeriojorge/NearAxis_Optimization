@@ -440,35 +440,33 @@ def runVMECrescale(name, stel, executables_path, plotting_path, B_scale=6, R_sca
     import vmecPlot2
     vmecPlot2.main("wout_"+name+"_scaled.nc",stel)
 
-def runBEAMS3D(name,executables_path,plotting_path,runBEAMS):
-    if runBEAMS:
-        nparticles = 100000
-        s0 = 1e-07
-        T_END_IN = 1e-1
-        print("Create BEAMS3D input file")
-        sys.path.insert(1, executables_path)
-        import beams3dInput_random
-        beams3dInput_random.main(name, nparticles=nparticles, s0=s0, T_END_IN=T_END_IN)
-        with open(executables_path+'/input.beams3d') as f:
-            input_beams3d_1 = f.read()
-        with open('beams3d_in.'+name+'_volumeJacobian_s'+str(s0)+'_n'+str(nparticles)) as f:
-            input_beams3d_2 = f.read()
-        # input_beams3d = input_beams3d.replace("RMIN =   0.72616","RMIN =   0.73")
-        with open("input."+name+"_scaled") as f:
-            input_vmec = f.read()
-        with open("input."+name+"_scaled", "a") as f:
-            if "&BEAMS3D_INPUT" not in input_vmec:
-                f.write(input_beams3d_1)
-                f.write(input_beams3d_2)
-                f.write('/\n&END\n')
-            else:
-                input_vmec = input_vmec[0:input_vmec.find("&BEAMS3D_INPUT")]
-                f.truncate(0)
-                f.write(input_vmec)
-                f.write(input_beams3d_1)
-                f.write(input_beams3d_2)
-                f.write('/\n&END\n')
+def runBEAMS3D(name,executables_path,plotting_path,runBEAMS,
+    nparticles = 100000,s0 = 1e-07,T_END_IN = 1e-3):
+    print("Create BEAMS3D input file")
+    sys.path.insert(1, executables_path)
+    import beams3dInput_random
+    beams3dInput_random.main(name, nparticles=nparticles, s0=s0, T_END_IN=T_END_IN)
+    with open(executables_path+'/input.beams3d') as f:
+        input_beams3d_1 = f.read()
+    with open('beams3d_in.'+name+'_volumeJacobian_s'+str(s0)+'_n'+str(nparticles)) as f:
+        input_beams3d_2 = f.read()
+    # input_beams3d = input_beams3d.replace("RMIN =   0.72616","RMIN =   0.73")
+    with open("input."+name+"_scaled") as f:
+        input_vmec = f.read()
+    with open("input."+name+"_scaled", "a") as f:
+        if "&BEAMS3D_INPUT" not in input_vmec:
+            f.write(input_beams3d_1)
+            f.write(input_beams3d_2)
+            f.write('/\n&END\n')
+        else:
+            input_vmec = input_vmec[0:input_vmec.find("&BEAMS3D_INPUT")]
+            f.truncate(0)
+            f.write(input_vmec)
+            f.write(input_beams3d_1)
+            f.write(input_beams3d_2)
+            f.write('/\n&END\n')
 
+    if runBEAMS:
         print("Run BEAMS3D")
         bashCommand = executables_path+"/./xbeams3d -vmec "+name+"_scaled -plasma"
         run(bashCommand.split())
