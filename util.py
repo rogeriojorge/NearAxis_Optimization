@@ -429,12 +429,12 @@ def runVMECfree(name, stel, executables_path, plotting_path):
     VMECfreePlot.main(name)
 
 def runVMECrescale(name, stel, executables_path, plotting_path, B_scale=6, R_scale=15):
-    print("Rescale VMEC input file")
-    bashCommand = executables_path+"/./scale_vmec input."+name+" "+str(B_scale)+" "+str(R_scale)
-    run(bashCommand.split())
-    print("Run VMEC")
-    bashCommand = executables_path+"/./xvmec2000 input."+name+"_scaled"
-    run(bashCommand.split())
+    # print("Rescale VMEC input file")
+    # bashCommand = executables_path+"/./scale_vmec input."+name+" "+str(B_scale)+" "+str(R_scale)
+    # run(bashCommand.split())
+    # print("Run VMEC")
+    # bashCommand = executables_path+"/./xvmec2000 input."+name+"_scaled"
+    # run(bashCommand.split())
     print("Plot VMEC rescaled")
     sys.path.insert(1, plotting_path)
     import vmecPlot2

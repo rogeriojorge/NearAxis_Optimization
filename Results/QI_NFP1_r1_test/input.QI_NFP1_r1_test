@@ -15,7 +15,7 @@
   LASYM = False
   NFP = 1
   MPOL = 10
-  NTOR = 99
+  NTOR = 12
   PHIEDGE = 0.04908738521234052
 !----- Pressure Parameters -----
   PRES_SCALE = 1
