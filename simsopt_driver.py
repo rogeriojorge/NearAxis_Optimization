@@ -92,13 +92,13 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 term = [
                         # (stel, 'iota', iota_target, 1e5),
                         # (stel, 'max_elongation', 0.0, 3e+0),
-                        # (stel, 'elongation', 0.0, 4e-1),
-                        (stel.inv_L_grad_B, 0.0, 1e-1),
+                        (stel.get_elongation, 0.0, 5e-0/stel.nphi),
+                        (stel.get_inv_L_grad_B, 0.0, 3e-2),
                         # (stel, 'd_X1c_d_varphi', 0.0, 1e-3),
                         # (stel, 'd_Y1c_d_varphi', 0.0, 1e-3),
                         # (stel, 'd_Y1s_d_varphi', 0.0, 1e-3),
                         # (stel, 'sigma', 0.0, 1e-2),
-                        (stel.min_R0_penalty, 0.0, 1e9),
+                        # (stel.min_R0_penalty, 0.0, 1e9),
                 ]
             else:
                 term = [
@@ -264,11 +264,11 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
             if stel.order == 'r1':
-                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1'))")
+                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1')")
             else:
                 print('        B2c    = ',stel.B2c)
                 print('        p2     = ',stel.p2)
-                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2))")
+                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)")
         print('        iota    = ',stel.iota)
         if stel.order != 'r1':
             print('        # DMerc mean  =',np.mean(stel.DMerc_times_r2))
