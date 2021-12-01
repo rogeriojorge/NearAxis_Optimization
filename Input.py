@@ -3,17 +3,17 @@ nphi=131
 
 iota_target = 0.42
 nIterations = 150
-abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
-rel_step_array = [1e-1,1e-2]
-max_fourier_coefficients = 5
-r_edge = 1/8
-ftol = 1e-3
+# abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+# rel_step_array = [1e-1,1e-2]
+max_fourier_coefficients = 6
+r_edge = 1/9
+ftol = 1e-4
 
 # Optimize = True
 # Plot = True
 # VMEC = True
-BOOZ_XFORM = True
-NEO = True
+# BOOZ_XFORM = True
+# NEO = True
 # SPEC = True
 # REGCOIL = True
 # STAGE2 = True
@@ -21,7 +21,7 @@ NEO = True
 # BOOZ_XFORM_free = True
 # NEO_free = True
 # VMECrescale = True
-# BEAMS3D = True
+BEAMS3D = True
 
 B_scale = 5
 R_scale = 17.3

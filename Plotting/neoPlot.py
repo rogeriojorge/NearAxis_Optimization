@@ -20,7 +20,7 @@ def main(file,qvfilename):
     eps_eff = np.array(eps_eff)
     s_radial = s_radial[np.argwhere(~np.isnan(eps_eff))[:,0]]
     eps_eff = eps_eff[np.argwhere(~np.isnan(eps_eff))[:,0]]
-    fig = plt.figure(figsize=(7, 2.5), dpi=200)
+    fig = plt.figure(figsize=(7, 3), dpi=200)
     ax = fig.add_subplot(111)
     plt.plot(s_radial,eps_eff, label='eps eff '+qvfilename)
     # ax.set_yscale('log')
