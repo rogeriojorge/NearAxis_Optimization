@@ -21,10 +21,10 @@ ftol = 1e-4
 # BOOZ_XFORM_free = True
 # NEO_free = True
 # VMECrescale = True
-BEAMS3D = True
+# BEAMS3D = True
 
 B_scale = 5
-R_scale = 17.3
+R_scale = 18.38
 
 runBEAMS = True
 nparticles = 1000
