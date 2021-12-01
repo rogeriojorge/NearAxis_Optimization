@@ -155,14 +155,14 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         # (stel, 'iota', iota_target, 1e5),
-                        (stel.get_max_elongation, 0.0, 3e-1),
-                        (stel.get_elongation, 0.0, 5e-1/stel.nphi),
-                        (stel.get_B20QI_deviation, 0.0, 3e-2/stel.nphi),
-                        (stel.get_B2cQI_deviation, 0.0, 3e-2/stel.nphi),
-                        (stel.get_B2sQI_deviation, 0.0, 3e-0/stel.nphi),
-                        (stel.get_B20QI_deviation_max, 0.0, 1e-1),
-                        (stel.get_B2cQI_deviation_max, 0.0, 1e-1),
-                        (stel.get_B2sQI_deviation_max, 0.0, 5e-1),
+                            # (stel.get_max_elongation, 0.0, 3e-1),
+                            # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
+                        # (stel.get_B20QI_deviation, 0.0, 3e-2/stel.nphi),
+                        # (stel.get_B2cQI_deviation, 0.0, 3e-2/stel.nphi),
+                        # (stel.get_B2sQI_deviation, 0.0, 3e-0/stel.nphi),
+                        (stel.get_B20QI_deviation_max, 0.0, 1e-0),
+                        (stel.get_B2cQI_deviation_max, 0.0, 1e-0),
+                        (stel.get_B2sQI_deviation_max, 0.0, 1e-0),
                         # (stel.get_X20, 0.0, 8e-2),
                         # (stel.get_X2c, 0.0, 8e-2),
                         # (stel.get_X2s, 0.0, 8e-2),
@@ -177,18 +177,18 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         # (stel.get_Y3c1, 0.0, 8e-2),
                         # (stel.get_Y3s1, 0.0, 8e-2),
                         # (stel.get_delta, 0.0, 2e3),
-                        (stel.get_B0_well_depth, 0.15, 1e4),
+                            # (stel.get_B0_well_depth, 0.15, 1e4),
                         # (stel.get_k_second_order_SS, 0.0, 1e2),
                         # (stel.get_d_svals, 0.0, 1e2),
                         # (stel, 'DMerc_times_r2', 0.3, 3e5),
                         # (stel, 'd2_volume_d_psi2', -50, 1e-1),
                         # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # (stel, 'DGeod_times_r2', 0.1, 1e3),
-                        (stel.get_min_R0_penalty, 0.0, 1e4),
-                        (stel.get_min_Z0_penalty, 0.0, 1e4),
-                        (stel.get_d_curvature_d_varphi_at_0,0.0,1e+0),
-                        (stel.get_inv_L_grad_B, 0.0, 3e+0/stel.nphi),
-                        (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 1e-0/stel.nphi)
+                            # (stel.get_min_R0_penalty, 0.0, 1e4),
+                            # (stel.get_min_Z0_penalty, 0.0, 1e4),
+                            # (stel.get_d_curvature_d_varphi_at_0,0.0,1e+0),
+                            # (stel.get_inv_L_grad_B, 0.0, 3e+0/stel.nphi),
+                            # (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 1e-0/stel.nphi)
                 ]
 
         if grad==False:
