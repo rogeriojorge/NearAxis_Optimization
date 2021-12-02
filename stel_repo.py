@@ -764,38 +764,28 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         delta   = 0.1
         nfp     = 2
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
-        # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
-        # (stel.get_d, 0.0, 2e+1/stel.nphi),
-        # (stel.get_d_svals, 0.0, 1e2),
-        # (stel.get_min_R0_penalty, 0.0, 2e1),
-        # (stel.get_min_Z0_penalty, 0.0, 2e1),
-        # (stel.get_B0_well_depth,0.15, 3e2),
-        # (stel.get_inv_L_grad_B, 0.0, 3e-2),
-        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),∂∂
-        # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
-        # nIterations = 150
-        # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
-        # rel_step_array = [1e-1,1e-2]
-        # max_fourier_coefficients = 5
-        rc      = [ 1.0,0.0,-0.0672128837481924,0.0,0.0005161091974765925,0.0,0.0007522201785054648,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,-0.05744182548136287,0.0,0.004041681120334309,0.0,0.0006438081403620847,0.0,-1.6028888785238425e-06,0.0,-5.693463641219853e-07 ]
-        B0_vals = [ 1.0,0.1527763458452509 ]
+        #
+        #
+        #
+        rc      = [ 1.0,0.0,-0.0741173987808527,0.0,0.0031766668165196105,0.0,0.0003690512841429049,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.053995483176520684,0.0,-0.004831197825306252,0.0,-0.00037131029579494417,0.0,-5.839125059789108e-06,0.0,9.319358451740155e-07,0.0,-3.7587019153034373e-07 ]
+        B0_vals = [ 1.0,0.1661182319743847 ]
         omn_method ='non-zone'
         k_buffer = 3
         k_second_order_SS   = 0.0
-        d_over_curvature   = 0.5313710785886832
-        d_svals = [ 0.0,-0.013021981438299298,0.020287548707225142,0.0005311381639614502,-0.013820065354867411,-0.002488174423325446 ]
+        d_over_curvature   = 0.4983717192270443
+        d_svals = [ 0.0,0.0050179227311453415,0.016204894066587826,0.003428765212187593,-0.00929209615259958,-0.005730024119806691,-0.0005673792254450884 ]
         delta   = 0.1
         nfp     = 2
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
-        iota    =  -1.27947825864219
-        # max curvature'(0): 0.887692080909255
-        # max d'(0): 0.39464331889143905
-        # max gradB inverse length: 2.5185118415805303
-        # Max elongation = 5.847408583632515
-        # objective function:  61.13905988840333
-    if ind==31:
-        name   = 'QI_NFP5_r1'
+        iota    =  1.3156679557256712
+        # max curvature'(0): 0.6774481397520193
+        # max d'(0): 0.2947017197157641
+        # max gradB inverse length: 2.510682247924407
+        # Max elongation = 6.020096114114745
+        # objective function:  61.04134814303229
+    if ind==30:
+        name   = 'QI_NFP3_r1'
         rc      = [ 1.0,0.0,-0.01]
         zs      = [ 0.0,0.0,0.01]
         B0_vals = [ 1.0,0.15]
@@ -805,37 +795,26 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         d_over_curvature   = 0.5
         d_svals = [ 0.0,0.01]
         delta   = 0.1
-        nfp     = 5
+        nfp     = 3
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
-        # (stel.get_elongation, 0.0, 5e-1/stel.nphi),
-        # (stel.get_d, 0.0, 2e+1/stel.nphi),
-        # (stel.get_d_svals, 0.0, 1e2),
-        # (stel.get_min_R0_penalty, 0.0, 2e1),
-        # (stel.get_min_Z0_penalty, 0.0, 2e1),
-        # (stel.get_B0_well_depth,0.15, 3e2),
-        # (stel.get_inv_L_grad_B, 0.0, 3e-2),
-        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),∂∂
-        # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi)
-        # nIterations = 150
-        # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
-        # rel_step_array = [1e-1,1e-2]
-        # max_fourier_coefficients = 5
-        rc      = [ 1.0,0.0,-0.012550029353493355,0.0,0.0006513687983481426,0.0,7.052249239981895e-06,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.006934450600351422,0.0,-0.0006395279372781789,0.0,-7.731676411534612e-06,0.0,-1.780357316936996e-07,0.0,3.806792985799097e-07 ]
-        B0_vals = [ 1.0,0.14440758820951444 ]
+        #
+        #
+        #
+        rc      = [ 1.0,0.0,-0.027668332438223836,0.0,0.00022376928006404592,0.0,-2.6825370446168164e-05,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,0.023387118414499506,0.0,-0.00020907847611955144,0.0,1.2867235628959035e-05,0.0,1.6914173849509999e-06,0.0,1.4644259325810684e-06,0.0,1.930815030446972e-06 ]
+        B0_vals = [ 1.0,0.14093963438489326 ]
         omn_method ='non-zone'
         k_buffer = 3
         k_second_order_SS   = 0.0
-        d_over_curvature   = 0.5694500217420265
-        d_svals = [ 0.0,-0.04055475801339796,-0.004174822736258374,4.078646905594269e-05,2.0194437395953914e-06,6.447341774532472e-06 ]
+        d_over_curvature   = 0.3402116086802544
+        d_svals = [ 0.0,0.35232727371161493,0.020405115671768462,-0.006691907609014285,-0.018659734922801,-0.015044986053204298,-0.0008214071878636151 ]
         delta   = 0.1
-        nfp     = 5
+        nfp     = 3
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
-        iota    =  3.2523944207576476
-        # max curvature'(0): 1.576190366719451
-        # max d'(0): 0.6538721544678054
-        # max gradB inverse length: 5.913173128376124
-        # Max elongation = 6.797229664441179
-        # objective function:  200.90160918928146
-
+        iota    =  1.8813882039789136
+        # max curvature'(0): 4.7630803463314475
+        # max d'(0): 2.2756450157768224
+        # max gradB inverse length: 3.8908502424398534
+        # Max elongation = 5.738265211107585
+        # objective function:  90.76750871171303
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
