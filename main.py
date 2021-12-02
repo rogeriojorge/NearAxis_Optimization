@@ -81,18 +81,18 @@ try:
         # runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
         print('  plot()')
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
-        print('  B_contour()')
-        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
-        print('  B_fieldline()')
-        stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
-        print('  plot_boundary()')
-        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        # print('  B_contour()')
+        # stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
+        # print('  B_fieldline()')
+        # stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
+        # print('  plot_boundary()')
+        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
         # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
-        print('  plot_axis()')
-        stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
-        sys.path.insert(1, plotting_path)
-        import Simple3Dplot
-        Simple3Dplot.main(name, stel, r_edge, show=False)
+        # print('  plot_axis()')
+        # stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
+        # sys.path.insert(1, plotting_path)
+        # import Simple3Dplot
+        # Simple3Dplot.main(name, stel, r_edge, show=False)
 except Exception as e:
     # print(e)
     Input.Plot = False
@@ -105,8 +105,8 @@ try:
         print('Outputing to VMEC...')
         stel.to_vmec('input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
-                        "ftol_array": [1e-17,1e-16,1e-15,1e-14],
-                        "niter_array": [4000,5000,6000,9000]})
+                        "ftol_array": [1e-11,1e-12,1e-13,1e-14],
+                        "niter_array": [1000, 2000, 2000, 3000]})
         print('Running VMEC...')
         runVMEC(name,stel,executables_path,plotting_path)
 except Exception as e:
@@ -119,7 +119,7 @@ try:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
         stel_from_boozxform = stel.from_boozxform('boozmn_'+name+'.nc', max_s_for_fit = 0.4, N_phi = stel.nphi,
-                                max_n_to_plot = 2, show=False, vmec_file='wout_'+name+'.nc', input_stel=stel, nNormal=stel.helicity)
+                                max_n_to_plot = 2, show=False, vmec_file='wout_'+name+'.nc', input_stel=stel, nNormal=stel.iotaN-stel.iota)
 except Exception as e:
     # print(e)
     Input.BOOZ_XFORM = False

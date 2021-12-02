@@ -11,7 +11,7 @@ ftol = 1e-4
 
 # Optimize = True
 Plot = True
-VMEC = True
+# VMEC = True
 # BOOZ_XFORM = True
 # NEO = True
 # SPEC = True
