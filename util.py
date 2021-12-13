@@ -69,7 +69,7 @@ def runqsc(stel,name,rr,executables_path,plotting_path):
     quasisymmetryPlotSingle.main("quasisymmetry_out."+name+".nc")
 
 # Run VMEC code
-def runVMEC(name,stel,executables_path,plotting_path):
+def runVMEC(name,stel,r_edge,executables_path,plotting_path):
     print("Run VMEC")
     # import vmec
     # import numpy as np
@@ -99,7 +99,7 @@ def runVMEC(name,stel,executables_path,plotting_path):
     print("Plot VMEC result")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
-    vmecPlot2.main("wout_"+name+".nc",stel)
+    vmecPlot2.main("wout_"+name+".nc",stel,r_edge)
 
 # Run booz_xform
 def runBOOZXFORM(name):
@@ -195,13 +195,13 @@ def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
     #replace(qvfilename+".sp","pressure    =   0.000000000000000E+00","pressure    =   "+p2)
 
 def runSPEC(name,executables_path,plotting_path,stel,r_edge, nmodes=25):
-    print("Output to SPEC")
-    qscfile="quasisymmetry_out."+name+".nc"
-    output2spec(name,qscfile,executables_path,nmodes,stel,r_edge)
-    print("Run SPEC")
-    bashCommand = executables_path+"/./xspec "+name+".sp"
-    run(bashCommand.split())
-    print("Plot SPEC result")
+    # print("Output to SPEC")
+    # qscfile="quasisymmetry_out."+name+".nc"
+    # output2spec(name,qscfile,executables_path,nmodes,stel,r_edge)
+    # print("Run SPEC")
+    # bashCommand = executables_path+"/./xspec "+name+".sp"
+    # run(bashCommand.split())
+    # print("Plot SPEC result")
     sys.path.insert(1, plotting_path)
     import specPlot
     specPlot.main(name+'.sp.h5',name)
@@ -434,14 +434,14 @@ def runVMECrescale(name, stel, executables_path, plotting_path, B_scale=6, R_sca
     run(bashCommand.split())
     print("Run VMEC")
     bashCommand = executables_path+"/./xvmec2000 input."+name+"_scaled"
-    run(bashCommand.split())
+    # run(bashCommand.split())
     print("Plot VMEC rescaled")
     sys.path.insert(1, plotting_path)
     import vmecPlot2
     vmecPlot2.main("wout_"+name+"_scaled.nc",stel)
 
 def runBEAMS3D(name,executables_path,plotting_path,runBEAMS,
-    nparticles = 100000,s0 = 1e-07,T_END_IN = 1e-3):
+    nparticles = 100000, s0 = 1e-07, T_END_IN = 1e-3):
     print("Create BEAMS3D input file")
     sys.path.insert(1, executables_path)
     import beams3dInput_random

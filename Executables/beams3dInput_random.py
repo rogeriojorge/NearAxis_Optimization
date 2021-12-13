@@ -222,12 +222,12 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN
 
     numstr = str(nparticles) + '*'
 
-    f.write('T_END_IN = ' + numstr + ' ' + str(T_END_IN) +'\n')
-    f.write('ZATOM_IN = ' + numstr + '2.0d+0\n')
-    f.write('CHARGE_IN = ' + numstr + fmt_left.format(2 * e_C) + '\n')
-    f.write('MASS_IN = ' + numstr + fmt_left.format(m_kg) + '\n')
+    f.write('  T_END_IN = ' + numstr + ' ' + str(T_END_IN) +'\n')
+    f.write('  ZATOM_IN = ' + numstr + '2.0d+0\n')
+    f.write('  CHARGE_IN = ' + numstr + fmt_left.format(2 * e_C) + '\n')
+    f.write('  MASS_IN = ' + numstr + fmt_left.format(m_kg) + '\n')
     f.write('! Using volume Jacobian\n')
-    mystr = 'R_START_IN = '
+    mystr = '  R_START_IN = '
     for j in range(nparticles):
         mystr += fmt_master.format(rs[j])
         if np.mod(j, 5) == 4:
@@ -236,7 +236,7 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN
         mystr = ' '
     f.write('\n')
 
-    mystr = 'PHI_START_IN = '
+    mystr = '  PHI_START_IN = '
     for j in range(nparticles):
         mystr += fmt_master.format(phis[j])
         if np.mod(j, 5) == 4:
@@ -245,7 +245,7 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN
         mystr = ' '
     f.write('\n')
 
-    mystr = 'Z_START_IN = '
+    mystr = '  Z_START_IN = '
     for j in range(nparticles):
         mystr += fmt_master.format(zs[j])
         if np.mod(j, 5) == 4:
@@ -254,7 +254,7 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN
         mystr = ' '
     f.write('\n')
 
-    mystr = 'VLL_START_IN = '
+    mystr = '  VLL_START_IN = '
     for j in range(nparticles):
         mystr += fmt_master.format(vlls[j])
         if np.mod(j, 5) == 4:
@@ -263,7 +263,7 @@ def main(name, s0 = 0.0001, nparticles = 1000, ntheta = 60, nphi = 100, T_END_IN
         mystr = ' '
     f.write('\n')
 
-    mystr = 'MU_START_IN = '
+    mystr = '  MU_START_IN = '
     for j in range(nparticles):
         mystr += fmt_master.format(mus[j])
         if np.mod(j, 5) == 4:

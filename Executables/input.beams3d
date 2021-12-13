@@ -1,11 +1,11 @@
 &BEAMS3D_INPUT
-  NR = 256
-  NZ = 256
-  NPHI = 256
-  RMIN =   6
-  RMAX =   22
-  ZMIN =  -8
-  ZMAX =   8
+  NR = 64
+  NZ = 64
+  NPHI = 32
+  RMIN =   7.45854
+  RMAX =   28.41379
+  ZMIN =  -9.00279
+  ZMAX =   9.00279
   PHIMIN =  0.
   PHIMAX =  6.28318530718
   INT_TYPE = 'LSODE'

@@ -1,7 +1,7 @@
  THIS IS PARVMEC (PARALLEL VMEC), VERSION 9.0
  Lambda: Full Radial Mesh. L-Force: hybrid full/half.
 
- COMPUTER:    OS:    RELEASE:   DATE = Dec 01,2021  TIME = 19:29:24
+ COMPUTER:    OS:    RELEASE:   DATE = Dec 08,2021  TIME = 18:53:07
  SHOT ID.: QI_NFP1_r1_test_scaled  SEQ. NO.:   0
  TIME SLICE =    0. ms
  '!----- Runtime Parameters -----'
@@ -1046,16 +1046,16 @@
  FILE : QI_NFP1_r1_test_scaled
  NUMBER OF JACOBIAN RESETS =    4
 
-    TOTAL COMPUTATIONAL TIME (SEC)       127.36
+    TOTAL COMPUTATIONAL TIME (SEC)       136.94
     TIME TO INPUT/OUTPUT                   0.61
        READ IN DATA                        0.01
        WRITE OUT DATA TO WOUT              0.61
-    TIME IN FUNCT3D                      125.27
-       BCOVAR FIELDS                      13.04
-       FOURIER TRANSFORM                  27.46
-       INVERSE FOURIER TRANSFORM          27.35
-       FORCES AND SYMMETRIZE               9.52
-       RESIDUE                            21.56
+    TIME IN FUNCT3D                      134.72
+       BCOVAR FIELDS                      15.43
+       FOURIER TRANSFORM                  28.07
+       INVERSE FOURIER TRANSFORM          27.80
+       FORCES AND SYMMETRIZE              11.26
+       RESIDUE                            24.16
        EQFORCE                             0.00
 
  NO. OF PROCS:     8

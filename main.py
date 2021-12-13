@@ -22,8 +22,6 @@ except Exception as e:
 # Get stellarator from the repository
 stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP = get_stel(Input.ind, nphi=nphi)
 
-## Folders operations
-# Set the name of important folders
 try:
     Input.results_folder
 except Exception as e:
@@ -77,24 +75,25 @@ except Exception as e:
 # Do the plotting
 try:
     if Input.Plot:
+        print('iota =',stel.iota)
         print('Plotting...')
         # runqsc(stel,name,r_edge,executables_path,plotting_path) # DEPRECATED
         print('  plot()')
         stel.plot(savefig='pyQSC_out.'+name+'.params', show=False)
-        # print('  B_contour()')
-        # stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
-        # print('  B_fieldline()')
-        # stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
-        # print('  plot_boundary()')
-        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        print('  B_fieldline()')
+        stel.B_fieldline(r=r_edge, savefig='pyQSC_out.'+name, show=False)
+        print('  B_contour()')
+        stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
+        print('  plot_boundary()')
+        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
         # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
-        # print('  plot_axis()')
-        # stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
-        # sys.path.insert(1, plotting_path)
-        # import Simple3Dplot
-        # Simple3Dplot.main(name, stel, r_edge, show=False)
+        print('  plot_axis()')
+        stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
+        sys.path.insert(1, plotting_path)
+        import Simple3Dplot
+        Simple3Dplot.main(name, stel, r_edge, show=False)
 except Exception as e:
-    # print(e)
+    print(e)
     Input.Plot = False
 
 # Run VMEC
@@ -106,9 +105,9 @@ try:
         stel.to_vmec('input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                        "niter_array": [1000, 2000, 2000, 3000]})
+                        "niter_array": [1000, 2000, 2000, 5000]})
         print('Running VMEC...')
-        runVMEC(name,stel,executables_path,plotting_path)
+        runVMEC(name,stel,r_edge,executables_path,plotting_path)
 except Exception as e:
     # print(e)
     Input.VMEC = False
@@ -226,7 +225,7 @@ try:
     T_END_IN = Input.T_END_IN
 except Exception as e:
     runBEAMS = True
-    nparticles = 100000
+    nparticles = 10
     s0 = 1e-07
     T_END_IN = 1e-3
 # Run BEAMS3D

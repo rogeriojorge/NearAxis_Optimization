@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-def main(file,stel,s_plot_ignore=0.3):
+def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
     print("usage: vmecPlot <woutXXX.nc>")
 
     import matplotlib.pyplot as plt
@@ -279,6 +279,8 @@ def main(file,stel,s_plot_ignore=0.3):
     plt.xlabel('R', fontsize=18)
     plt.ylabel('Z', fontsize=18)
     plt.savefig(filename+'_poloidal_plot.png')
+    R_boundary = R
+    Z_boundary = Z
 
     fig = plt.figure(figsize=(14,7))
     fig.patch.set_facecolor('white')
@@ -385,13 +387,54 @@ def main(file,stel,s_plot_ignore=0.3):
 
     mlab.savefig(filename=file+'_simple_3Dplot_VMEC.png', figure=fig)
 
-    figIota = plt.figure(figsize=(5, 5), dpi=80)
-    plt.plot(s, iotaf, '.-',label=r'$\iota$ VMEC')
-    # plt.plot(s_half, iotas[1:],'.-',label=r'iotas')
-    plt.axhline(y=-stel.iota, color='r', linestyle='-', label=r'$\iota$ Near-Axis')
-    plt.legend(fontsize=14)
-    plt.xlabel(xLabel, fontsize=18)
-    figIota.savefig(file+'_iota_VMEC.png')
+    try:
+        stel.iota
+        figIota = plt.figure(figsize=(5, 5), dpi=80)
+        plt.plot(s, iotaf, '.-',label=r'$\iota$ VMEC')
+        # plt.plot(s_half, iotas[1:],'.-',label=r'iotas')
+        plt.axhline(y=-stel.iota, color='r', linestyle='-', label=r'$\iota$ Near-Axis')
+        plt.legend(fontsize=14)
+        plt.xlabel(xLabel, fontsize=18)
+        figIota.savefig(file+'_iota_VMEC.png')
+
+        from scipy.interpolate import interp1d
+        figComparison = plt.figure(figsize=(10, 7), dpi=80)
+        nsections = 8
+        ntheta=60
+        nphi = 150
+        # Poloidal Plots pyQSC
+        _, _, z_2D_plot, R_2D_plot = stel.get_boundary(r=r_edge, nphi=nphi, ntheta=ntheta)
+        phi = np.linspace(0, 2 * np.pi, nphi)
+        R_2D_spline = interp1d(phi, R_2D_plot, axis=1)
+        z_2D_spline = interp1d(phi, z_2D_plot, axis=1)
+        phi1dplot_RZ = np.linspace(0, 2 * np.pi / stel.nfp, nsections, endpoint=False)
+        ax  = plt.gca()
+        for i, phi in enumerate(phi1dplot_RZ):
+            if i==0:
+                plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', label='pyQSC', color='r')
+            else:
+                plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', color='r')
+
+        # VMEC poloidal plots
+        plt.plot(R_boundary[:,0], Z_boundary[:,0], '-', label='VMEC', color='k')
+        plt.plot(R_boundary[:,1], Z_boundary[:,1], '-', color='k')
+        plt.plot(R_boundary[:,2], Z_boundary[:,2], '-', color='k')
+        plt.plot(R_boundary[:,3], Z_boundary[:,3], '-', color='k')
+        plt.plot(R_boundary[:,4], Z_boundary[:,4], '-', color='k')
+        plt.plot(R_boundary[:,5], Z_boundary[:,5], '-', color='k')
+        plt.plot(R_boundary[:,6], Z_boundary[:,6], '-', color='k')
+        plt.plot(R_boundary[:,7], Z_boundary[:,7], '-', color='k')
+
+        plt.xlabel('R (meters)', fontsize=14)
+        plt.ylabel('Z (meters)', fontsize=14)
+        ax.tick_params(axis='both', which='major', labelsize=12)
+        ax.tick_params(axis='both', which='minor', labelsize=12)
+        plt.legend(loc=2, prop={'size': 14})
+        plt.tight_layout()
+        ax.set_aspect('equal')
+        figComparison.savefig(file+'_surface_comparison.png')
+    except:
+        print('No pyQSC stel instance')
 
 if __name__ == "__main__":
     main(sys.argv[1])

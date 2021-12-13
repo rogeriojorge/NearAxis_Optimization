@@ -14,7 +14,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
     if mpi.proc0_world:
         print('Before optimization:')
         print('Max elongation  = ',stel.max_elongation)
-        if stel.order == 'r3':
+        if stel.order != 'r1':
             print('DMerc mean  = ',np.mean(stel.DMerc_times_r2))
             print('DWell mean  = ',np.mean(stel.DWell_times_r2))
             print('DGeod mean  = ',np.mean(stel.DGeod_times_r2))
@@ -23,16 +23,23 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print('Max |X3c1| =',max(abs(stel.X3c1)))
             print('gradgradB inverse length: ', stel.grad_grad_B_inverse_scale_length)
             print('B2c     = ',stel.B2c)
+            print('B2s     = ',stel.B2s)
             print('p2      = ',stel.p2)
         print('mean gradB inverse length: ', np.mean(stel.inv_L_grad_B))
         print('Max |X1c| =',max(abs(stel.X1c)))
         print('rc      = [',','.join([str(elem) for elem in stel.rc]),']')
         print('zs      = [',','.join([str(elem) for elem in stel.zs]),']')
+        print('rs      = [',','.join([str(elem) for elem in stel.rs]),']')
+        print('zc      = [',','.join([str(elem) for elem in stel.zc]),']')
         print('etabar  = ',stel.etabar)
         print('nfp     = ',stel.nfp)
         print('nphi    = ',stel.nphi)
         print('iota    = ',stel.iota)
 
+    try:
+        stel.omn
+    except:
+        stel.omn = False
     for n_coeffs in range(1,max_fourier_coefficients+1):
         if mpi.proc0_world:
             print()
@@ -40,16 +47,16 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         if stel.omn == True:
             if n_coeffs < (len(stel.rc)-1)/2: continue
             if stel.order == 'r1':
-                stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, d_over_curvature=stel.d_over_curvature, k_second_order_SS=stel.k_second_order_SS)
+                stel = QSCWrapper(sigma0 = stel.sigma0, k_buffer = stel.k_buffer, omn_method = stel.omn_method, rs=stel.rs,zc=stel.zc, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, d_over_curvature=stel.d_over_curvature, k_second_order_SS=stel.k_second_order_SS)
             else:
-                stel = QSCWrapper(k_buffer = stel.k_buffer, omn_method = stel.omn_method, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, d_over_curvature=stel.d_over_curvature, k_second_order_SS=stel.k_second_order_SS, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
+                stel = QSCWrapper(sigma0 = stel.sigma0, k_buffer = stel.k_buffer, omn_method = stel.omn_method, rs=stel.rs,zc=stel.zc, rc=stel.rc,zs=stel.zs, nfp=stel.nfp, B0_vals=stel.B0_vals, d_svals=np.append(stel.d_svals,0), nphi=stel.nphi+20, omn=True, delta=stel.delta, B2c_cvals=np.append(stel.B2c_cvals,0), B2s_svals=np.append(stel.B2s_svals,0), p2=stel.p2, order=stel.order, d_over_curvature=stel.d_over_curvature, k_second_order_SS=stel.k_second_order_SS, B2s_cvals=np.append(stel.B2s_cvals,0), B2c_svals=np.append(stel.B2c_svals,0))
             stel.change_qsc_nfourier(2*n_coeffs+1)
         else:
             if n_coeffs < len(stel.rc): continue
             if stel.order =='r1':
-                stel = QSCWrapper(rc=stel.rc, zs=stel.zs, etabar=stel.etabar, nfp=stel.nfp, nphi=stel.nphi+20, order='r1')
+                stel = QSCWrapper(sigma0 = stel.sigma0, rc=stel.rc, zs=stel.zs, rs=stel.rs,zc=stel.zc, etabar=stel.etabar, nfp=stel.nfp, nphi=stel.nphi+20, order='r1')
             else:
-                stel = QSCWrapper(rc=stel.rc, zs=stel.zs, etabar=stel.etabar, nfp=stel.nfp, nphi=stel.nphi+20, B2c=stel.B2c, order='r3', p2=stel.p2)
+                stel = QSCWrapper(sigma0 = stel.sigma0, rc=stel.rc, zs=stel.zs, rs=stel.rs,zc=stel.zc, etabar=stel.etabar, nfp=stel.nfp, nphi=stel.nphi+20, B2s=stel.B2s, B2c=stel.B2c, order='r3', p2=stel.p2)
             stel.change_qsc_nfourier(n_coeffs+1)
         try:
             stel.omn
@@ -58,12 +65,19 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         stel.min_R0_threshold = 0.4
         stel.fix_all()
         if stel.omn == False:
+            if stel.lasym:
+                stel.unfix('sigma0')
             for i in range(1,n_coeffs+1):
                 stel.unfix('rc('+str(i)+')')
                 stel.unfix('zs('+str(i)+')')
+                if stel.lasym:
+                    stel.unfix('rs('+str(i)+')')
+                    stel.unfix('zc('+str(i)+')')
             stel.unfix('etabar')
             if stel.order != 'r1':
-                stel.unfix('B2c',False)
+                stel.unfix('B2c')
+                if stel.lasym:
+                    stel.unfix('B2s')
         else:
             stel.unfix('B0(1)')
             if stel.omn_method == 'buffer':
@@ -114,9 +128,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_min_R0_penalty, 0.0, 1e1),
                         (stel.get_min_Z0_penalty, 0.0, 1e1),
                         # # (stel.get_delta, 0.0, 1e1),
-                        (stel.get_B0_well_depth,0.16, 1e2),
-                        (stel.get_inv_L_grad_B, 0.0, 3e-2),
-                        (stel.get_d_d_d_varphi_at_0,0.0,1e0),
+                        (stel.get_B0_well_depth,0.16, 5e2),
+                        (stel.get_inv_L_grad_B, 0.0, 1e+1/stel.nphi), # /stel.nphi
+                        (stel.get_d_d_d_varphi_at_0,0.0,1e0), # pseudosymmetry?
                         (stel.get_d_curvature_d_varphi_at_0,0.0,4e-1),
                         # # (stel.get_d_over_curvature,1.0,1e1),
                         # # (stel.get_k_second_order_SS,0.0,5e0),
@@ -125,30 +139,31 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         else:
             if stel.omn == False:
                 term = [
-                        (stel, 'iota', iota_target, 1e5),
-                        (stel, 'max_elongation', 0.0, 3e+0),
-                        (stel, 'elongation', 0.0, 4e-1),
-                        (stel, 'B20_anomaly', 0.0, 1e1),
-                        (stel, 'B20_variation', 0.0, 3e2),
-                        (stel, 'X20', 0.0, 2e-1),
-                        (stel, 'X2c', 0.0, 2e-1),
-                        (stel, 'X2s', 0.0, 2e-1),
-                        (stel, 'Y20', 0.0, 2e-1),
-                        (stel, 'Y2c', 0.0, 2e-1),
-                        (stel, 'Y2s', 0.0, 2e-1),
-                        (stel, 'Z20', 0.0, 2e-1),
-                        (stel, 'Z2c', 0.0, 2e-1),
-                        (stel, 'Z2s', 0.0, 2e-1),
-                        (stel, 'X3c1', 0.0, 5e-1),
-                        (stel, 'Y3c1', 0.0, 5e-1),
-                        (stel, 'Y3s1', 0.0, 5e-1),
+                        # (stel.get_iota, iota_target, 1e5),
+                        # (stel.get_max_elongation, 0.0, 4e-1),
+                        (stel.get_elongation, 0.0, 4e-1/stel.nphi),
+                        (stel.get_B20_anomaly, 0.0, 5e0/stel.nphi),
+                        # (stel.get_B20_variation, 0.0, 4e-1),
+                        (stel.get_X20, 0.0, 5e-1/stel.nphi),
+                        (stel.get_X2c, 0.0, 5e-1/stel.nphi),
+                        (stel.get_X2s, 0.0, 5e-1/stel.nphi),
+                        (stel.get_Y20, 0.0, 5e-1/stel.nphi),
+                        (stel.get_Y2c, 0.0, 5e-1/stel.nphi),
+                        (stel.get_Y2s, 0.0, 5e-1/stel.nphi),
+                        # (stel, 'Z20', 0.0, 2e-1),
+                        # (stel, 'Z2c', 0.0, 2e-1),
+                        # (stel, 'Z2s', 0.0, 2e-1),
+                        (stel.get_X3c1, 0.0, 5e-1/stel.nphi),
+                        (stel.get_Y3c1, 0.0, 5e-1/stel.nphi),
+                        (stel.get_Y3s1, 0.0, 5e-1/stel.nphi),
                         # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                        (stel, 'd2_volume_d_psi2', -50, 1e-1),
+                        # (stel.get_d2_volume_d_psi2, -50, 1e-1),
                         # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # (stel, 'DGeod_times_r2', 0.1, 1e3),
-                        (stel, 'grad_grad_B_inverse_scale_length', 0.0, 1e+1),
-                        (stel.min_R0_penalty, 0.0, 1e9),
-                        (stel, 'inv_L_grad_B', 0.0, 1e0)
+                        (stel.get_grad_grad_B_inverse_scale_length, 0.0, 5e-2),
+                        (stel.get_min_R0_penalty, 0.0, 2e1),
+                        (stel.get_min_Z0_penalty, 0.0, 2e1),
+                        (stel.get_inv_L_grad_B, 0.0, 5e-1/stel.nphi)
                 ]
             else:
                 term = [
@@ -236,6 +251,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('Quasi-helically symmetric solution with N =',nN)
         print('        rc      = [',','.join([str(elem) for elem in stel.rc]),']')
         print('        zs      = [',','.join([str(elem) for elem in stel.zs]),']')
+        print('        rs      = [',','.join([str(elem) for elem in stel.rs]),']')
+        print('        zc      = [',','.join([str(elem) for elem in stel.zc]),']')
+        print('        sigma0  = ',stel.sigma0)
         if stel.omn:
             if stel.d_svals[-1]==0:
                 stel.d_svals = stel.d_svals[0:-1]
@@ -248,7 +266,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             print('        delta   =',stel.delta)
             print('        nfp     =',stel.nfp)
             if stel.order == 'r1':
-                    print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)")
+                    print("        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)")
             else:
                 if stel.B2s_svals[-1]==0:
                     stel.B2s_svals = stel.B2s_svals[0:-1]
@@ -257,16 +275,17 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 print('        B2s_cvals = [',','.join([str(elem) for elem in stel.B2s_cvals]),']')
                 print('        B2c_svals = [',','.join([str(elem) for elem in stel.B2c_svals]),']')
                 print('        p2      = ',stel.p2)
-                print("        stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
+                print("        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)")
         else:
             print('        etabar = ',stel.etabar)
             print('        nfp    = ',stel.nfp)
             if stel.order == 'r1':
-                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, order='r1')")
+                print("        stel   = QSCWrapper(sigma0 = sigma0, rc=rc, zs=zs, rs=rs,zc=zc, etabar=etabar, nfp=nfp, nphi=nphi, order='r1')")
             else:
                 print('        B2c    = ',stel.B2c)
+                print('        B2s    = ',stel.B2s)
                 print('        p2     = ',stel.p2)
-                print("        stel   = QSCWrapper(rc=rc, zs=zs, etabar=etabar, nfp=nfp, nphi=nphi, B2c=B2c, order='r3', p2=p2)")
+                print("        stel   = QSCWrapper(sigma0 = sigma0, rc=rc, zs=zs, rs=rs,zc=zc, etabar=etabar, nfp=nfp, nphi=nphi, B2s=B2s, B2c=B2c, order='r3', p2=p2)")
         print('        iota    = ',stel.iota)
         if stel.order != 'r1':
             print('        # DMerc mean  =',np.mean(stel.DMerc_times_r2))

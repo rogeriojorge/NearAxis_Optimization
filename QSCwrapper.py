@@ -137,3 +137,48 @@ class QSCWrapper(Qsc, Optimizable):
 
     def get_sigma(self):
         return self.sigma
+
+    def get_B20_anomaly(self):
+        return self.B20_anomaly
+
+    def get_B20_variation(self):
+        return self.B20_variation
+
+    def get_grad_grad_B_inverse_scale_length(self):
+        return self.grad_grad_B_inverse_scale_length
+
+    def get_X20(self):
+        return self.X20
+
+    def get_X2c(self):
+        return self.X2c
+
+    def get_X2s(self):
+        return self.X2s
+
+    def get_Y20(self):
+        return self.Y20
+
+    def get_Y2c(self):
+        return self.Y2c
+
+    def get_Y2s(self):
+        return self.Y2s
+
+    def get_Z20(self):
+        return self.Z20
+
+    def get_Z2c(self):
+        return self.Z2c
+
+    def get_Z2s(self):
+        return self.Z2s
+
+    def get_X3c1(self):
+        return self.X3c1
+
+    def get_Y3c1(self):
+        return self.Y3c1
+
+    def get_Y3s1(self):
+        return self.Y3s1

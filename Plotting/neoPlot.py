@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 def main(file,qvfilename):
 
@@ -46,3 +47,6 @@ def main(file,qvfilename):
     # plt.legend()
     plt.tight_layout()
     fig.savefig('neo_out_'+qvfilename+'.pdf', dpi=fig.dpi)#, bbox_inches = 'tight', pad_inches = 0)
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[1])
