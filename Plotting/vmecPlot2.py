@@ -1,33 +1,15 @@
 #!/usr/bin/env python3
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import numpy as np
+from scipy.io import netcdf
+import os
+import math
 import sys
 
-def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
-    print("usage: vmecPlot <woutXXX.nc>")
+def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3,savefig=True):
 
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-    from matplotlib import cm
-    import numpy as np
-    from scipy.io import netcdf
-    import sys, os
-    import math
-
-    #if len(sys.argv) != 2:
-    #	print("Error! You must specify 1 argument: the woutXXX.nc file.")
-    #		exit(1)
-
-    def maximizeWindow():
-        # Maximize window. The command for this depends on the backend.
-        mng = plt.get_current_fig_manager()
-        try:
-            mng.resize(*mng.window.maxsize())
-        except AttributeError:
-            try:
-                mng.window.showMaximized()
-            except AttributeError:
-                pass
-
-    filename = file#sys.argv[1]
+    filename = file
     f = netcdf.netcdf_file(filename,'r',mmap=False)
     phi = f.variables['phi'][()]
     iotaf = f.variables['iotaf'][()]
@@ -253,12 +235,10 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
         plt.xlim([0,2*np.pi])
         plt.ylim([0,2*np.pi])
 
-    #maximizeWindow()
-
     plt.tight_layout()
     plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
 
-    plt.savefig(file+'VMECparams.pdf', bbox_inches = 'tight', pad_inches = 0)
+    if savefig: plt.savefig(file+'VMECparams.pdf', bbox_inches = 'tight', pad_inches = 0)
 
     ########################################################
     # Now make plot of flux surface shapes
@@ -278,7 +258,7 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
     plt.legend(fontsize=18)
     plt.xlabel('R', fontsize=18)
     plt.ylabel('Z', fontsize=18)
-    plt.savefig(filename+'_poloidal_plot.png')
+    if savefig: plt.savefig(filename+'_poloidal_plot.png')
     R_boundary = R
     Z_boundary = Z
 
@@ -318,12 +298,10 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
         plt.ylabel('Z', fontsize=10)
         plt.title(r'$\phi$ = '+str(round(zeta[izeta],2)))
 
-    #maximizeWindow()
-
     plt.tight_layout()
     # plt.subplots_adjust(wspace=0, hspace=0)
     # plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
-    plt.savefig(file+'_VMECsurfaces.pdf', bbox_inches = 'tight', pad_inches = 0)
+    if savefig: plt.savefig(file+'_VMECsurfaces.pdf', bbox_inches = 'tight', pad_inches = 0)
 
     ########################################################
     # Now make 3D surface plot
@@ -361,7 +339,7 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
 
 
     plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
-    plt.savefig(file+'VMEC3Dplot.pdf', bbox_inches = 'tight', pad_inches = 0)
+    if savefig: plt.savefig(file+'VMEC3Dplot.pdf', bbox_inches = 'tight', pad_inches = 0)
     #plt.show()
     plt.close()
 
@@ -385,7 +363,7 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
     cb.title_text_property.color=(0,0,0)
     cb.title_text_property.bold = 1
 
-    mlab.savefig(filename=file+'_simple_3Dplot_VMEC.png', figure=fig)
+    if savefig: mlab.savefig(filename=file+'_simple_3Dplot_VMEC.png', figure=fig)
 
     try:
         stel.iota
@@ -395,7 +373,7 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
         plt.axhline(y=-stel.iota, color='r', linestyle='-', label=r'$\iota$ Near-Axis')
         plt.legend(fontsize=14)
         plt.xlabel(xLabel, fontsize=18)
-        figIota.savefig(file+'_iota_VMEC.png')
+        if savefig: figIota.savefig(file+'_iota_VMEC.png')
 
         from scipy.interpolate import interp1d
         figComparison = plt.figure(figsize=(10, 7), dpi=80)
@@ -411,16 +389,18 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
         ax  = plt.gca()
         for i, phi in enumerate(phi1dplot_RZ):
             if i==0:
-                plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', label='pyQSC', color='r')
+                plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', label='pyQSC', color='g')
+            elif i==4:
+                plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', color='b')
             else:
                 plt.plot(R_2D_spline(phi), z_2D_spline(phi), '.', color='r')
 
         # VMEC poloidal plots
-        plt.plot(R_boundary[:,0], Z_boundary[:,0], '-', label='VMEC', color='k')
+        plt.plot(R_boundary[:,0], Z_boundary[:,0], '-', label='VMEC', color='g')
         plt.plot(R_boundary[:,1], Z_boundary[:,1], '-', color='k')
         plt.plot(R_boundary[:,2], Z_boundary[:,2], '-', color='k')
         plt.plot(R_boundary[:,3], Z_boundary[:,3], '-', color='k')
-        plt.plot(R_boundary[:,4], Z_boundary[:,4], '-', color='k')
+        plt.plot(R_boundary[:,4], Z_boundary[:,4], '-', color='b')
         plt.plot(R_boundary[:,5], Z_boundary[:,5], '-', color='k')
         plt.plot(R_boundary[:,6], Z_boundary[:,6], '-', color='k')
         plt.plot(R_boundary[:,7], Z_boundary[:,7], '-', color='k')
@@ -432,7 +412,7 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3):
         plt.legend(loc=2, prop={'size': 14})
         plt.tight_layout()
         ax.set_aspect('equal')
-        figComparison.savefig(file+'_surface_comparison.png')
+        if savefig: figComparison.savefig(file+'_surface_comparison.png')
     except:
         print('No pyQSC stel instance')
 

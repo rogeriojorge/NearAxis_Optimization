@@ -821,4 +821,41 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # max gradB inverse length: 3.422272769562569
         # Max elongation = 5.3348766008669495
         # objective function:  149.20785124911535
+    if ind==32:
+        name   = 'QI_NFP1_r1_smootherAlpha'
+        rc      = [ 1.0,0.0,-0.2]
+        zs      = [ 0.0,0.0,-0.3]
+        B0_vals = [ 1.0,0.16]
+        omn_method ='non-zone-smoother'
+        k_buffer = 6
+        p_buffer = 5
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,0.01]
+        delta   = 0.1
+        nfp     = 1
+        stel    =  QSCWrapper(p_buffer=p_buffer, omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature)
+        #
+        #
+        rc      = [ 1.0,0.0,-0.4033958781759469,0.0,0.07635203004611708,0.0,-0.007594732970385295,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.24131310065314193,0.0,0.06382450374382645,0.0,-0.006016219817385928,0.0,-0.0006194662608072705,0.0,-6.333753439738566e-05 ]
+        rs      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zc      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        sigma0  =  0.0
+        B0_vals = [ 1.0,0.17158156401368893 ]
+        omn_method ='non-zone-smoother'
+        k_buffer = 6
+        p_buffer = 5
+        k_second_order_SS   = 0.0
+        d_over_curvature   = 0.5441152805054742
+        d_svals = [ 0.0,0.0034051190420990563,0.003317625768761041,-0.0012623220508664378,-0.0017117338190760154,2.471035249896242e-05 ]
+        delta   = 0.1
+        nfp     = 1
+        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, d_over_curvature=d_over_curvature, k_second_order_SS=k_second_order_SS)
+        iota    =  -0.6659650002271166
+        # max curvature'(0): 0.16210885264588087
+        # max d'(0): 0.08773816656521899
+        # max gradB inverse length: 1.6540394959627556
+        # Max elongation = 4.925160413321286
+        # objective function:  30.98593629156751
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

@@ -103,6 +103,12 @@ try:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
         stel.to_vmec('input.'+name,r=r_edge,
+                # params={"ns_array": [16, 49, 101, 151],
+                #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
+                #         "niter_array": [1000, 2000, 2000, 5000],
+                #         "mpol": 13,
+                #         "ntor": 50
+                #         }, ntheta=26, ntorMax=50)
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
                         "niter_array": [1000, 2000, 2000, 5000]})
@@ -117,7 +123,7 @@ try:
     if Input.BOOZ_XFORM:
         print('Running BOOZ_XFORM...')
         runBOOZXFORM(name)
-        stel_from_boozxform = stel.from_boozxform('boozmn_'+name+'.nc', max_s_for_fit = 0.4, N_phi = stel.nphi,
+        stel_from_boozxform = stel.from_boozxform('boozmn_'+name+'.nc', max_s_for_fit = 0.4, N_phi = stel.nphi, savefig=True,
                                 max_n_to_plot = 2, show=False, vmec_file='wout_'+name+'.nc', input_stel=stel, nNormal=stel.iotaN-stel.iota)
 except Exception as e:
     # print(e)
