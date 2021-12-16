@@ -813,4 +813,27 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # max gradB inverse length: 2.762961930644058
         # Max elongation = 5.281931577157896
         # objective function:  42.51667266597275
+    if ind==31:
+        name   = 'QI_NFP3_r2'
+        rc      = [ 1.0,0.0,-0.1]
+        zs      = [ 0.0,0.0,-0.1]
+        rs      = [ 0.0,0.0]
+        zc      = [ 0.0,0.0]
+        sigma0  =  0.0
+        B0_vals = [ 1.0,0.16]
+        omn_method ='non-zone-fourier'
+        k_buffer = 1
+        p_buffer = 2
+        k_second_order_SS   = -0.01
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,-0.01]
+        delta   = 0.8
+        nfp     = 3
+        B2s_svals = [ 0.0,0.0]
+        B2c_cvals = [ 0.0,0.0]
+        B2s_cvals = [ 0.01,0.01]
+        B2c_svals = [ 0.0,0.01]
+        p2      =  0.0
+        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
+        #
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP

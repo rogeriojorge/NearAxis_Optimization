@@ -85,13 +85,13 @@ try:
         print('  B_contour()')
         stel.B_contour(r=r_edge, savefig='pyQSC_out.'+name, ncontours=25, show=False)
         print('  plot_boundary()')
-        # stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
-        stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        stel.plot_boundary(r=r_edge, fieldlines=True, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
+        # stel.plot_boundary(r=r_edge, fieldlines=False, savefig='pyQSC_out.'+name+'.boundary', show=False, ntheta=120, nphi=int(120*stel.nfp), ntheta_fourier=30)
         # print('  plot_axis()')
-        # stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
-        # sys.path.insert(1, plotting_path)
-        # import Simple3Dplot
-        # Simple3Dplot.main(name, stel, r_edge, show=False)
+        stel.plot_axis(frenet_factor=0.15, savefig='pyQSC_out_axis.'+name, show=False)
+        sys.path.insert(1, plotting_path)
+        import Simple3Dplot
+        Simple3Dplot.main(name, stel, r_edge, show=False)
 except Exception as e:
     # print(e)
     Input.Plot = False
