@@ -63,7 +63,7 @@ try:
             print(e)
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
 except Exception as e:
-    # print(e)
+    print(e)
     Input.Optimize = False
 
 # Check if user specified r_edge
@@ -93,7 +93,7 @@ try:
         import Simple3Dplot
         Simple3Dplot.main(name, stel, r_edge, show=False)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.Plot = False
 
 # Run VMEC
@@ -103,15 +103,15 @@ try:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
         stel.to_vmec('input.'+name,r=r_edge,
-                # params={"ns_array": [16, 49, 101, 151],
-                #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                #         "niter_array": [1000, 2000, 2000, 5000],
-                #         "mpol": 13,
-                #         "ntor": 50
-                #         }, ntheta=26, ntorMax=50)
                 params={"ns_array": [16, 49, 101, 151],
                         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                        "niter_array": [1000, 2000, 2000, 5000]})
+                        "niter_array": [1000, 2000, 2000, 7000],
+                        "mpol": 10,
+                        "ntor": 16
+                        }, ntheta=20, ntorMax=16)
+                # params={"ns_array": [16, 49, 101, 151],
+                #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
+                #         "niter_array": [1000, 2000, 2000, 5000]})
         print('Running VMEC...')
         runVMEC(name,stel,r_edge,executables_path,plotting_path)
 except Exception as e:
