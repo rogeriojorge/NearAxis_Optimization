@@ -9,11 +9,11 @@ max_fourier_coefficients = 10
 r_edge = 1/14
 ftol = 1e-4
 
-# Optimize = True
+Optimize = True
 # Plot = True
-VMEC = True
-BOOZ_XFORM = True
-NEO = True
+# VMEC = True
+# BOOZ_XFORM = True
+# NEO = True
 # SPEC = True
 # REGCOIL = True
 # STAGE2 = True

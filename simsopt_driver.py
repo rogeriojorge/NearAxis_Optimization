@@ -65,7 +65,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         stel.min_R0_threshold = 0.4
         stel.fix_all()
         if stel.omn == False:
-            if stel.lasym:
+            if stel.sigma0 != 0:
                 stel.unfix('sigma0')
             for i in range(1,n_coeffs+1):
                 stel.unfix('rc('+str(i)+')')
