@@ -935,4 +935,65 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # max gradB inverse length: 1.5352435361925416
         # Max elongation = 5.206638541731674
         # objective function:  32.04606349239698
+    if ind==33:
+        name   = 'QI_NFP1_r2_smoother'
+        rc      = [ 1.0,0.0,-0.03]
+        zs      = [ 0.0,0.0,0.03]
+        rs      = [ 0.0,0.0]
+        zc      = [ 0.0,0.0]
+        sigma0  =  0.01
+        B0_vals = [ 1.0,0.16]
+        omn_method ='non-zone-fourier'
+        k_buffer = 3
+        p_buffer = 2
+        k_second_order_SS   = -0.1
+        d_over_curvature   = 0.5
+        d_svals = [ 0.0,-0.01]
+        delta   = 0.8
+        nfp     = 1
+        B2s_svals = [ 0.0,0.0]
+        B2c_cvals = [ 0.0,0.0]
+        B2s_cvals = [ 0.01,0.01]
+        B2c_svals = [ 0.0,0.01]
+        p2      =  0.0
+        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
+        #
+        rc      = [ 1.0,0.0,-0.38755244825468166,0.0,0.06962340956542827,0.0,-0.006644208684834384,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.3378330859400034,0.0,0.08393776011106038,0.0,-0.01069879226788341,0.0,0.0007980732495156676,0.0,-0.0004291979131221013,0.0,7.153531672826295e-05 ]
+        rs      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zc      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        sigma0  =  4.047024338097948e-05
+        B0_vals = [ 1.0,0.1801443730324678 ]
+        omn_method ='non-zone-fourier'
+        k_buffer = 3
+        p_buffer = 2
+        k_second_order_SS   = -1.8241138030390036
+        d_over_curvature   = 0.5357335768248402
+        d_svals = [ 0.0,-0.3210492534132356,0.043841376870035954,-0.013509841887702514,0.0002828026298056004,0.0028002272899356005,-0.006057601477620054 ]
+        delta   = 0.8
+        nfp     = 1
+        B2s_svals = [ 0.0,-0.005550702828014777,-0.006732232229616296,-0.012315288995960532,-0.004645389213327356,-0.005859334108390265,-0.0004859900757330775 ]
+        B2c_cvals = [ 0.0033526656791196085,-0.016684893869712766,0.006028912141046733,-0.006649410506355634,0.011773912828538355,0.000730743652284703,0.010593088354718505,0.0 ]
+        B2s_cvals = [ 0.47754758168796657,0.6143156724126648,0.9871039110373347,0.9144691125932666,0.42078845746642535,0.41265164132147814,0.005855506057338294,0.0 ]
+        B2c_svals = [ 0.0,0.6367316219356092,-0.08698763485807733,0.7375350619290816,-0.11764584718319708,0.4024930242451979,-0.1972092904755556,0.0 ]
+        p2      =  0.0
+        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
+        iota    =  -0.6910609750575643
+        # DMerc mean  = 0.0
+        # DWell mean  = 0.0
+        # DGeod mean  = 0.0
+        # B20 mean = 0.010864284489704081
+        # B20QI_deviation_max = 3.0776491560572388
+        # B2cQI_deviation_max = 2.783650236729045
+        # B2sQI_deviation_max = 0.09079924531597922
+        # Max |X20| = 1.4056927186648747
+        # Max |Y20| = 6.799190859849442
+        # Max |X3c1| = 2.6014910492201335
+        # gradgradB inverse length: 2.8856727153201414
+        # d2_volume_d_psi2 mean = 63.60570572734844
+        # max curvature'(0): 0.6324145579112901
+        # max d'(0): 0.3221622266727504
+        # max gradB inverse length: 1.4979913998562466
+        # Max elongation = 4.8817132357451305
+        # objective function:  28.923795381881003
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
