@@ -107,7 +107,7 @@ def runBOOZXFORM(name):
     print("Run BOOZ_XFORM")
     b1 = bx.Booz_xform()
     b1.read_wout("wout_"+name+".nc")
-    b1.compute_surfs = [0,2,5,8,16,25,32,40,50,60,70,80,90,100,110,125,135,145]
+    b1.compute_surfs = [0,2,8,16,25,32,45,60,70,80,90,100,110,125,135,145]
     b1.mboz = 150
     b1.nboz = 60
     b1.run()
