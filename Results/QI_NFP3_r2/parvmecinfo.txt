@@ -1,0 +1,32 @@
+ ============================================================
+ PARVMEC =  T
+ > available processor count:           8
+ > global rank:           0
+ > nzeta:                36
+ > ntheta3:              26
+ > ntor:                 16
+ > mpol1:                 9
+ > ntmax:                 4
+ > blocksize:           170
+ ============================================================
+
+ >>> grid resolution:             16
+ >>> active processors:            8
+ >>> xc/gc size:               32640
+ ------------------------------------------------------------
+
+ >>> grid resolution:             49
+ >>> active processors:            8
+ >>> xc/gc size:               99960
+ ------------------------------------------------------------
+
+ >>> grid resolution:            101
+ >>> active processors:            8
+ >>> xc/gc size:              206040
+ ------------------------------------------------------------
+
+ >>> grid resolution:            151
+ >>> active processors:            8
+ >>> xc/gc size:              308040
+ ------------------------------------------------------------
+
