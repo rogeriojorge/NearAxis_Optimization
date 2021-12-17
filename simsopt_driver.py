@@ -64,9 +64,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             stel.omn = False
         stel.min_R0_threshold = 0.4
         stel.fix_all()
+        if stel.sigma0 != 0:
+            stel.unfix('sigma0')
         if stel.omn == False:
-            if stel.sigma0 != 0:
-                stel.unfix('sigma0')
             for i in range(1,n_coeffs+1):
                 stel.unfix('rc('+str(i)+')')
                 stel.unfix('zs('+str(i)+')')
@@ -88,7 +88,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 stel.unfix('B2cc(0)')
                 stel.unfix('B2sc(0)')
             for i in range(1,n_coeffs+1):
-                stel.unfix('zs('+str(2*i)+')')
+                if i<=6:
+                    stel.unfix('zs('+str(2*i)+')')
                 if i==2: stel.unfix('rc('+str(2*i)+')')
                 if stel.d_svals[1] != 0:
                     stel.unfix('ds('+str(i)+')')
@@ -169,39 +170,39 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 term = [
                         (stel.get_elongation, 0.0, 2e-1/stel.nphi),
                         (stel.get_d, 0.0, 2e+1/stel.nphi),
-                        # (stel.get_d_svals, 0.0, 1e2),
-                        (stel.get_min_R0_penalty, 0.0, 3e1),
-                        (stel.get_min_Z0_penalty, 0.0, 3e1),
-                        (stel.get_B0_well_depth,0.16, 3e2),
-                        (stel.get_inv_L_grad_B, 0.0, 4e+0/stel.nphi),
-                        # (stel.get_d_d_d_varphi_at_0,0.0,2e0),
+                        # # (stel.get_d_svals, 0.0, 1e2),
+                        # # (stel.get_min_R0_penalty, 0.0, 3e1),
+                        # # (stel.get_min_Z0_penalty, 0.0, 3e1),
+                        (stel.get_B0_well_depth,0.16, 4e2),
+                        (stel.get_inv_L_grad_B, 0.0, 3e+0/stel.nphi),
+                        # # (stel.get_d_d_d_varphi_at_0,0.0,2e0),
                         # (stel.get_alpha_deviation,0.0,1e+1/stel.nphi),
-                        (stel.get_B20QI_deviation, 0.0, 9e-2/stel.nphi),
-                        (stel.get_B2cQI_deviation, 0.0, 9e-2/stel.nphi),
-                        (stel.get_B2sQI_deviation, 0.0, 9e-2/stel.nphi),
-                        # (stel.get_B20QI_deviation_max, 0.0, 1e-1),
-                        # (stel.get_B2cQI_deviation_max, 0.0, 1e-1),
-                        # (stel.get_B2sQI_deviation_max, 0.0, 1e-1),
-                        (stel.get_X20, 0.0, 5e-1/stel.nphi),
-                        (stel.get_X2c, 0.0, 5e-1/stel.nphi),
-                        (stel.get_X2s, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Y20, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Y2c, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Y2s, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Z20, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Z2c, 0.0, 5e-1/stel.nphi),
-                        (stel.get_Z2s, 0.0, 5e-1/stel.nphi),
-                        (stel.get_X3c1, 0.0,5e-1/stel.nphi),
-                        (stel.get_X3s1, 0.0,5e-1/stel.nphi),
-                        (stel.get_Y3c1, 0.0,5e-1/stel.nphi),
-                        (stel.get_Y3s1, 0.0,5e-1/stel.nphi),
-                        (stel.get_B20, 0.0, 1e+0/stel.nphi),
-                        (stel.get_B2cQI, 0.0, 1e+0/stel.nphi),
-                        (stel.get_B2sQI, 0.0, 1e+0/stel.nphi),
-                        # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                        # (stel.get_d2_volume_d_psi2, -1, 1e-5),
-                        # (stel, 'DWell_times_r2', 0.1, 1e3),
-                        # (stel, 'DGeod_times_r2', 0.1, 1e3),
+                        (stel.get_B20QI_deviation, 0.0, 1e-1/stel.nphi),
+                        (stel.get_B2cQI_deviation, 0.0, 1e-1/stel.nphi),
+                        (stel.get_B2sQI_deviation, 0.0, 1e-1/stel.nphi),
+                        (stel.get_B20QI_deviation_max, 0.0, 2e-1),
+                        (stel.get_B2cQI_deviation_max, 0.0, 2e-1),
+                        (stel.get_B2sQI_deviation_max, 0.0, 2e-1),
+                        (stel.get_X20, 0.0, 1e-1/stel.nphi),
+                        (stel.get_X2c, 0.0, 1e-1/stel.nphi),
+                        (stel.get_X2s, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Y20, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Y2c, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Y2s, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Z20, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Z2c, 0.0, 1e-1/stel.nphi),
+                        (stel.get_Z2s, 0.0, 1e-1/stel.nphi),
+                        (stel.get_X3c1, 0.0,1e-1/stel.nphi),
+                        (stel.get_X3s1, 0.0,1e-1/stel.nphi),
+                        (stel.get_Y3c1, 0.0,1e-1/stel.nphi),
+                        # # (stel.get_Y3s1, 0.0,3e-1/stel.nphi),
+                        (stel.get_B20, 0.0, 2e+0/stel.nphi),
+                        (stel.get_B2cQI, 0.0, 2e+0/stel.nphi),
+                        (stel.get_B2sQI, 0.0, 2e+0/stel.nphi),
+                        # # (stel, 'DMerc_times_r2', 0.3, 3e5),
+                        # # (stel.get_d2_volume_d_psi2, -1, 1e-5),
+                        # # (stel, 'DWell_times_r2', 0.1, 1e3),
+                        # # (stel, 'DGeod_times_r2', 0.1, 1e3),
                         (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 8e-2/stel.nphi)
                 ]
 

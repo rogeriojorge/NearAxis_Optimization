@@ -3,9 +3,9 @@ nphi=131
 
 iota_target = 0.42
 nIterations = 150
-# abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
-# rel_step_array = [1e-1,1e-2,1e-3]
-max_fourier_coefficients = 10
+abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
+rel_step_array = [1e-1,1e-2,1e-3]
+max_fourier_coefficients = 11
 r_edge = 1/14
 ftol = 1e-4
 
