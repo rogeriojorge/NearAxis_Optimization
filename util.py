@@ -195,13 +195,13 @@ def output2spec(qvfilename,qscfile,executables_path,nmodes,stel,r_edge):
     #replace(qvfilename+".sp","pressure    =   0.000000000000000E+00","pressure    =   "+p2)
 
 def runSPEC(name,executables_path,plotting_path,stel,r_edge, nmodes=25):
-    # print("Output to SPEC")
-    # qscfile="quasisymmetry_out."+name+".nc"
-    # output2spec(name,qscfile,executables_path,nmodes,stel,r_edge)
-    # print("Run SPEC")
-    # bashCommand = executables_path+"/./xspec "+name+".sp"
-    # run(bashCommand.split())
-    # print("Plot SPEC result")
+    print("Output to SPEC")
+    qscfile="quasisymmetry_out."+name+".nc"
+    output2spec(name,qscfile,executables_path,nmodes,stel,r_edge)
+    print("Run SPEC")
+    bashCommand = executables_path+"/./xspec "+name+".sp"
+    run(bashCommand.split())
+    print("Plot SPEC result")
     sys.path.insert(1, plotting_path)
     import specPlot
     specPlot.main(name+'.sp.h5',name)
