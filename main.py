@@ -52,19 +52,19 @@ except Exception as e:
     ftol = 1e-4
 
 # Run Optimization
-try:
-    if Input.Optimize:
-        # if rel_step_array is specified, perform gradient based optimization
-        try:
-            Input.rel_step_array
-            Input.abs_step_array
-            optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
-        except Exception as e:
-            print(e)
-            optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
-except Exception as e:
-    # print(e)
-    Input.Optimize = False
+# try:
+#     if Input.Optimize:
+#         # if rel_step_array is specified, perform gradient based optimization
+#         try:
+#             Input.rel_step_array
+#             Input.abs_step_array
+#             optimize(stel,Input.iota_target,nIterations=Input.nIterations,rel_step_array=Input.rel_step_array,abs_step_array=Input.abs_step_array,grad=True,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
+#         except Exception as e:
+#             print(e)
+optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
+# except Exception as e:
+#     print(e)
+#     Input.Optimize = False
 
 # Check if user specified r_edge
 try:
