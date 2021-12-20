@@ -86,7 +86,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             stel.unfix('rc(2)')
             if stel.order != 'r1':
                 stel.unfix('B2cc(0)')
-                # stel.unfix('B2sc(0)')
+                stel.unfix('B2sc(0)')
             for i in range(1,n_coeffs+1):
                 if i<=6:
                     stel.unfix('zs('+str(2*i)+')')
@@ -96,8 +96,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 if stel.order != 'r1':
                     stel.unfix('B2ss('+str(i)+')')
                     stel.unfix('B2cc('+str(i)+')')
-                    # stel.unfix('B2sc('+str(i)+')')
-                    # stel.unfix('B2cs('+str(i)+')')
+                    stel.unfix('B2sc('+str(i)+')')
+                    stel.unfix('B2cs('+str(i)+')')
             if stel.k_second_order_SS != 0:
                 stel.unfix('k_second_order_SS')
             if stel.d_over_curvature != 0:
@@ -196,11 +196,11 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_X3s1, 0.0,1e-1/stel.nphi),
                         (stel.get_Y3c1, 0.0,1e-1/stel.nphi),
                         (stel.get_Y3s1, 0.0,1e-1/stel.nphi),
-                        (stel.get_B20, 0.0, 2e-0/stel.nphi),
-                        (stel.get_B2cQI, 0.0, 2e-0/stel.nphi),
-                        (stel.get_B2sQI, 0.0, 2e-0/stel.nphi),
+                        (stel.get_B20, 0.0, 9e-1/stel.nphi),
+                        (stel.get_B2cQI, 0.0, 9e-1/stel.nphi),
+                        (stel.get_B2sQI, 0.0, 9e-1/stel.nphi),
                         # # # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                        # # # (stel.get_d2_volume_d_psi2, -1, 1e-5),
+                        (stel.get_d2_volume_d_psi2, -40, 1e+0),
                         # # # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # # # (stel, 'DGeod_times_r2', 0.1, 1e3),
                         (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 3e-1/stel.nphi)
@@ -306,7 +306,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             if stel.order == 'r3':
                 print('        # Max |X3c1| =',max(abs(stel.X3c1)))
             print('        # gradgradB inverse length:', stel.grad_grad_B_inverse_scale_length)
-            print('        # d2_volume_d_psi2 mean =',np.mean(stel.d2_volume_d_psi2))
+            print('        # d2_volume_d_psi2 =',stel.d2_volume_d_psi2)
         if stel.omn:
             print("        # max curvature'(0):", stel.d_curvature_d_varphi_at_0)
             print("        # max d'(0):", stel.d_d_d_varphi_at_0)
