@@ -200,7 +200,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_B2cQI, 0.0, 9e-1/stel.nphi),
                         (stel.get_B2sQI, 0.0, 9e-1/stel.nphi),
                         # # # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                        (stel.get_d2_volume_d_psi2, -40, 1e+0),
+                        (stel.get_d2_volume_d_psi2, -1, 1e-1),
                         # # # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # # # (stel, 'DGeod_times_r2', 0.1, 1e3),
                         (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 3e-1/stel.nphi)
