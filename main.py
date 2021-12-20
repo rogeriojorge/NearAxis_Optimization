@@ -63,7 +63,7 @@ try:
             print(e)
             optimize(stel,Input.iota_target,nIterations=Input.nIterations,max_fourier_coefficients=Input.max_fourier_coefficients,ftol=ftol)
 except Exception as e:
-    print(e)
+    # print(e)
     Input.Optimize = False
 
 # Check if user specified r_edge
@@ -104,14 +104,14 @@ try:
         print('Outputing to VMEC...')
         stel.to_vmec('input.'+name,r=r_edge,
                 params={"ns_array": [16, 49, 101, 151],
-                        "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                        "niter_array": [1000, 2000, 2000, 7000],
+                        "ftol_array": [1e-11,1e-12,1e-13,4e-14],
+                        "niter_array": [1000, 2000, 3000, 6000],
                         # "mpol": 11,
                         # "ntor": 40
                         # }, ntheta=22, ntorMax=40)
-                        "mpol": 10,
-                        "ntor": 16
-                        }, ntheta=20, ntorMax=16)
+                        "mpol": 8,
+                        "ntor": 30
+                        }, ntheta=16, ntorMax=30)
                 # params={"ns_array": [16, 49, 101, 151],
                 #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
                 #         "niter_array": [1000, 2000, 2000, 5000]})

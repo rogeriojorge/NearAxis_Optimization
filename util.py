@@ -104,7 +104,7 @@ def runVMEC(name,stel,r_edge,executables_path,plotting_path):
 # Run booz_xform
 def runBOOZXFORM(name):
     import booz_xform as bx
-    print("Run BOOZ_XFORM")
+    # print("Run BOOZ_XFORM")
     b1 = bx.Booz_xform()
     b1.read_wout("wout_"+name+".nc")
     b1.compute_surfs = [0,2,8,16,25,32,45,60,70,80,90,100,110,125,135,145]
@@ -114,11 +114,11 @@ def runBOOZXFORM(name):
     b1.write_boozmn("boozmn_"+name+".nc")
     # b1.read_boozmn("boozmn_"+name+".nc")
     print("Plot BOOZ_XFORM")
-    fig = plt.figure(); bx.surfplot(b1, js=5,  fill=False, ncontours=35)
+    fig = plt.figure(); bx.surfplot(b1, js=4,  fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_1_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = plt.figure(); bx.surfplot(b1, js=11, fill=False, ncontours=35)
+    fig = plt.figure(); bx.surfplot(b1, js=9, fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_2_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = plt.figure(); bx.surfplot(b1, js=16, fill=False, ncontours=35)
+    fig = plt.figure(); bx.surfplot(b1, js=14, fill=False, ncontours=35)
     plt.savefig("Boozxform_surfplot_3_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
     if name[0:2] == 'QH':
         helical_detail = True
@@ -128,8 +128,8 @@ def runBOOZXFORM(name):
     plt.savefig("Boozxform_symplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
     fig = plt.figure(); bx.modeplot(b1, sqrts=True); plt.xlabel(r'$s=\psi/\psi_b$')
     plt.savefig("Boozxform_modeplot_"+name+'.pdf', bbox_inches = 'tight', pad_inches = 0); plt.close()
-    fig = bx.wireplot(b1, orig = False)
-    fig.write_image("Boozxform_wireplot_"+name+'.pdf')
+    # fig = bx.wireplot(b1, orig = False)
+    # fig.write_image("Boozxform_wireplot_"+name+'.pdf')
 
 # Run NEO
 def runNEO(name,executables_path,plotting_path):
