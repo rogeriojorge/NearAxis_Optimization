@@ -175,7 +175,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_min_Z0_penalty, 0.0, 3e1),
                         (stel.get_B0_well_depth,0.16, 2e2),
                         (stel.get_inv_L_grad_B, 0.0, 2e+1/stel.nphi),
-                        (stel.get_d_d_d_varphi_at_0,0.0,2e0),
+                        (stel.get_d_d_d_varphi_at_0,0.0,5e-1),
                         (stel.get_alpha_deviation,0.0,6e+1/stel.nphi),
                         # (stel.get_B20QI_deviation, 0.0, 4e-1/stel.nphi),
                         # (stel.get_B2cQI_deviation, 0.0, 4e-1/stel.nphi),
