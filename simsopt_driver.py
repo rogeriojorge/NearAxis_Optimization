@@ -86,7 +86,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             stel.unfix('rc(2)')
             if stel.order != 'r1':
                 stel.unfix('B2cc(0)')
-                stel.unfix('B2sc(0)')
+                # stel.unfix('B2sc(0)')
             for i in range(1,n_coeffs+1):
                 if i<=6:
                     stel.unfix('zs('+str(2*i)+')')
@@ -96,8 +96,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                 if stel.order != 'r1':
                     stel.unfix('B2ss('+str(i)+')')
                     stel.unfix('B2cc('+str(i)+')')
-                    stel.unfix('B2sc('+str(i)+')')
-                    stel.unfix('B2cs('+str(i)+')')
+                    # stel.unfix('B2sc('+str(i)+')')
+                    # stel.unfix('B2cs('+str(i)+')')
             if stel.k_second_order_SS != 0:
                 stel.unfix('k_second_order_SS')
             if stel.d_over_curvature != 0:
@@ -177,12 +177,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_inv_L_grad_B, 0.0, 2e+1/stel.nphi),
                         (stel.get_d_d_d_varphi_at_0,0.0,2e0),
                         (stel.get_alpha_deviation,0.0,6e+1/stel.nphi),
-                        (stel.get_B20QI_deviation, 0.0, 4e-1/stel.nphi),
-                        (stel.get_B2cQI_deviation, 0.0, 4e-1/stel.nphi),
-                        (stel.get_B2sQI_deviation, 0.0, 4e-1/stel.nphi),
-                        (stel.get_B20QI_deviation_max, 0.0, 8e-2),
-                        (stel.get_B2cQI_deviation_max, 0.0, 8e-2),
-                        (stel.get_B2sQI_deviation_max, 0.0, 8e-2),
+                        # (stel.get_B20QI_deviation, 0.0, 4e-1/stel.nphi),
+                        # (stel.get_B2cQI_deviation, 0.0, 4e-1/stel.nphi),
+                        # (stel.get_B2sQI_deviation, 0.0, 4e-1/stel.nphi),
+                        # (stel.get_B20QI_deviation_max, 0.0, 8e-2),
+                        # (stel.get_B2cQI_deviation_max, 0.0, 8e-2),
+                        # (stel.get_B2sQI_deviation_max, 0.0, 8e-2),
                         (stel.get_X20, 0.0, 1e-1/stel.nphi),
                         (stel.get_X2c, 0.0, 1e-1/stel.nphi),
                         (stel.get_X2s, 0.0, 1e-1/stel.nphi),
@@ -196,9 +196,9 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_X3s1, 0.0,1e-1/stel.nphi),
                         (stel.get_Y3c1, 0.0,1e-1/stel.nphi),
                         (stel.get_Y3s1, 0.0,1e-1/stel.nphi),
-                        (stel.get_B20, 0.0, 5e-1/stel.nphi),
-                        (stel.get_B2cQI, 0.0, 5e-1/stel.nphi),
-                        (stel.get_B2sQI, 0.0, 5e-1/stel.nphi),
+                        (stel.get_B20, 0.0, 9e-1/stel.nphi),
+                        (stel.get_B2cQI, 0.0, 9e-1/stel.nphi),
+                        (stel.get_B2sQI, 0.0, 9e-1/stel.nphi),
                         # # # (stel, 'DMerc_times_r2', 0.3, 3e5),
                         # # # (stel.get_d2_volume_d_psi2, -1, 1e-5),
                         # # # (stel, 'DWell_times_r2', 0.1, 1e3),

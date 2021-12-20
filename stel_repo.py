@@ -887,18 +887,12 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         delta   = 0.1
         nfp     = 1
         B2s_svals = [ 0.0,0.01,0.01,0.01]
-        B2c_cvals = [ 0.0, 0.01,0.01,0.01]
-        B2s_cvals = [ 0., 0.01,0.01,0.01]
-        B2c_svals = [ 0.0,0.01,0.01,0.01]
+        B2c_cvals = [ 0.01, 0.01,0.01,0.01]
+        B2s_cvals = []
+        B2c_svals = []
         p2      =  0.0
         stel    =  QSCWrapper(omn_method = omn_method, k_buffer=k_buffer, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
         iota    =  -0.6802282588093194
-        # max curvature'(0): 0.18193259676864582
-        # max d'(0): 0.0941731237760574
-        # max gradB inverse length: 1.6322554885663985
-        # Max elongation = 5.1003624635531954
-        # objective function:  32.61831563657005
-        #
         # (stel.get_elongation, 0.0, 4e-1/stel.nphi),
         # (stel.get_d, 0.0, 2e+1/stel.nphi),
         # (stel.get_d_svals, 0.0, 1e2),
@@ -908,6 +902,12 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # (stel.get_inv_L_grad_B, 0.0, 2e+1/stel.nphi),
         # (stel.get_d_d_d_varphi_at_0,0.0,2e0),
         # (stel.get_alpha_deviation,0.0,6e+1/stel.nphi),
+        # # (stel.get_B20QI_deviation, 0.0, 4e-1/stel.nphi),
+        # # (stel.get_B2cQI_deviation, 0.0, 4e-1/stel.nphi),
+        # # (stel.get_B2sQI_deviation, 0.0, 4e-1/stel.nphi),
+        # # (stel.get_B20QI_deviation_max, 0.0, 8e-2),
+        # # (stel.get_B2cQI_deviation_max, 0.0, 8e-2),
+        # # (stel.get_B2sQI_deviation_max, 0.0, 8e-2),
         # (stel.get_X20, 0.0, 1e-1/stel.nphi),
         # (stel.get_X2c, 0.0, 1e-1/stel.nphi),
         # (stel.get_X2s, 0.0, 1e-1/stel.nphi),
@@ -921,92 +921,51 @@ def get_stel(ind,nphi=251,r_edge=0.06,coilSeparation = 0.1,targetValue = 0.08,nC
         # (stel.get_X3s1, 0.0,1e-1/stel.nphi),
         # (stel.get_Y3c1, 0.0,1e-1/stel.nphi),
         # (stel.get_Y3s1, 0.0,1e-1/stel.nphi),
-        # (stel.get_B20, 0.0, 5e-1/stel.nphi),
-        # (stel.get_B2cQI, 0.0, 5e-1/stel.nphi),
-        # (stel.get_B2sQI, 0.0, 5e-1/stel.nphi),
+        # (stel.get_B20, 0.0, 9e-1/stel.nphi),
+        # (stel.get_B2cQI, 0.0, 9e-1/stel.nphi),
+        # (stel.get_B2sQI, 0.0, 9e-1/stel.nphi),
+        # # # # (stel, 'DMerc_times_r2', 0.3, 3e5),
+        # # # # (stel.get_d2_volume_d_psi2, -1, 1e-5),
+        # # # # (stel, 'DWell_times_r2', 0.1, 1e3),
+        # # # # (stel, 'DGeod_times_r2', 0.1, 1e3),
         # (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 3e-1/stel.nphi)
-        rc      = [ 1.0,0.0,-0.4114681300131297,0.0,0.08045629172596262,0.0,-0.008389629980424756,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.31171897343984306,0.0,-0.09416452223134633,0.0,0.013471901498048864,0.0,0.00017447056346038482 ]
-        rs      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zc      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        sigma0  =  0.0
-        B0_vals = [ 1.0,0.16089285779176585 ]
-        omn_method ='non-zone'
-        k_buffer = 3
-        p_buffer = 2
-        k_second_order_SS   = 0.0
-        d_over_curvature   = 0.5317361189892884
-        d_svals = [ 0.0,7.404958092655156e-05,-1.331973429815354e-05,-2.554137570572173e-05,6.851630808167623e-06 ]
-        delta   = 0.1
-        nfp     = 1
-        B2s_svals = [ 0.0,-0.04682991134525318,0.037573500416276225,0.07384757564059993,-1.0808853361246702e-07 ]
-        B2c_cvals = [ 0.04517202066171272,0.15395359258288102,0.09308090341435489,0.10343245880292617,5.880048606691143e-07,0.0 ]
-        B2s_cvals = [ 0.020069603876802383,0.05128739970868919,-0.0937641726494361,-0.1718257478962087,3.0865563849494085e-07,0.0 ]
-        B2c_svals = [ 0.0,0.3000112597798408,-0.18537845160534253,0.25783232499222286,-3.067377392124451e-06,0.0 ]
-        p2      =  0.0
-        stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
-        iota    =  0.6876268145357287
-        # DMerc mean  = 0.0
-        # DWell mean  = 0.0
-        # DGeod mean  = 0.0
-        # B20 mean = -0.16433254908815695
-        # B20QI_deviation_max = 3.7105542108369125
-        # B2cQI_deviation_max = 4.190609886637118
-        # B2sQI_deviation_max = 0.5112302590769353
-        # Max |X20| = 0.44036234045435724
-        # Max |Y20| = 0.4807970189583526
-        # Max |X3c1| = 0.0805448880824917
-        # gradgradB inverse length: 2.655413978880011
-        # d2_volume_d_psi2 mean = 84.23375990672038
-        # max curvature'(0): 0.29394960227590916
-        # max d'(0): 0.15630182324673114
-        # max gradB inverse length: 1.5234633007868366
-        # Max elongation = 4.777096027908118
-        # objective function:  51.07273502926054
-        #
-        # Added
-        # (stel.get_B20QI_deviation, 0.0, 4e-1/stel.nphi),
-        # (stel.get_B2cQI_deviation, 0.0, 4e-1/stel.nphi),
-        # (stel.get_B2sQI_deviation, 0.0, 4e-1/stel.nphi),
-        # (stel.get_B20QI_deviation_max, 0.0, 8e-2),
-        # (stel.get_B2cQI_deviation_max, 0.0, 8e-2),
-        # (stel.get_B2sQI_deviation_max, 0.0, 8e-2),
-        rc      = [ 1.0,0.0,-0.4111649712848334,0.0,0.08068708497399485,0.0,-0.00853663751712825,0.0,0.0,0.0,0.0,0.0,0.0 ]
-        zs      = [ 0.0,0.0,0.31108253269799174,0.0,-0.0943516084202466,0.0,0.014162633923689279,0.0,5.8942735629721837e-05,0.0,3.2012570855583085e-05,0.0,-2.2517090054235646e-05 ]
+        rc      = [ 1.0,0.0,-0.41599809655680886,0.0,0.08291443961920232,0.0,-0.008906891641686355,0.0,0.0,0.0,0.0,0.0,0.0 ]
+        zs      = [ 0.0,0.0,-0.28721210154364263,0.0,0.08425262593215394,0.0,-0.010427621520053335,0.0,-0.0008921610906627226,0.0,-6.357200965811029e-07,0.0,2.7316247301500753e-07 ]
         rs      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
         zc      = [ 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 ]
         sigma0  =  0.0
-        B0_vals = [ 1.0,0.1611411037414393 ]
+        B0_vals = [ 1.0,0.15824229612567256 ]
         omn_method ='non-zone'
         k_buffer = 3
         p_buffer = 2
         k_second_order_SS   = 0.0
-        d_over_curvature   = 0.5312770700289405
-        d_svals = [ 0.0,-3.058816108613041e-05,0.000110077758008484,1.1528477218836522e-05,-3.883547115532898e-05,5.241389354436954e-06,-4.310825286286485e-06 ]
+        d_over_curvature   = 0.48654821249917474
+        d_svals = [ 0.0,-0.00023993050759319644,1.6644294162908823e-05,0.00012071143120099562,-1.1664837950174757e-05,-2.443821681789672e-05,2.0922298879435957e-06 ]
         delta   = 0.1
         nfp     = 1
-        B2s_svals = [ 0.0,-0.04682707848148649,0.037572044594191854,0.07384624638232522,1.379185691233381e-07,-4.908004272916707e-10,5.931481243431458e-10 ]
-        B2c_cvals = [ 0.045171477263201885,0.1539525039017573,0.09307999822862056,0.10343075048956347,1.8509922608724607e-06,1.7860631073611887e-07,-2.232691279290851e-09,0.0,0.0 ]
-        B2s_cvals = [ 0.02007215085191961,0.05129214598114134,-0.09376694633460593,-0.1718439426916907,9.737864145744718e-06,4.979637842834283e-07,-2.019708340708583e-08,0.0,0.0 ]
-        B2c_svals = [ 0.0,0.3000096637300739,-0.18536717660746416,0.2578352853705692,-6.36479609961981e-06,1.3403755430573537e-06,-7.32340460605969e-08,0.0,0.0 ]
+        B2s_svals = [ 0.0,0.27368018673599265,-0.20986698715787325,0.048031641735420336,0.07269565329289157,1.3981498114634812e-07,-9.952017662433159e-10 ]
+        B2c_cvals = [ -0.0007280714400220894,0.20739775852289746,0.05816363701644946,0.06465766308954603,0.006987357785313118,1.2229700694973357e-07,-3.057497440766065e-09,0.0 ]
+        B2s_cvals = [ 0.0,0.0,0.0,0.0,0.0 ]
+        B2c_svals = [ 0.0,0.0,0.0,0.0 ]
         p2      =  0.0
         stel    =  QSCWrapper(sigma0 = sigma0, omn_method = omn_method, p_buffer = p_buffer, k_buffer=k_buffer, rs=rs,zc=zc, rc=rc,zs=zs, nfp=nfp, B0_vals=B0_vals, d_svals=d_svals, nphi=nphi, omn=True, delta=delta, B2c_cvals=B2c_cvals, B2s_svals=B2s_svals, p2=p2, order='r3', k_second_order_SS=k_second_order_SS, d_over_curvature=d_over_curvature, B2s_cvals=B2s_cvals, B2c_svals=B2c_svals)
-        iota    =  0.6865509465835887
+        iota    =  -0.718394753879415
         # DMerc mean  = 0.0
         # DWell mean  = 0.0
         # DGeod mean  = 0.0
-        # B20 mean = -0.17667358118187698
-        # B20QI_deviation_max = 3.288925567352874
-        # B2cQI_deviation_max = 3.5684150668886936
-        # B2sQI_deviation_max = 0.5423254880525015
-        # Max |X20| = 0.4442360841459477
-        # Max |Y20| = 0.4825506786136473
-        # Max |X3c1| = 0.08168674138309671
-        # gradgradB inverse length: 2.828104634718456
-        # d2_volume_d_psi2 mean = 85.23406915416696
-        # max curvature'(0): 0.45649551521378884
-        # max d'(0): 0.24259479827882288
-        # max gradB inverse length: 1.5262604952144598
-        # Max elongation = 4.792302868301399
-        # objective function:  56.54759071293434
+        # B20 mean = -0.4861794761382985
+        # B20QI_deviation_max = 4.186196420615682
+        # B2cQI_deviation_max = 4.226370861175861
+        # B2sQI_deviation_max = 0.9779483981297943
+        # Max |X20| = 0.2839454228806145
+        # Max |Y20| = 1.2683236720001994
+        # Max |X3c1| = 0.13745522620153228
+        # gradgradB inverse length: 2.7933199452145567
+        # d2_volume_d_psi2 mean = 155.5638330556157
+        # max curvature'(0): 0.5742215264902792
+        # max d'(0): 0.2793856571034217
+        # max gradB inverse length: 1.521731793798287
+        # Max elongation = 5.412250881598834
+        # objective function:  52.44392136329753
+        
     return stel, name, r_edge, coilSeparation, targetValue, nCoilsPerNFP
