@@ -10,8 +10,8 @@ r_edge = 1/9
 ftol = 1e-4
 
 # Optimize = True
-# Plot = True
-VMEC = True
+Plot = True
+# VMEC = True
 # BOOZ_XFORM = True
 # NEO = True
 # SPEC = True
