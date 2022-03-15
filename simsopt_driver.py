@@ -118,14 +118,14 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             else:
                 term = [
                         (stel.get_elongation, 0.0, 4e-1/stel.nphi),
-                        (stel.get_d, 0.0, 2e+1/stel.nphi),
-                        (stel.get_d_svals, 0.0, 1e2),
-                        (stel.get_min_R0_penalty, 0.0, 3e1),
-                        (stel.get_min_Z0_penalty, 0.0, 3e1),
-                        (stel.get_B0_well_depth,0.16, 2e2),
-                        (stel.get_inv_L_grad_B, 0.0, 1e+1/stel.nphi),
-                        (stel.get_d_d_d_varphi_at_0,0.0,2e0),
-                        (stel.get_alpha_deviation,0.0,6e+1/stel.nphi),
+                        (stel.get_d, 0.0, 2e+1/stel.nphi),    # B=B0*(1+r*d*cos(theta-alpha))
+                        (stel.get_d_svals, 0.0, 1e2),         # d = d_svals * sin(n*phi)
+                        (stel.get_min_R0_penalty, 0.0, 3e1),  # penalty function for minimum axis coordinate R
+                        (stel.get_min_Z0_penalty, 0.0, 3e1),  # penalty function for minimum axis coordinate Z
+                        (stel.get_B0_well_depth,0.16, 2e2),   # B0 = constant*(1+B0_well_depth*cos(phi)) -> B0(0) =~ constant + constant*B0_well_depth*phi^2/2
+                        (stel.get_inv_L_grad_B, 0.0, 3e-2),   # 1e+1/stel.nphi if using nphi based cost function
+                        (stel.get_d_d_d_varphi_at_0,0.0,2e0), # derivative of d with respect to phi
+                        (stel.get_alpha_deviation,0.0,6e+1/stel.nphi), # deviation from quasi-isodynamicity
                         # # (stel.get_sigma, 0.0, 1e+1/stel.nphi),
                         # # (stel.get_torsion, 0.0, 1e+1/stel.nphi),
                         # # (stel.get_curvature, 1.0, 5e-1/stel.nphi),
@@ -200,7 +200,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_B2cQI, 0.0, 9e-1/stel.nphi),
                         (stel.get_B2sQI, 0.0, 9e-1/stel.nphi),
                         # # # (stel, 'DMerc_times_r2', 0.3, 3e5),
-                        (stel.get_d2_volume_d_psi2, -1, 1e-1),
+                        (stel.get_d2_volume_d_psi2, -1, 1e-1),                                      # Try -10 to -50 instead of -1 and check VMEC result
                         # # # (stel, 'DWell_times_r2', 0.1, 1e3),
                         # # # (stel, 'DGeod_times_r2', 0.1, 1e3),
                         (stel.get_grad_grad_B_inverse_scale_length_vs_varphi, 0.0, 3e-1/stel.nphi)
@@ -213,11 +213,12 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
         else:
             for rel_step in rel_step_array:
                 for abs_step in abs_step_array:
+                    prob = LeastSquaresProblem.from_tuples(term)
+                    least_squares_mpi_solve(prob, mpi, grad=grad, max_nfev=nIterations, ftol=ftol ,abs_step=abs_step,rel_step=rel_step)
                     if stel.iota == 0: break
                     if mpi.proc0_world:
                         print(' abs_step =',abs_step)
                         print(' rel_step=',rel_step)
-                    prob = LeastSquaresProblem.from_tuples(term)
 
                     ## Solve the minimization problem:
                     try:

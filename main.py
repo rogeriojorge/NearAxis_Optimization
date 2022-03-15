@@ -102,19 +102,19 @@ try:
         if Input.Optimize:
             input("Copy new optimized configuration into repo")
         print('Outputing to VMEC...')
-        stel.to_vmec('input.'+name,r=r_edge,
-                params={"ns_array": [16, 49, 101, 151],
-                        "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                        "niter_array": [1000, 2000, 3000, 6000],
-                        "mpol": 10,
-                        "ntor": 40
-                        }, ntheta=20, ntorMax=40)
-                        # "mpol": 8,
-                        # "ntor": 30
-                        # }, ntheta=16, ntorMax=30)
-                # params={"ns_array": [16, 49, 101, 151],
-                #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
-                #         "niter_array": [1000, 2000, 2000, 5000]})
+        # stel.to_vmec('input.'+name,r=r_edge,
+        #         params={"ns_array": [16, 49, 101, 151],
+        #                 "ftol_array": [1e-11,1e-12,1e-13,1e-14],
+        #                 "niter_array": [1000, 2000, 3000, 6000],
+        #                 "mpol": 8,
+        #                 "ntor": 14
+        #                 }, ntheta=16, ntorMax=28)
+        #                 # "mpol": 8,
+        #                 # "ntor": 30
+        #                 # }, ntheta=16, ntorMax=30)
+        #         # params={"ns_array": [16, 49, 101, 151],
+        #         #         "ftol_array": [1e-11,1e-12,1e-13,1e-14],
+        #         #         "niter_array": [1000, 2000, 2000, 5000]})
         print('Running VMEC...')
         runVMEC(name,stel,r_edge,executables_path,plotting_path)
 except Exception as e:

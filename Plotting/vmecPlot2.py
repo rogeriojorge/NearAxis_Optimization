@@ -340,15 +340,16 @@ def main(file,stel=None,r_edge=0.1,s_plot_ignore=0.3,savefig=True):
 
     plt.figtext(0.5,0.99,os.path.abspath(filename),ha='center',va='top',fontsize=6)
     if savefig: plt.savefig(file+'VMEC3Dplot.pdf', bbox_inches = 'tight', pad_inches = 0)
-    #plt.show()
+    # plt.show()
     plt.close()
 
     #### Mayavi plot ######
     import mayavi.mlab as mlab
     fig = mlab.figure(bgcolor=(1,1,1), size=(550,450))
 
-    mlab.mesh(X, Y, Z, scalars=B, colormap='viridis')
-    mlab.view(azimuth=-90, elevation=180, distance=5.0, focalpoint=(-0.15,0,0), figure=fig)
+    mlab.mesh(X, Y, Z, scalars=B, colormap='viridis', opacity=0.6)
+    mlab.plot3d(X[0, :], Y[0, :], Z[0, :], color=(0,0,0), line_width=0.002, tube_radius=0.005)
+    mlab.view(azimuth=-89, elevation=180, distance=5.0, focalpoint=(-0.15,0,0), figure=fig)
     # Create the colorbar and change its properties
     cb = mlab.colorbar(orientation='horizontal', title='|B| [T]', nb_labels=7)
     cb.scalar_bar_representation.position = [0.1, 0.85]

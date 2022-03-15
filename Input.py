@@ -1,17 +1,17 @@
-ind=32
+ind=29
 nphi=131
 
-iota_target = 0.42
-nIterations = 150
 # abs_step_array = [1e-1,1e-2,1e-3,1e-4,1e-6]
 # rel_step_array = [1e-1,1e-2,1e-3]
-max_fourier_coefficients = 4
-r_edge = 1/7
+iota_target = 0.42
+nIterations = 150
+max_fourier_coefficients = 6
+r_edge = 1/9
 ftol = 1e-4
 
 # Optimize = True
 # Plot = True
-# VMEC = True
+VMEC = True
 # BOOZ_XFORM = True
 # NEO = True
 # SPEC = True
