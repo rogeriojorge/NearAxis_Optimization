@@ -90,7 +90,7 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
             for i in range(1,n_coeffs+1):
                 if i<=6:
                     stel.unfix('zs('+str(2*i)+')')
-                if i==2: stel.unfix('rc('+str(2*i)+')')
+                if i<=6: stel.unfix('rc('+str(2*i)+')')
                 if stel.d_svals[1] != 0:
                     stel.unfix('ds('+str(i)+')')
                 if stel.order != 'r1':
@@ -127,7 +127,8 @@ def optimize(stel,iota_target=0.41,nIterations=20,rel_step_array=[],abs_step_arr
                         (stel.get_d_d_d_varphi_at_0,0.0,2e0), # derivative of d with respect to phi
                         (stel.get_alpha_deviation,0.0,6e+1/stel.nphi), # deviation from quasi-isodynamicity
                         # # (stel.get_sigma, 0.0, 1e+1/stel.nphi),
-                        # # (stel.get_torsion, 0.0, 1e+1/stel.nphi),
+                        # (stel.get_torsion, 1.0, 1e+1/stel.nphi),
+                        # (stel.max_torsion_equal_max_curvature, 0, 100),
                         # # (stel.get_curvature, 1.0, 5e-1/stel.nphi),
                         # # (stel, 'd_X1c_d_varphi', 0.0, 2e-2),
                         # # (stel, 'd_Y1c_d_varphi', 0.0, 2e-2),
